@@ -64,6 +64,15 @@ model User {
     accounts      Account[]
     sessions      Session[]
     posts         Post[]
+    notes       Note[]
+}
+
+model Note {
+    id          String  @id @default(cuid())
+    contents    String?
+    date        DateTime?
+    userId      String
+    user        User    @relation(fields: [userId], references: [id])
 }
 
 model VerificationToken {
