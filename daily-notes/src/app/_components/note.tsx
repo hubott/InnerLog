@@ -67,7 +67,7 @@ export function GetNotes() {
             <li key={note.id} className="bg-white/10 p-4 rounded-lg">
                 <div className="flex justify-between items-center w-full">
               <p>{note.contents}</p>
-              <ConfirmDeleteButton key={note.id} noteID={note.id} onDelete={() => deleteNote.mutate({ id: note.id})} isDeleting={deleteNote.isPending}/>
+              <ConfirmDeleteButton key={note.id} onDelete={() => deleteNote.mutate({ id: note.id})} isDeleting={deleteNote.isPending}/>
 
               </div>
               <div className="flex justify-between items-center w-full">
@@ -76,7 +76,6 @@ export function GetNotes() {
               </p>
               <EditableNote key={note.id} note={note} onSave={(newContent) => {
                 editNote.mutate({ id: note.id, contents: newContent });
-                utils.note.getNotes.invalidate();
               }} />
               </div>
             </li>
@@ -88,7 +87,7 @@ export function GetNotes() {
   );
 }
 
-function ConfirmDeleteButton({ noteID, onDelete, isDeleting }: { noteID: string; onDelete: () => void; isDeleting: boolean }) {
+function ConfirmDeleteButton({ onDelete, isDeleting }: { onDelete: () => void; isDeleting: boolean }) {
   const [confirming, setConfirming] = useState(false);
 
   useEffect(() => {
@@ -136,7 +135,7 @@ function EditableNote({
     onSave: (newContent: string) => void;
     }) {
     const [isEditing, setIsEditing] = useState(false);
-    const [editedContent, setEditedContent] = useState(note.contents || "");
+    const [editedContent, setEditedContent] = useState(note.contents ?? "");
     
 
     return (

@@ -10,7 +10,6 @@ export default async function NotePage() {
   if (!session?.user) {
     redirect("/");
   }
-  const userName = session.user.name;
 
 
 
