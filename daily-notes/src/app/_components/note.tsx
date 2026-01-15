@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { api } from "~/trpc/react";
-
-const MAX_NOTE_LENGTH = 500;
+import { MAX_NOTE_LENGTH } from "~/lib/utils";
 
 export function Note() {
   const [noteContent, setNoteContent] = useState("");
@@ -150,6 +149,14 @@ function EditableNote({
     }) {
     const [isEditing, setIsEditing] = useState(false);
     const [editedContent, setEditedContent] = useState(note.contents ?? "");
+
+      const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+
+    if (value.length <= MAX_NOTE_LENGTH) {
+        setEditedContent(value.slice(0, MAX_NOTE_LENGTH));
+    }
+  };
     
 
     return (
@@ -158,10 +165,14 @@ function EditableNote({
             <div>
         <textarea
             value={editedContent}
-            onChange={(e) => setEditedContent(e.target.value)}
+            onChange={(e) => handleChange(e)}
+            maxLength={MAX_NOTE_LENGTH}
             className="w-full rounded-lg bg-white/10 px-4 py-2 text-white"
             rows={5}
         />
+        <div className="pointer-events-none text-sm text-gray-400 text-right">
+        {editedContent.length}/{MAX_NOTE_LENGTH}
+        </div>
         <button
             className="rounded-full bg-white/10 px-6 py-2 font-semibold transition hover:bg-white/20 mt-2 cursor-pointer" 
             onClick={() => {onSave(editedContent); 

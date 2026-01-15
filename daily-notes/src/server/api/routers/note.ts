@@ -4,12 +4,13 @@ import {
   createTRPCRouter,
   protectedProcedure,
 } from "~/server/api/trpc";
+import { MAX_NOTE_LENGTH } from "~/lib/utils";
 
 export const NoteRouter = createTRPCRouter({
 
 
   create: protectedProcedure
-    .input(z.object({ name: z.string().min(1) }))
+    .input(z.object({ name: z.string().min(1).max(MAX_NOTE_LENGTH, "Note is too long") }))
     .mutation(async ({ ctx, input }) => {
       return ctx.db.note.create({
         data: {
@@ -36,7 +37,7 @@ export const NoteRouter = createTRPCRouter({
     }),
 
     editNote: protectedProcedure
-    .input(z.object({ id: z.string(), contents: z.string().min(1) }))
+    .input(z.object({ id: z.string(), contents: z.string().min(1).max(MAX_NOTE_LENGTH, "Note is too long") }))
     .mutation(async ({ ctx, input }) => {
       return ctx.db.note.update({
         where: { id: input.id },
