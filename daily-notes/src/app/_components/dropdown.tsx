@@ -20,6 +20,12 @@ export function Dropdown() {
     const redirectToNotes = () => {
         redirect("/notes");
     }
+    const redirectToTasks = () => {
+        redirect("/tasks");
+    }
+    const redirectToEpisodes = () => {
+        redirect("/shows");
+    }
 
   return (
     <DropdownMenu >
@@ -33,6 +39,12 @@ export function Dropdown() {
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={redirectToNotes}>
           Your Notes
+        </DropdownMenuItem>
+        <DropdownMenuItem onSelect={redirectToTasks}>
+          Your Tasks
+        </DropdownMenuItem>
+        <DropdownMenuItem onSelect={redirectToEpisodes}>
+          Your Shows
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

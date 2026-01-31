@@ -65,6 +65,8 @@ model User {
   sessions      Session[]
   posts         Post[]
   notes         Note[]
+  tasks         Task[]
+  shows         Show[]
 }
 
 model Note {
@@ -81,4 +83,61 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+enum Priority {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum Status {
+  NOTCOMPLETED
+  INPROGRESS
+  COMPLETED
+}
+
+model Task {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  creationDate DateTime
+  dueDate      DateTime @default(now())
+
+  priority Priority @default(MEDIUM)
+  status   Status   @default(NOTCOMPLETED)
+  title    String   @default("Unspecified")
+}
+
+model Show {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  name    String
+  seasons Season[]
+}
+
+model Season {
+  id String @id @default(cuid())
+
+  showId String
+  show   Show   @relation(fields: [showId], references: [id])
+
+  number   Int
+  episodes Episode[]
+}
+
+model Episode {
+  id String @id @default(cuid())
+
+  seasonId String
+  season   Season @relation(fields: [seasonId], references: [id])
+  title    String
+  number   Int
+  thoughts String
+  rating   Int
 }

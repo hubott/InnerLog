@@ -43,6 +43,57 @@ export type Note = $Result.DefaultSelection<Prisma.$NotePayload>
  * 
  */
 export type VerificationToken = $Result.DefaultSelection<Prisma.$VerificationTokenPayload>
+/**
+ * Model Task
+ * 
+ */
+export type Task = $Result.DefaultSelection<Prisma.$TaskPayload>
+/**
+ * Model Show
+ * 
+ */
+export type Show = $Result.DefaultSelection<Prisma.$ShowPayload>
+/**
+ * Model Season
+ * 
+ */
+export type Season = $Result.DefaultSelection<Prisma.$SeasonPayload>
+/**
+ * Model Episode
+ * 
+ */
+export type Episode = $Result.DefaultSelection<Prisma.$EpisodePayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const Priority: {
+  HIGH: 'HIGH',
+  MEDIUM: 'MEDIUM',
+  LOW: 'LOW'
+};
+
+export type Priority = (typeof Priority)[keyof typeof Priority]
+
+
+export const Status: {
+  NOTCOMPLETED: 'NOTCOMPLETED',
+  INPROGRESS: 'INPROGRESS',
+  COMPLETED: 'COMPLETED'
+};
+
+export type Status = (typeof Status)[keyof typeof Status]
+
+}
+
+export type Priority = $Enums.Priority
+
+export const Priority: typeof $Enums.Priority
+
+export type Status = $Enums.Status
+
+export const Status: typeof $Enums.Status
 
 /**
  * ##  Prisma Client ʲˢ
@@ -221,6 +272,46 @@ export class PrismaClient<
     * ```
     */
   get verificationToken(): Prisma.VerificationTokenDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.task`: Exposes CRUD operations for the **Task** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Tasks
+    * const tasks = await prisma.task.findMany()
+    * ```
+    */
+  get task(): Prisma.TaskDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.show`: Exposes CRUD operations for the **Show** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Shows
+    * const shows = await prisma.show.findMany()
+    * ```
+    */
+  get show(): Prisma.ShowDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.season`: Exposes CRUD operations for the **Season** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Seasons
+    * const seasons = await prisma.season.findMany()
+    * ```
+    */
+  get season(): Prisma.SeasonDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.episode`: Exposes CRUD operations for the **Episode** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Episodes
+    * const episodes = await prisma.episode.findMany()
+    * ```
+    */
+  get episode(): Prisma.EpisodeDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -667,7 +758,11 @@ export namespace Prisma {
     Session: 'Session',
     User: 'User',
     Note: 'Note',
-    VerificationToken: 'VerificationToken'
+    VerificationToken: 'VerificationToken',
+    Task: 'Task',
+    Show: 'Show',
+    Season: 'Season',
+    Episode: 'Episode'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -686,7 +781,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "post" | "account" | "session" | "user" | "note" | "verificationToken"
+      modelProps: "post" | "account" | "session" | "user" | "note" | "verificationToken" | "task" | "show" | "season" | "episode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1134,6 +1229,302 @@ export namespace Prisma {
           }
         }
       }
+      Task: {
+        payload: Prisma.$TaskPayload<ExtArgs>
+        fields: Prisma.TaskFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TaskFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TaskFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskPayload>
+          }
+          findFirst: {
+            args: Prisma.TaskFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TaskFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskPayload>
+          }
+          findMany: {
+            args: Prisma.TaskFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskPayload>[]
+          }
+          create: {
+            args: Prisma.TaskCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskPayload>
+          }
+          createMany: {
+            args: Prisma.TaskCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TaskCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskPayload>[]
+          }
+          delete: {
+            args: Prisma.TaskDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskPayload>
+          }
+          update: {
+            args: Prisma.TaskUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskPayload>
+          }
+          deleteMany: {
+            args: Prisma.TaskDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TaskUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TaskUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskPayload>[]
+          }
+          upsert: {
+            args: Prisma.TaskUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskPayload>
+          }
+          aggregate: {
+            args: Prisma.TaskAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTask>
+          }
+          groupBy: {
+            args: Prisma.TaskGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TaskGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TaskCountArgs<ExtArgs>
+            result: $Utils.Optional<TaskCountAggregateOutputType> | number
+          }
+        }
+      }
+      Show: {
+        payload: Prisma.$ShowPayload<ExtArgs>
+        fields: Prisma.ShowFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ShowFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShowPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ShowFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShowPayload>
+          }
+          findFirst: {
+            args: Prisma.ShowFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShowPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ShowFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShowPayload>
+          }
+          findMany: {
+            args: Prisma.ShowFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShowPayload>[]
+          }
+          create: {
+            args: Prisma.ShowCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShowPayload>
+          }
+          createMany: {
+            args: Prisma.ShowCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ShowCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShowPayload>[]
+          }
+          delete: {
+            args: Prisma.ShowDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShowPayload>
+          }
+          update: {
+            args: Prisma.ShowUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShowPayload>
+          }
+          deleteMany: {
+            args: Prisma.ShowDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ShowUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ShowUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShowPayload>[]
+          }
+          upsert: {
+            args: Prisma.ShowUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShowPayload>
+          }
+          aggregate: {
+            args: Prisma.ShowAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateShow>
+          }
+          groupBy: {
+            args: Prisma.ShowGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ShowGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ShowCountArgs<ExtArgs>
+            result: $Utils.Optional<ShowCountAggregateOutputType> | number
+          }
+        }
+      }
+      Season: {
+        payload: Prisma.$SeasonPayload<ExtArgs>
+        fields: Prisma.SeasonFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SeasonFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeasonPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SeasonFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeasonPayload>
+          }
+          findFirst: {
+            args: Prisma.SeasonFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeasonPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SeasonFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeasonPayload>
+          }
+          findMany: {
+            args: Prisma.SeasonFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeasonPayload>[]
+          }
+          create: {
+            args: Prisma.SeasonCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeasonPayload>
+          }
+          createMany: {
+            args: Prisma.SeasonCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SeasonCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeasonPayload>[]
+          }
+          delete: {
+            args: Prisma.SeasonDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeasonPayload>
+          }
+          update: {
+            args: Prisma.SeasonUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeasonPayload>
+          }
+          deleteMany: {
+            args: Prisma.SeasonDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SeasonUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SeasonUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeasonPayload>[]
+          }
+          upsert: {
+            args: Prisma.SeasonUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeasonPayload>
+          }
+          aggregate: {
+            args: Prisma.SeasonAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSeason>
+          }
+          groupBy: {
+            args: Prisma.SeasonGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SeasonGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SeasonCountArgs<ExtArgs>
+            result: $Utils.Optional<SeasonCountAggregateOutputType> | number
+          }
+        }
+      }
+      Episode: {
+        payload: Prisma.$EpisodePayload<ExtArgs>
+        fields: Prisma.EpisodeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EpisodeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EpisodePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EpisodeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EpisodePayload>
+          }
+          findFirst: {
+            args: Prisma.EpisodeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EpisodePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EpisodeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EpisodePayload>
+          }
+          findMany: {
+            args: Prisma.EpisodeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EpisodePayload>[]
+          }
+          create: {
+            args: Prisma.EpisodeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EpisodePayload>
+          }
+          createMany: {
+            args: Prisma.EpisodeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EpisodeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EpisodePayload>[]
+          }
+          delete: {
+            args: Prisma.EpisodeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EpisodePayload>
+          }
+          update: {
+            args: Prisma.EpisodeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EpisodePayload>
+          }
+          deleteMany: {
+            args: Prisma.EpisodeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EpisodeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EpisodeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EpisodePayload>[]
+          }
+          upsert: {
+            args: Prisma.EpisodeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EpisodePayload>
+          }
+          aggregate: {
+            args: Prisma.EpisodeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEpisode>
+          }
+          groupBy: {
+            args: Prisma.EpisodeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EpisodeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EpisodeCountArgs<ExtArgs>
+            result: $Utils.Optional<EpisodeCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1236,6 +1627,10 @@ export namespace Prisma {
     user?: UserOmit
     note?: NoteOmit
     verificationToken?: VerificationTokenOmit
+    task?: TaskOmit
+    show?: ShowOmit
+    season?: SeasonOmit
+    episode?: EpisodeOmit
   }
 
   /* Types for Logging */
@@ -1320,6 +1715,8 @@ export namespace Prisma {
     sessions: number
     posts: number
     notes: number
+    tasks: number
+    shows: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1327,6 +1724,8 @@ export namespace Prisma {
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     posts?: boolean | UserCountOutputTypeCountPostsArgs
     notes?: boolean | UserCountOutputTypeCountNotesArgs
+    tasks?: boolean | UserCountOutputTypeCountTasksArgs
+    shows?: boolean | UserCountOutputTypeCountShowsArgs
   }
 
   // Custom InputTypes
@@ -1366,6 +1765,82 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountNotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NoteWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaskWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountShowsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ShowWhereInput
+  }
+
+
+  /**
+   * Count Type ShowCountOutputType
+   */
+
+  export type ShowCountOutputType = {
+    seasons: number
+  }
+
+  export type ShowCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    seasons?: boolean | ShowCountOutputTypeCountSeasonsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ShowCountOutputType without action
+   */
+  export type ShowCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShowCountOutputType
+     */
+    select?: ShowCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ShowCountOutputType without action
+   */
+  export type ShowCountOutputTypeCountSeasonsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SeasonWhereInput
+  }
+
+
+  /**
+   * Count Type SeasonCountOutputType
+   */
+
+  export type SeasonCountOutputType = {
+    episodes: number
+  }
+
+  export type SeasonCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    episodes?: boolean | SeasonCountOutputTypeCountEpisodesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SeasonCountOutputType without action
+   */
+  export type SeasonCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SeasonCountOutputType
+     */
+    select?: SeasonCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SeasonCountOutputType without action
+   */
+  export type SeasonCountOutputTypeCountEpisodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EpisodeWhereInput
   }
 
 
@@ -4878,6 +5353,8 @@ export namespace Prisma {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     posts?: boolean | User$postsArgs<ExtArgs>
     notes?: boolean | User$notesArgs<ExtArgs>
+    tasks?: boolean | User$tasksArgs<ExtArgs>
+    shows?: boolean | User$showsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4911,6 +5388,8 @@ export namespace Prisma {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     posts?: boolean | User$postsArgs<ExtArgs>
     notes?: boolean | User$notesArgs<ExtArgs>
+    tasks?: boolean | User$tasksArgs<ExtArgs>
+    shows?: boolean | User$showsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4923,6 +5402,8 @@ export namespace Prisma {
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       posts: Prisma.$PostPayload<ExtArgs>[]
       notes: Prisma.$NotePayload<ExtArgs>[]
+      tasks: Prisma.$TaskPayload<ExtArgs>[]
+      shows: Prisma.$ShowPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5328,6 +5809,8 @@ export namespace Prisma {
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     posts<T extends User$postsArgs<ExtArgs> = {}>(args?: Subset<T, User$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notes<T extends User$notesArgs<ExtArgs> = {}>(args?: Subset<T, User$notesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tasks<T extends User$tasksArgs<ExtArgs> = {}>(args?: Subset<T, User$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    shows<T extends User$showsArgs<ExtArgs> = {}>(args?: Subset<T, User$showsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5843,6 +6326,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: NoteScalarFieldEnum | NoteScalarFieldEnum[]
+  }
+
+  /**
+   * User.tasks
+   */
+  export type User$tasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Task
+     */
+    select?: TaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Task
+     */
+    omit?: TaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskInclude<ExtArgs> | null
+    where?: TaskWhereInput
+    orderBy?: TaskOrderByWithRelationInput | TaskOrderByWithRelationInput[]
+    cursor?: TaskWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TaskScalarFieldEnum | TaskScalarFieldEnum[]
+  }
+
+  /**
+   * User.shows
+   */
+  export type User$showsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Show
+     */
+    select?: ShowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Show
+     */
+    omit?: ShowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShowInclude<ExtArgs> | null
+    where?: ShowWhereInput
+    orderBy?: ShowOrderByWithRelationInput | ShowOrderByWithRelationInput[]
+    cursor?: ShowWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ShowScalarFieldEnum | ShowScalarFieldEnum[]
   }
 
   /**
@@ -7879,6 +8410,4357 @@ export namespace Prisma {
 
 
   /**
+   * Model Task
+   */
+
+  export type AggregateTask = {
+    _count: TaskCountAggregateOutputType | null
+    _min: TaskMinAggregateOutputType | null
+    _max: TaskMaxAggregateOutputType | null
+  }
+
+  export type TaskMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    creationDate: Date | null
+    dueDate: Date | null
+    priority: $Enums.Priority | null
+    status: $Enums.Status | null
+    title: string | null
+  }
+
+  export type TaskMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    creationDate: Date | null
+    dueDate: Date | null
+    priority: $Enums.Priority | null
+    status: $Enums.Status | null
+    title: string | null
+  }
+
+  export type TaskCountAggregateOutputType = {
+    id: number
+    userId: number
+    creationDate: number
+    dueDate: number
+    priority: number
+    status: number
+    title: number
+    _all: number
+  }
+
+
+  export type TaskMinAggregateInputType = {
+    id?: true
+    userId?: true
+    creationDate?: true
+    dueDate?: true
+    priority?: true
+    status?: true
+    title?: true
+  }
+
+  export type TaskMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    creationDate?: true
+    dueDate?: true
+    priority?: true
+    status?: true
+    title?: true
+  }
+
+  export type TaskCountAggregateInputType = {
+    id?: true
+    userId?: true
+    creationDate?: true
+    dueDate?: true
+    priority?: true
+    status?: true
+    title?: true
+    _all?: true
+  }
+
+  export type TaskAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Task to aggregate.
+     */
+    where?: TaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tasks to fetch.
+     */
+    orderBy?: TaskOrderByWithRelationInput | TaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Tasks
+    **/
+    _count?: true | TaskCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TaskMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TaskMaxAggregateInputType
+  }
+
+  export type GetTaskAggregateType<T extends TaskAggregateArgs> = {
+        [P in keyof T & keyof AggregateTask]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTask[P]>
+      : GetScalarType<T[P], AggregateTask[P]>
+  }
+
+
+
+
+  export type TaskGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaskWhereInput
+    orderBy?: TaskOrderByWithAggregationInput | TaskOrderByWithAggregationInput[]
+    by: TaskScalarFieldEnum[] | TaskScalarFieldEnum
+    having?: TaskScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TaskCountAggregateInputType | true
+    _min?: TaskMinAggregateInputType
+    _max?: TaskMaxAggregateInputType
+  }
+
+  export type TaskGroupByOutputType = {
+    id: string
+    userId: string
+    creationDate: Date
+    dueDate: Date
+    priority: $Enums.Priority
+    status: $Enums.Status
+    title: string
+    _count: TaskCountAggregateOutputType | null
+    _min: TaskMinAggregateOutputType | null
+    _max: TaskMaxAggregateOutputType | null
+  }
+
+  type GetTaskGroupByPayload<T extends TaskGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TaskGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TaskGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TaskGroupByOutputType[P]>
+            : GetScalarType<T[P], TaskGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TaskSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    creationDate?: boolean
+    dueDate?: boolean
+    priority?: boolean
+    status?: boolean
+    title?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["task"]>
+
+  export type TaskSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    creationDate?: boolean
+    dueDate?: boolean
+    priority?: boolean
+    status?: boolean
+    title?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["task"]>
+
+  export type TaskSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    creationDate?: boolean
+    dueDate?: boolean
+    priority?: boolean
+    status?: boolean
+    title?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["task"]>
+
+  export type TaskSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    creationDate?: boolean
+    dueDate?: boolean
+    priority?: boolean
+    status?: boolean
+    title?: boolean
+  }
+
+  export type TaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "creationDate" | "dueDate" | "priority" | "status" | "title", ExtArgs["result"]["task"]>
+  export type TaskInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TaskIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TaskIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $TaskPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Task"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      creationDate: Date
+      dueDate: Date
+      priority: $Enums.Priority
+      status: $Enums.Status
+      title: string
+    }, ExtArgs["result"]["task"]>
+    composites: {}
+  }
+
+  type TaskGetPayload<S extends boolean | null | undefined | TaskDefaultArgs> = $Result.GetResult<Prisma.$TaskPayload, S>
+
+  type TaskCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TaskFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TaskCountAggregateInputType | true
+    }
+
+  export interface TaskDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Task'], meta: { name: 'Task' } }
+    /**
+     * Find zero or one Task that matches the filter.
+     * @param {TaskFindUniqueArgs} args - Arguments to find a Task
+     * @example
+     * // Get one Task
+     * const task = await prisma.task.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TaskFindUniqueArgs>(args: SelectSubset<T, TaskFindUniqueArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Task that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TaskFindUniqueOrThrowArgs} args - Arguments to find a Task
+     * @example
+     * // Get one Task
+     * const task = await prisma.task.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TaskFindUniqueOrThrowArgs>(args: SelectSubset<T, TaskFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Task that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskFindFirstArgs} args - Arguments to find a Task
+     * @example
+     * // Get one Task
+     * const task = await prisma.task.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TaskFindFirstArgs>(args?: SelectSubset<T, TaskFindFirstArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Task that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskFindFirstOrThrowArgs} args - Arguments to find a Task
+     * @example
+     * // Get one Task
+     * const task = await prisma.task.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TaskFindFirstOrThrowArgs>(args?: SelectSubset<T, TaskFindFirstOrThrowArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Tasks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Tasks
+     * const tasks = await prisma.task.findMany()
+     * 
+     * // Get first 10 Tasks
+     * const tasks = await prisma.task.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const taskWithIdOnly = await prisma.task.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TaskFindManyArgs>(args?: SelectSubset<T, TaskFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Task.
+     * @param {TaskCreateArgs} args - Arguments to create a Task.
+     * @example
+     * // Create one Task
+     * const Task = await prisma.task.create({
+     *   data: {
+     *     // ... data to create a Task
+     *   }
+     * })
+     * 
+     */
+    create<T extends TaskCreateArgs>(args: SelectSubset<T, TaskCreateArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Tasks.
+     * @param {TaskCreateManyArgs} args - Arguments to create many Tasks.
+     * @example
+     * // Create many Tasks
+     * const task = await prisma.task.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TaskCreateManyArgs>(args?: SelectSubset<T, TaskCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Tasks and returns the data saved in the database.
+     * @param {TaskCreateManyAndReturnArgs} args - Arguments to create many Tasks.
+     * @example
+     * // Create many Tasks
+     * const task = await prisma.task.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Tasks and only return the `id`
+     * const taskWithIdOnly = await prisma.task.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TaskCreateManyAndReturnArgs>(args?: SelectSubset<T, TaskCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Task.
+     * @param {TaskDeleteArgs} args - Arguments to delete one Task.
+     * @example
+     * // Delete one Task
+     * const Task = await prisma.task.delete({
+     *   where: {
+     *     // ... filter to delete one Task
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TaskDeleteArgs>(args: SelectSubset<T, TaskDeleteArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Task.
+     * @param {TaskUpdateArgs} args - Arguments to update one Task.
+     * @example
+     * // Update one Task
+     * const task = await prisma.task.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TaskUpdateArgs>(args: SelectSubset<T, TaskUpdateArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Tasks.
+     * @param {TaskDeleteManyArgs} args - Arguments to filter Tasks to delete.
+     * @example
+     * // Delete a few Tasks
+     * const { count } = await prisma.task.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TaskDeleteManyArgs>(args?: SelectSubset<T, TaskDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tasks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Tasks
+     * const task = await prisma.task.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TaskUpdateManyArgs>(args: SelectSubset<T, TaskUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tasks and returns the data updated in the database.
+     * @param {TaskUpdateManyAndReturnArgs} args - Arguments to update many Tasks.
+     * @example
+     * // Update many Tasks
+     * const task = await prisma.task.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Tasks and only return the `id`
+     * const taskWithIdOnly = await prisma.task.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TaskUpdateManyAndReturnArgs>(args: SelectSubset<T, TaskUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Task.
+     * @param {TaskUpsertArgs} args - Arguments to update or create a Task.
+     * @example
+     * // Update or create a Task
+     * const task = await prisma.task.upsert({
+     *   create: {
+     *     // ... data to create a Task
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Task we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TaskUpsertArgs>(args: SelectSubset<T, TaskUpsertArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Tasks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskCountArgs} args - Arguments to filter Tasks to count.
+     * @example
+     * // Count the number of Tasks
+     * const count = await prisma.task.count({
+     *   where: {
+     *     // ... the filter for the Tasks we want to count
+     *   }
+     * })
+    **/
+    count<T extends TaskCountArgs>(
+      args?: Subset<T, TaskCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TaskCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Task.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TaskAggregateArgs>(args: Subset<T, TaskAggregateArgs>): Prisma.PrismaPromise<GetTaskAggregateType<T>>
+
+    /**
+     * Group by Task.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TaskGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TaskGroupByArgs['orderBy'] }
+        : { orderBy?: TaskGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TaskGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTaskGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Task model
+   */
+  readonly fields: TaskFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Task.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TaskClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Task model
+   */
+  interface TaskFieldRefs {
+    readonly id: FieldRef<"Task", 'String'>
+    readonly userId: FieldRef<"Task", 'String'>
+    readonly creationDate: FieldRef<"Task", 'DateTime'>
+    readonly dueDate: FieldRef<"Task", 'DateTime'>
+    readonly priority: FieldRef<"Task", 'Priority'>
+    readonly status: FieldRef<"Task", 'Status'>
+    readonly title: FieldRef<"Task", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Task findUnique
+   */
+  export type TaskFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Task
+     */
+    select?: TaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Task
+     */
+    omit?: TaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskInclude<ExtArgs> | null
+    /**
+     * Filter, which Task to fetch.
+     */
+    where: TaskWhereUniqueInput
+  }
+
+  /**
+   * Task findUniqueOrThrow
+   */
+  export type TaskFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Task
+     */
+    select?: TaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Task
+     */
+    omit?: TaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskInclude<ExtArgs> | null
+    /**
+     * Filter, which Task to fetch.
+     */
+    where: TaskWhereUniqueInput
+  }
+
+  /**
+   * Task findFirst
+   */
+  export type TaskFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Task
+     */
+    select?: TaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Task
+     */
+    omit?: TaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskInclude<ExtArgs> | null
+    /**
+     * Filter, which Task to fetch.
+     */
+    where?: TaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tasks to fetch.
+     */
+    orderBy?: TaskOrderByWithRelationInput | TaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tasks.
+     */
+    cursor?: TaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tasks.
+     */
+    distinct?: TaskScalarFieldEnum | TaskScalarFieldEnum[]
+  }
+
+  /**
+   * Task findFirstOrThrow
+   */
+  export type TaskFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Task
+     */
+    select?: TaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Task
+     */
+    omit?: TaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskInclude<ExtArgs> | null
+    /**
+     * Filter, which Task to fetch.
+     */
+    where?: TaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tasks to fetch.
+     */
+    orderBy?: TaskOrderByWithRelationInput | TaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tasks.
+     */
+    cursor?: TaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tasks.
+     */
+    distinct?: TaskScalarFieldEnum | TaskScalarFieldEnum[]
+  }
+
+  /**
+   * Task findMany
+   */
+  export type TaskFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Task
+     */
+    select?: TaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Task
+     */
+    omit?: TaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskInclude<ExtArgs> | null
+    /**
+     * Filter, which Tasks to fetch.
+     */
+    where?: TaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tasks to fetch.
+     */
+    orderBy?: TaskOrderByWithRelationInput | TaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Tasks.
+     */
+    cursor?: TaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tasks.
+     */
+    skip?: number
+    distinct?: TaskScalarFieldEnum | TaskScalarFieldEnum[]
+  }
+
+  /**
+   * Task create
+   */
+  export type TaskCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Task
+     */
+    select?: TaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Task
+     */
+    omit?: TaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Task.
+     */
+    data: XOR<TaskCreateInput, TaskUncheckedCreateInput>
+  }
+
+  /**
+   * Task createMany
+   */
+  export type TaskCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Tasks.
+     */
+    data: TaskCreateManyInput | TaskCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Task createManyAndReturn
+   */
+  export type TaskCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Task
+     */
+    select?: TaskSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Task
+     */
+    omit?: TaskOmit<ExtArgs> | null
+    /**
+     * The data used to create many Tasks.
+     */
+    data: TaskCreateManyInput | TaskCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Task update
+   */
+  export type TaskUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Task
+     */
+    select?: TaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Task
+     */
+    omit?: TaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Task.
+     */
+    data: XOR<TaskUpdateInput, TaskUncheckedUpdateInput>
+    /**
+     * Choose, which Task to update.
+     */
+    where: TaskWhereUniqueInput
+  }
+
+  /**
+   * Task updateMany
+   */
+  export type TaskUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Tasks.
+     */
+    data: XOR<TaskUpdateManyMutationInput, TaskUncheckedUpdateManyInput>
+    /**
+     * Filter which Tasks to update
+     */
+    where?: TaskWhereInput
+    /**
+     * Limit how many Tasks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Task updateManyAndReturn
+   */
+  export type TaskUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Task
+     */
+    select?: TaskSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Task
+     */
+    omit?: TaskOmit<ExtArgs> | null
+    /**
+     * The data used to update Tasks.
+     */
+    data: XOR<TaskUpdateManyMutationInput, TaskUncheckedUpdateManyInput>
+    /**
+     * Filter which Tasks to update
+     */
+    where?: TaskWhereInput
+    /**
+     * Limit how many Tasks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Task upsert
+   */
+  export type TaskUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Task
+     */
+    select?: TaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Task
+     */
+    omit?: TaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Task to update in case it exists.
+     */
+    where: TaskWhereUniqueInput
+    /**
+     * In case the Task found by the `where` argument doesn't exist, create a new Task with this data.
+     */
+    create: XOR<TaskCreateInput, TaskUncheckedCreateInput>
+    /**
+     * In case the Task was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TaskUpdateInput, TaskUncheckedUpdateInput>
+  }
+
+  /**
+   * Task delete
+   */
+  export type TaskDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Task
+     */
+    select?: TaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Task
+     */
+    omit?: TaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskInclude<ExtArgs> | null
+    /**
+     * Filter which Task to delete.
+     */
+    where: TaskWhereUniqueInput
+  }
+
+  /**
+   * Task deleteMany
+   */
+  export type TaskDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Tasks to delete
+     */
+    where?: TaskWhereInput
+    /**
+     * Limit how many Tasks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Task without action
+   */
+  export type TaskDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Task
+     */
+    select?: TaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Task
+     */
+    omit?: TaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Show
+   */
+
+  export type AggregateShow = {
+    _count: ShowCountAggregateOutputType | null
+    _min: ShowMinAggregateOutputType | null
+    _max: ShowMaxAggregateOutputType | null
+  }
+
+  export type ShowMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+  }
+
+  export type ShowMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+  }
+
+  export type ShowCountAggregateOutputType = {
+    id: number
+    userId: number
+    name: number
+    _all: number
+  }
+
+
+  export type ShowMinAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+  }
+
+  export type ShowMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+  }
+
+  export type ShowCountAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    _all?: true
+  }
+
+  export type ShowAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Show to aggregate.
+     */
+    where?: ShowWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Shows to fetch.
+     */
+    orderBy?: ShowOrderByWithRelationInput | ShowOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ShowWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Shows from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Shows.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Shows
+    **/
+    _count?: true | ShowCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ShowMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ShowMaxAggregateInputType
+  }
+
+  export type GetShowAggregateType<T extends ShowAggregateArgs> = {
+        [P in keyof T & keyof AggregateShow]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateShow[P]>
+      : GetScalarType<T[P], AggregateShow[P]>
+  }
+
+
+
+
+  export type ShowGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ShowWhereInput
+    orderBy?: ShowOrderByWithAggregationInput | ShowOrderByWithAggregationInput[]
+    by: ShowScalarFieldEnum[] | ShowScalarFieldEnum
+    having?: ShowScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ShowCountAggregateInputType | true
+    _min?: ShowMinAggregateInputType
+    _max?: ShowMaxAggregateInputType
+  }
+
+  export type ShowGroupByOutputType = {
+    id: string
+    userId: string
+    name: string
+    _count: ShowCountAggregateOutputType | null
+    _min: ShowMinAggregateOutputType | null
+    _max: ShowMaxAggregateOutputType | null
+  }
+
+  type GetShowGroupByPayload<T extends ShowGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ShowGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ShowGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ShowGroupByOutputType[P]>
+            : GetScalarType<T[P], ShowGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ShowSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    seasons?: boolean | Show$seasonsArgs<ExtArgs>
+    _count?: boolean | ShowCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["show"]>
+
+  export type ShowSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["show"]>
+
+  export type ShowSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["show"]>
+
+  export type ShowSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+  }
+
+  export type ShowOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name", ExtArgs["result"]["show"]>
+  export type ShowInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    seasons?: boolean | Show$seasonsArgs<ExtArgs>
+    _count?: boolean | ShowCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ShowIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ShowIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ShowPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Show"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      seasons: Prisma.$SeasonPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      name: string
+    }, ExtArgs["result"]["show"]>
+    composites: {}
+  }
+
+  type ShowGetPayload<S extends boolean | null | undefined | ShowDefaultArgs> = $Result.GetResult<Prisma.$ShowPayload, S>
+
+  type ShowCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ShowFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ShowCountAggregateInputType | true
+    }
+
+  export interface ShowDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Show'], meta: { name: 'Show' } }
+    /**
+     * Find zero or one Show that matches the filter.
+     * @param {ShowFindUniqueArgs} args - Arguments to find a Show
+     * @example
+     * // Get one Show
+     * const show = await prisma.show.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ShowFindUniqueArgs>(args: SelectSubset<T, ShowFindUniqueArgs<ExtArgs>>): Prisma__ShowClient<$Result.GetResult<Prisma.$ShowPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Show that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ShowFindUniqueOrThrowArgs} args - Arguments to find a Show
+     * @example
+     * // Get one Show
+     * const show = await prisma.show.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ShowFindUniqueOrThrowArgs>(args: SelectSubset<T, ShowFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ShowClient<$Result.GetResult<Prisma.$ShowPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Show that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShowFindFirstArgs} args - Arguments to find a Show
+     * @example
+     * // Get one Show
+     * const show = await prisma.show.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ShowFindFirstArgs>(args?: SelectSubset<T, ShowFindFirstArgs<ExtArgs>>): Prisma__ShowClient<$Result.GetResult<Prisma.$ShowPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Show that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShowFindFirstOrThrowArgs} args - Arguments to find a Show
+     * @example
+     * // Get one Show
+     * const show = await prisma.show.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ShowFindFirstOrThrowArgs>(args?: SelectSubset<T, ShowFindFirstOrThrowArgs<ExtArgs>>): Prisma__ShowClient<$Result.GetResult<Prisma.$ShowPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Shows that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShowFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Shows
+     * const shows = await prisma.show.findMany()
+     * 
+     * // Get first 10 Shows
+     * const shows = await prisma.show.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const showWithIdOnly = await prisma.show.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ShowFindManyArgs>(args?: SelectSubset<T, ShowFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Show.
+     * @param {ShowCreateArgs} args - Arguments to create a Show.
+     * @example
+     * // Create one Show
+     * const Show = await prisma.show.create({
+     *   data: {
+     *     // ... data to create a Show
+     *   }
+     * })
+     * 
+     */
+    create<T extends ShowCreateArgs>(args: SelectSubset<T, ShowCreateArgs<ExtArgs>>): Prisma__ShowClient<$Result.GetResult<Prisma.$ShowPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Shows.
+     * @param {ShowCreateManyArgs} args - Arguments to create many Shows.
+     * @example
+     * // Create many Shows
+     * const show = await prisma.show.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ShowCreateManyArgs>(args?: SelectSubset<T, ShowCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Shows and returns the data saved in the database.
+     * @param {ShowCreateManyAndReturnArgs} args - Arguments to create many Shows.
+     * @example
+     * // Create many Shows
+     * const show = await prisma.show.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Shows and only return the `id`
+     * const showWithIdOnly = await prisma.show.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ShowCreateManyAndReturnArgs>(args?: SelectSubset<T, ShowCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShowPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Show.
+     * @param {ShowDeleteArgs} args - Arguments to delete one Show.
+     * @example
+     * // Delete one Show
+     * const Show = await prisma.show.delete({
+     *   where: {
+     *     // ... filter to delete one Show
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ShowDeleteArgs>(args: SelectSubset<T, ShowDeleteArgs<ExtArgs>>): Prisma__ShowClient<$Result.GetResult<Prisma.$ShowPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Show.
+     * @param {ShowUpdateArgs} args - Arguments to update one Show.
+     * @example
+     * // Update one Show
+     * const show = await prisma.show.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ShowUpdateArgs>(args: SelectSubset<T, ShowUpdateArgs<ExtArgs>>): Prisma__ShowClient<$Result.GetResult<Prisma.$ShowPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Shows.
+     * @param {ShowDeleteManyArgs} args - Arguments to filter Shows to delete.
+     * @example
+     * // Delete a few Shows
+     * const { count } = await prisma.show.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ShowDeleteManyArgs>(args?: SelectSubset<T, ShowDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Shows.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShowUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Shows
+     * const show = await prisma.show.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ShowUpdateManyArgs>(args: SelectSubset<T, ShowUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Shows and returns the data updated in the database.
+     * @param {ShowUpdateManyAndReturnArgs} args - Arguments to update many Shows.
+     * @example
+     * // Update many Shows
+     * const show = await prisma.show.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Shows and only return the `id`
+     * const showWithIdOnly = await prisma.show.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ShowUpdateManyAndReturnArgs>(args: SelectSubset<T, ShowUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShowPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Show.
+     * @param {ShowUpsertArgs} args - Arguments to update or create a Show.
+     * @example
+     * // Update or create a Show
+     * const show = await prisma.show.upsert({
+     *   create: {
+     *     // ... data to create a Show
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Show we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ShowUpsertArgs>(args: SelectSubset<T, ShowUpsertArgs<ExtArgs>>): Prisma__ShowClient<$Result.GetResult<Prisma.$ShowPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Shows.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShowCountArgs} args - Arguments to filter Shows to count.
+     * @example
+     * // Count the number of Shows
+     * const count = await prisma.show.count({
+     *   where: {
+     *     // ... the filter for the Shows we want to count
+     *   }
+     * })
+    **/
+    count<T extends ShowCountArgs>(
+      args?: Subset<T, ShowCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ShowCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Show.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShowAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ShowAggregateArgs>(args: Subset<T, ShowAggregateArgs>): Prisma.PrismaPromise<GetShowAggregateType<T>>
+
+    /**
+     * Group by Show.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShowGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ShowGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ShowGroupByArgs['orderBy'] }
+        : { orderBy?: ShowGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ShowGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetShowGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Show model
+   */
+  readonly fields: ShowFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Show.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ShowClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    seasons<T extends Show$seasonsArgs<ExtArgs> = {}>(args?: Subset<T, Show$seasonsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Show model
+   */
+  interface ShowFieldRefs {
+    readonly id: FieldRef<"Show", 'String'>
+    readonly userId: FieldRef<"Show", 'String'>
+    readonly name: FieldRef<"Show", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Show findUnique
+   */
+  export type ShowFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Show
+     */
+    select?: ShowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Show
+     */
+    omit?: ShowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShowInclude<ExtArgs> | null
+    /**
+     * Filter, which Show to fetch.
+     */
+    where: ShowWhereUniqueInput
+  }
+
+  /**
+   * Show findUniqueOrThrow
+   */
+  export type ShowFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Show
+     */
+    select?: ShowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Show
+     */
+    omit?: ShowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShowInclude<ExtArgs> | null
+    /**
+     * Filter, which Show to fetch.
+     */
+    where: ShowWhereUniqueInput
+  }
+
+  /**
+   * Show findFirst
+   */
+  export type ShowFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Show
+     */
+    select?: ShowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Show
+     */
+    omit?: ShowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShowInclude<ExtArgs> | null
+    /**
+     * Filter, which Show to fetch.
+     */
+    where?: ShowWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Shows to fetch.
+     */
+    orderBy?: ShowOrderByWithRelationInput | ShowOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Shows.
+     */
+    cursor?: ShowWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Shows from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Shows.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Shows.
+     */
+    distinct?: ShowScalarFieldEnum | ShowScalarFieldEnum[]
+  }
+
+  /**
+   * Show findFirstOrThrow
+   */
+  export type ShowFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Show
+     */
+    select?: ShowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Show
+     */
+    omit?: ShowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShowInclude<ExtArgs> | null
+    /**
+     * Filter, which Show to fetch.
+     */
+    where?: ShowWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Shows to fetch.
+     */
+    orderBy?: ShowOrderByWithRelationInput | ShowOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Shows.
+     */
+    cursor?: ShowWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Shows from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Shows.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Shows.
+     */
+    distinct?: ShowScalarFieldEnum | ShowScalarFieldEnum[]
+  }
+
+  /**
+   * Show findMany
+   */
+  export type ShowFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Show
+     */
+    select?: ShowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Show
+     */
+    omit?: ShowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShowInclude<ExtArgs> | null
+    /**
+     * Filter, which Shows to fetch.
+     */
+    where?: ShowWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Shows to fetch.
+     */
+    orderBy?: ShowOrderByWithRelationInput | ShowOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Shows.
+     */
+    cursor?: ShowWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Shows from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Shows.
+     */
+    skip?: number
+    distinct?: ShowScalarFieldEnum | ShowScalarFieldEnum[]
+  }
+
+  /**
+   * Show create
+   */
+  export type ShowCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Show
+     */
+    select?: ShowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Show
+     */
+    omit?: ShowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShowInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Show.
+     */
+    data: XOR<ShowCreateInput, ShowUncheckedCreateInput>
+  }
+
+  /**
+   * Show createMany
+   */
+  export type ShowCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Shows.
+     */
+    data: ShowCreateManyInput | ShowCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Show createManyAndReturn
+   */
+  export type ShowCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Show
+     */
+    select?: ShowSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Show
+     */
+    omit?: ShowOmit<ExtArgs> | null
+    /**
+     * The data used to create many Shows.
+     */
+    data: ShowCreateManyInput | ShowCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShowIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Show update
+   */
+  export type ShowUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Show
+     */
+    select?: ShowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Show
+     */
+    omit?: ShowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShowInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Show.
+     */
+    data: XOR<ShowUpdateInput, ShowUncheckedUpdateInput>
+    /**
+     * Choose, which Show to update.
+     */
+    where: ShowWhereUniqueInput
+  }
+
+  /**
+   * Show updateMany
+   */
+  export type ShowUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Shows.
+     */
+    data: XOR<ShowUpdateManyMutationInput, ShowUncheckedUpdateManyInput>
+    /**
+     * Filter which Shows to update
+     */
+    where?: ShowWhereInput
+    /**
+     * Limit how many Shows to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Show updateManyAndReturn
+   */
+  export type ShowUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Show
+     */
+    select?: ShowSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Show
+     */
+    omit?: ShowOmit<ExtArgs> | null
+    /**
+     * The data used to update Shows.
+     */
+    data: XOR<ShowUpdateManyMutationInput, ShowUncheckedUpdateManyInput>
+    /**
+     * Filter which Shows to update
+     */
+    where?: ShowWhereInput
+    /**
+     * Limit how many Shows to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShowIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Show upsert
+   */
+  export type ShowUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Show
+     */
+    select?: ShowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Show
+     */
+    omit?: ShowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShowInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Show to update in case it exists.
+     */
+    where: ShowWhereUniqueInput
+    /**
+     * In case the Show found by the `where` argument doesn't exist, create a new Show with this data.
+     */
+    create: XOR<ShowCreateInput, ShowUncheckedCreateInput>
+    /**
+     * In case the Show was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ShowUpdateInput, ShowUncheckedUpdateInput>
+  }
+
+  /**
+   * Show delete
+   */
+  export type ShowDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Show
+     */
+    select?: ShowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Show
+     */
+    omit?: ShowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShowInclude<ExtArgs> | null
+    /**
+     * Filter which Show to delete.
+     */
+    where: ShowWhereUniqueInput
+  }
+
+  /**
+   * Show deleteMany
+   */
+  export type ShowDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Shows to delete
+     */
+    where?: ShowWhereInput
+    /**
+     * Limit how many Shows to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Show.seasons
+   */
+  export type Show$seasonsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Season
+     */
+    select?: SeasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Season
+     */
+    omit?: SeasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeasonInclude<ExtArgs> | null
+    where?: SeasonWhereInput
+    orderBy?: SeasonOrderByWithRelationInput | SeasonOrderByWithRelationInput[]
+    cursor?: SeasonWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SeasonScalarFieldEnum | SeasonScalarFieldEnum[]
+  }
+
+  /**
+   * Show without action
+   */
+  export type ShowDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Show
+     */
+    select?: ShowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Show
+     */
+    omit?: ShowOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShowInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Season
+   */
+
+  export type AggregateSeason = {
+    _count: SeasonCountAggregateOutputType | null
+    _avg: SeasonAvgAggregateOutputType | null
+    _sum: SeasonSumAggregateOutputType | null
+    _min: SeasonMinAggregateOutputType | null
+    _max: SeasonMaxAggregateOutputType | null
+  }
+
+  export type SeasonAvgAggregateOutputType = {
+    number: number | null
+  }
+
+  export type SeasonSumAggregateOutputType = {
+    number: number | null
+  }
+
+  export type SeasonMinAggregateOutputType = {
+    id: string | null
+    showId: string | null
+    number: number | null
+  }
+
+  export type SeasonMaxAggregateOutputType = {
+    id: string | null
+    showId: string | null
+    number: number | null
+  }
+
+  export type SeasonCountAggregateOutputType = {
+    id: number
+    showId: number
+    number: number
+    _all: number
+  }
+
+
+  export type SeasonAvgAggregateInputType = {
+    number?: true
+  }
+
+  export type SeasonSumAggregateInputType = {
+    number?: true
+  }
+
+  export type SeasonMinAggregateInputType = {
+    id?: true
+    showId?: true
+    number?: true
+  }
+
+  export type SeasonMaxAggregateInputType = {
+    id?: true
+    showId?: true
+    number?: true
+  }
+
+  export type SeasonCountAggregateInputType = {
+    id?: true
+    showId?: true
+    number?: true
+    _all?: true
+  }
+
+  export type SeasonAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Season to aggregate.
+     */
+    where?: SeasonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Seasons to fetch.
+     */
+    orderBy?: SeasonOrderByWithRelationInput | SeasonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SeasonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Seasons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Seasons.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Seasons
+    **/
+    _count?: true | SeasonCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SeasonAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SeasonSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SeasonMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SeasonMaxAggregateInputType
+  }
+
+  export type GetSeasonAggregateType<T extends SeasonAggregateArgs> = {
+        [P in keyof T & keyof AggregateSeason]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSeason[P]>
+      : GetScalarType<T[P], AggregateSeason[P]>
+  }
+
+
+
+
+  export type SeasonGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SeasonWhereInput
+    orderBy?: SeasonOrderByWithAggregationInput | SeasonOrderByWithAggregationInput[]
+    by: SeasonScalarFieldEnum[] | SeasonScalarFieldEnum
+    having?: SeasonScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SeasonCountAggregateInputType | true
+    _avg?: SeasonAvgAggregateInputType
+    _sum?: SeasonSumAggregateInputType
+    _min?: SeasonMinAggregateInputType
+    _max?: SeasonMaxAggregateInputType
+  }
+
+  export type SeasonGroupByOutputType = {
+    id: string
+    showId: string
+    number: number
+    _count: SeasonCountAggregateOutputType | null
+    _avg: SeasonAvgAggregateOutputType | null
+    _sum: SeasonSumAggregateOutputType | null
+    _min: SeasonMinAggregateOutputType | null
+    _max: SeasonMaxAggregateOutputType | null
+  }
+
+  type GetSeasonGroupByPayload<T extends SeasonGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SeasonGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SeasonGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SeasonGroupByOutputType[P]>
+            : GetScalarType<T[P], SeasonGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SeasonSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    showId?: boolean
+    number?: boolean
+    show?: boolean | ShowDefaultArgs<ExtArgs>
+    episodes?: boolean | Season$episodesArgs<ExtArgs>
+    _count?: boolean | SeasonCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["season"]>
+
+  export type SeasonSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    showId?: boolean
+    number?: boolean
+    show?: boolean | ShowDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["season"]>
+
+  export type SeasonSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    showId?: boolean
+    number?: boolean
+    show?: boolean | ShowDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["season"]>
+
+  export type SeasonSelectScalar = {
+    id?: boolean
+    showId?: boolean
+    number?: boolean
+  }
+
+  export type SeasonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "showId" | "number", ExtArgs["result"]["season"]>
+  export type SeasonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    show?: boolean | ShowDefaultArgs<ExtArgs>
+    episodes?: boolean | Season$episodesArgs<ExtArgs>
+    _count?: boolean | SeasonCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SeasonIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    show?: boolean | ShowDefaultArgs<ExtArgs>
+  }
+  export type SeasonIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    show?: boolean | ShowDefaultArgs<ExtArgs>
+  }
+
+  export type $SeasonPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Season"
+    objects: {
+      show: Prisma.$ShowPayload<ExtArgs>
+      episodes: Prisma.$EpisodePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      showId: string
+      number: number
+    }, ExtArgs["result"]["season"]>
+    composites: {}
+  }
+
+  type SeasonGetPayload<S extends boolean | null | undefined | SeasonDefaultArgs> = $Result.GetResult<Prisma.$SeasonPayload, S>
+
+  type SeasonCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SeasonFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SeasonCountAggregateInputType | true
+    }
+
+  export interface SeasonDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Season'], meta: { name: 'Season' } }
+    /**
+     * Find zero or one Season that matches the filter.
+     * @param {SeasonFindUniqueArgs} args - Arguments to find a Season
+     * @example
+     * // Get one Season
+     * const season = await prisma.season.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SeasonFindUniqueArgs>(args: SelectSubset<T, SeasonFindUniqueArgs<ExtArgs>>): Prisma__SeasonClient<$Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Season that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SeasonFindUniqueOrThrowArgs} args - Arguments to find a Season
+     * @example
+     * // Get one Season
+     * const season = await prisma.season.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SeasonFindUniqueOrThrowArgs>(args: SelectSubset<T, SeasonFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SeasonClient<$Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Season that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeasonFindFirstArgs} args - Arguments to find a Season
+     * @example
+     * // Get one Season
+     * const season = await prisma.season.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SeasonFindFirstArgs>(args?: SelectSubset<T, SeasonFindFirstArgs<ExtArgs>>): Prisma__SeasonClient<$Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Season that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeasonFindFirstOrThrowArgs} args - Arguments to find a Season
+     * @example
+     * // Get one Season
+     * const season = await prisma.season.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SeasonFindFirstOrThrowArgs>(args?: SelectSubset<T, SeasonFindFirstOrThrowArgs<ExtArgs>>): Prisma__SeasonClient<$Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Seasons that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeasonFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Seasons
+     * const seasons = await prisma.season.findMany()
+     * 
+     * // Get first 10 Seasons
+     * const seasons = await prisma.season.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const seasonWithIdOnly = await prisma.season.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SeasonFindManyArgs>(args?: SelectSubset<T, SeasonFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Season.
+     * @param {SeasonCreateArgs} args - Arguments to create a Season.
+     * @example
+     * // Create one Season
+     * const Season = await prisma.season.create({
+     *   data: {
+     *     // ... data to create a Season
+     *   }
+     * })
+     * 
+     */
+    create<T extends SeasonCreateArgs>(args: SelectSubset<T, SeasonCreateArgs<ExtArgs>>): Prisma__SeasonClient<$Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Seasons.
+     * @param {SeasonCreateManyArgs} args - Arguments to create many Seasons.
+     * @example
+     * // Create many Seasons
+     * const season = await prisma.season.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SeasonCreateManyArgs>(args?: SelectSubset<T, SeasonCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Seasons and returns the data saved in the database.
+     * @param {SeasonCreateManyAndReturnArgs} args - Arguments to create many Seasons.
+     * @example
+     * // Create many Seasons
+     * const season = await prisma.season.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Seasons and only return the `id`
+     * const seasonWithIdOnly = await prisma.season.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SeasonCreateManyAndReturnArgs>(args?: SelectSubset<T, SeasonCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Season.
+     * @param {SeasonDeleteArgs} args - Arguments to delete one Season.
+     * @example
+     * // Delete one Season
+     * const Season = await prisma.season.delete({
+     *   where: {
+     *     // ... filter to delete one Season
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SeasonDeleteArgs>(args: SelectSubset<T, SeasonDeleteArgs<ExtArgs>>): Prisma__SeasonClient<$Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Season.
+     * @param {SeasonUpdateArgs} args - Arguments to update one Season.
+     * @example
+     * // Update one Season
+     * const season = await prisma.season.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SeasonUpdateArgs>(args: SelectSubset<T, SeasonUpdateArgs<ExtArgs>>): Prisma__SeasonClient<$Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Seasons.
+     * @param {SeasonDeleteManyArgs} args - Arguments to filter Seasons to delete.
+     * @example
+     * // Delete a few Seasons
+     * const { count } = await prisma.season.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SeasonDeleteManyArgs>(args?: SelectSubset<T, SeasonDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Seasons.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeasonUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Seasons
+     * const season = await prisma.season.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SeasonUpdateManyArgs>(args: SelectSubset<T, SeasonUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Seasons and returns the data updated in the database.
+     * @param {SeasonUpdateManyAndReturnArgs} args - Arguments to update many Seasons.
+     * @example
+     * // Update many Seasons
+     * const season = await prisma.season.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Seasons and only return the `id`
+     * const seasonWithIdOnly = await prisma.season.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SeasonUpdateManyAndReturnArgs>(args: SelectSubset<T, SeasonUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Season.
+     * @param {SeasonUpsertArgs} args - Arguments to update or create a Season.
+     * @example
+     * // Update or create a Season
+     * const season = await prisma.season.upsert({
+     *   create: {
+     *     // ... data to create a Season
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Season we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SeasonUpsertArgs>(args: SelectSubset<T, SeasonUpsertArgs<ExtArgs>>): Prisma__SeasonClient<$Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Seasons.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeasonCountArgs} args - Arguments to filter Seasons to count.
+     * @example
+     * // Count the number of Seasons
+     * const count = await prisma.season.count({
+     *   where: {
+     *     // ... the filter for the Seasons we want to count
+     *   }
+     * })
+    **/
+    count<T extends SeasonCountArgs>(
+      args?: Subset<T, SeasonCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SeasonCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Season.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeasonAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SeasonAggregateArgs>(args: Subset<T, SeasonAggregateArgs>): Prisma.PrismaPromise<GetSeasonAggregateType<T>>
+
+    /**
+     * Group by Season.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeasonGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SeasonGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SeasonGroupByArgs['orderBy'] }
+        : { orderBy?: SeasonGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SeasonGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSeasonGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Season model
+   */
+  readonly fields: SeasonFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Season.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SeasonClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    show<T extends ShowDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ShowDefaultArgs<ExtArgs>>): Prisma__ShowClient<$Result.GetResult<Prisma.$ShowPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    episodes<T extends Season$episodesArgs<ExtArgs> = {}>(args?: Subset<T, Season$episodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EpisodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Season model
+   */
+  interface SeasonFieldRefs {
+    readonly id: FieldRef<"Season", 'String'>
+    readonly showId: FieldRef<"Season", 'String'>
+    readonly number: FieldRef<"Season", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Season findUnique
+   */
+  export type SeasonFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Season
+     */
+    select?: SeasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Season
+     */
+    omit?: SeasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeasonInclude<ExtArgs> | null
+    /**
+     * Filter, which Season to fetch.
+     */
+    where: SeasonWhereUniqueInput
+  }
+
+  /**
+   * Season findUniqueOrThrow
+   */
+  export type SeasonFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Season
+     */
+    select?: SeasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Season
+     */
+    omit?: SeasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeasonInclude<ExtArgs> | null
+    /**
+     * Filter, which Season to fetch.
+     */
+    where: SeasonWhereUniqueInput
+  }
+
+  /**
+   * Season findFirst
+   */
+  export type SeasonFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Season
+     */
+    select?: SeasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Season
+     */
+    omit?: SeasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeasonInclude<ExtArgs> | null
+    /**
+     * Filter, which Season to fetch.
+     */
+    where?: SeasonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Seasons to fetch.
+     */
+    orderBy?: SeasonOrderByWithRelationInput | SeasonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Seasons.
+     */
+    cursor?: SeasonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Seasons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Seasons.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Seasons.
+     */
+    distinct?: SeasonScalarFieldEnum | SeasonScalarFieldEnum[]
+  }
+
+  /**
+   * Season findFirstOrThrow
+   */
+  export type SeasonFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Season
+     */
+    select?: SeasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Season
+     */
+    omit?: SeasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeasonInclude<ExtArgs> | null
+    /**
+     * Filter, which Season to fetch.
+     */
+    where?: SeasonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Seasons to fetch.
+     */
+    orderBy?: SeasonOrderByWithRelationInput | SeasonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Seasons.
+     */
+    cursor?: SeasonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Seasons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Seasons.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Seasons.
+     */
+    distinct?: SeasonScalarFieldEnum | SeasonScalarFieldEnum[]
+  }
+
+  /**
+   * Season findMany
+   */
+  export type SeasonFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Season
+     */
+    select?: SeasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Season
+     */
+    omit?: SeasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeasonInclude<ExtArgs> | null
+    /**
+     * Filter, which Seasons to fetch.
+     */
+    where?: SeasonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Seasons to fetch.
+     */
+    orderBy?: SeasonOrderByWithRelationInput | SeasonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Seasons.
+     */
+    cursor?: SeasonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Seasons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Seasons.
+     */
+    skip?: number
+    distinct?: SeasonScalarFieldEnum | SeasonScalarFieldEnum[]
+  }
+
+  /**
+   * Season create
+   */
+  export type SeasonCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Season
+     */
+    select?: SeasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Season
+     */
+    omit?: SeasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeasonInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Season.
+     */
+    data: XOR<SeasonCreateInput, SeasonUncheckedCreateInput>
+  }
+
+  /**
+   * Season createMany
+   */
+  export type SeasonCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Seasons.
+     */
+    data: SeasonCreateManyInput | SeasonCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Season createManyAndReturn
+   */
+  export type SeasonCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Season
+     */
+    select?: SeasonSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Season
+     */
+    omit?: SeasonOmit<ExtArgs> | null
+    /**
+     * The data used to create many Seasons.
+     */
+    data: SeasonCreateManyInput | SeasonCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeasonIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Season update
+   */
+  export type SeasonUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Season
+     */
+    select?: SeasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Season
+     */
+    omit?: SeasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeasonInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Season.
+     */
+    data: XOR<SeasonUpdateInput, SeasonUncheckedUpdateInput>
+    /**
+     * Choose, which Season to update.
+     */
+    where: SeasonWhereUniqueInput
+  }
+
+  /**
+   * Season updateMany
+   */
+  export type SeasonUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Seasons.
+     */
+    data: XOR<SeasonUpdateManyMutationInput, SeasonUncheckedUpdateManyInput>
+    /**
+     * Filter which Seasons to update
+     */
+    where?: SeasonWhereInput
+    /**
+     * Limit how many Seasons to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Season updateManyAndReturn
+   */
+  export type SeasonUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Season
+     */
+    select?: SeasonSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Season
+     */
+    omit?: SeasonOmit<ExtArgs> | null
+    /**
+     * The data used to update Seasons.
+     */
+    data: XOR<SeasonUpdateManyMutationInput, SeasonUncheckedUpdateManyInput>
+    /**
+     * Filter which Seasons to update
+     */
+    where?: SeasonWhereInput
+    /**
+     * Limit how many Seasons to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeasonIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Season upsert
+   */
+  export type SeasonUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Season
+     */
+    select?: SeasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Season
+     */
+    omit?: SeasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeasonInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Season to update in case it exists.
+     */
+    where: SeasonWhereUniqueInput
+    /**
+     * In case the Season found by the `where` argument doesn't exist, create a new Season with this data.
+     */
+    create: XOR<SeasonCreateInput, SeasonUncheckedCreateInput>
+    /**
+     * In case the Season was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SeasonUpdateInput, SeasonUncheckedUpdateInput>
+  }
+
+  /**
+   * Season delete
+   */
+  export type SeasonDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Season
+     */
+    select?: SeasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Season
+     */
+    omit?: SeasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeasonInclude<ExtArgs> | null
+    /**
+     * Filter which Season to delete.
+     */
+    where: SeasonWhereUniqueInput
+  }
+
+  /**
+   * Season deleteMany
+   */
+  export type SeasonDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Seasons to delete
+     */
+    where?: SeasonWhereInput
+    /**
+     * Limit how many Seasons to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Season.episodes
+   */
+  export type Season$episodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Episode
+     */
+    select?: EpisodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Episode
+     */
+    omit?: EpisodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EpisodeInclude<ExtArgs> | null
+    where?: EpisodeWhereInput
+    orderBy?: EpisodeOrderByWithRelationInput | EpisodeOrderByWithRelationInput[]
+    cursor?: EpisodeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EpisodeScalarFieldEnum | EpisodeScalarFieldEnum[]
+  }
+
+  /**
+   * Season without action
+   */
+  export type SeasonDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Season
+     */
+    select?: SeasonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Season
+     */
+    omit?: SeasonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeasonInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Episode
+   */
+
+  export type AggregateEpisode = {
+    _count: EpisodeCountAggregateOutputType | null
+    _avg: EpisodeAvgAggregateOutputType | null
+    _sum: EpisodeSumAggregateOutputType | null
+    _min: EpisodeMinAggregateOutputType | null
+    _max: EpisodeMaxAggregateOutputType | null
+  }
+
+  export type EpisodeAvgAggregateOutputType = {
+    number: number | null
+    rating: number | null
+  }
+
+  export type EpisodeSumAggregateOutputType = {
+    number: number | null
+    rating: number | null
+  }
+
+  export type EpisodeMinAggregateOutputType = {
+    id: string | null
+    seasonId: string | null
+    title: string | null
+    number: number | null
+    thoughts: string | null
+    rating: number | null
+  }
+
+  export type EpisodeMaxAggregateOutputType = {
+    id: string | null
+    seasonId: string | null
+    title: string | null
+    number: number | null
+    thoughts: string | null
+    rating: number | null
+  }
+
+  export type EpisodeCountAggregateOutputType = {
+    id: number
+    seasonId: number
+    title: number
+    number: number
+    thoughts: number
+    rating: number
+    _all: number
+  }
+
+
+  export type EpisodeAvgAggregateInputType = {
+    number?: true
+    rating?: true
+  }
+
+  export type EpisodeSumAggregateInputType = {
+    number?: true
+    rating?: true
+  }
+
+  export type EpisodeMinAggregateInputType = {
+    id?: true
+    seasonId?: true
+    title?: true
+    number?: true
+    thoughts?: true
+    rating?: true
+  }
+
+  export type EpisodeMaxAggregateInputType = {
+    id?: true
+    seasonId?: true
+    title?: true
+    number?: true
+    thoughts?: true
+    rating?: true
+  }
+
+  export type EpisodeCountAggregateInputType = {
+    id?: true
+    seasonId?: true
+    title?: true
+    number?: true
+    thoughts?: true
+    rating?: true
+    _all?: true
+  }
+
+  export type EpisodeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Episode to aggregate.
+     */
+    where?: EpisodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Episodes to fetch.
+     */
+    orderBy?: EpisodeOrderByWithRelationInput | EpisodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EpisodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Episodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Episodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Episodes
+    **/
+    _count?: true | EpisodeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EpisodeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EpisodeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EpisodeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EpisodeMaxAggregateInputType
+  }
+
+  export type GetEpisodeAggregateType<T extends EpisodeAggregateArgs> = {
+        [P in keyof T & keyof AggregateEpisode]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEpisode[P]>
+      : GetScalarType<T[P], AggregateEpisode[P]>
+  }
+
+
+
+
+  export type EpisodeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EpisodeWhereInput
+    orderBy?: EpisodeOrderByWithAggregationInput | EpisodeOrderByWithAggregationInput[]
+    by: EpisodeScalarFieldEnum[] | EpisodeScalarFieldEnum
+    having?: EpisodeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EpisodeCountAggregateInputType | true
+    _avg?: EpisodeAvgAggregateInputType
+    _sum?: EpisodeSumAggregateInputType
+    _min?: EpisodeMinAggregateInputType
+    _max?: EpisodeMaxAggregateInputType
+  }
+
+  export type EpisodeGroupByOutputType = {
+    id: string
+    seasonId: string
+    title: string
+    number: number
+    thoughts: string
+    rating: number
+    _count: EpisodeCountAggregateOutputType | null
+    _avg: EpisodeAvgAggregateOutputType | null
+    _sum: EpisodeSumAggregateOutputType | null
+    _min: EpisodeMinAggregateOutputType | null
+    _max: EpisodeMaxAggregateOutputType | null
+  }
+
+  type GetEpisodeGroupByPayload<T extends EpisodeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EpisodeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EpisodeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EpisodeGroupByOutputType[P]>
+            : GetScalarType<T[P], EpisodeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EpisodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    seasonId?: boolean
+    title?: boolean
+    number?: boolean
+    thoughts?: boolean
+    rating?: boolean
+    season?: boolean | SeasonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["episode"]>
+
+  export type EpisodeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    seasonId?: boolean
+    title?: boolean
+    number?: boolean
+    thoughts?: boolean
+    rating?: boolean
+    season?: boolean | SeasonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["episode"]>
+
+  export type EpisodeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    seasonId?: boolean
+    title?: boolean
+    number?: boolean
+    thoughts?: boolean
+    rating?: boolean
+    season?: boolean | SeasonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["episode"]>
+
+  export type EpisodeSelectScalar = {
+    id?: boolean
+    seasonId?: boolean
+    title?: boolean
+    number?: boolean
+    thoughts?: boolean
+    rating?: boolean
+  }
+
+  export type EpisodeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "seasonId" | "title" | "number" | "thoughts" | "rating", ExtArgs["result"]["episode"]>
+  export type EpisodeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    season?: boolean | SeasonDefaultArgs<ExtArgs>
+  }
+  export type EpisodeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    season?: boolean | SeasonDefaultArgs<ExtArgs>
+  }
+  export type EpisodeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    season?: boolean | SeasonDefaultArgs<ExtArgs>
+  }
+
+  export type $EpisodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Episode"
+    objects: {
+      season: Prisma.$SeasonPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      seasonId: string
+      title: string
+      number: number
+      thoughts: string
+      rating: number
+    }, ExtArgs["result"]["episode"]>
+    composites: {}
+  }
+
+  type EpisodeGetPayload<S extends boolean | null | undefined | EpisodeDefaultArgs> = $Result.GetResult<Prisma.$EpisodePayload, S>
+
+  type EpisodeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EpisodeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EpisodeCountAggregateInputType | true
+    }
+
+  export interface EpisodeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Episode'], meta: { name: 'Episode' } }
+    /**
+     * Find zero or one Episode that matches the filter.
+     * @param {EpisodeFindUniqueArgs} args - Arguments to find a Episode
+     * @example
+     * // Get one Episode
+     * const episode = await prisma.episode.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EpisodeFindUniqueArgs>(args: SelectSubset<T, EpisodeFindUniqueArgs<ExtArgs>>): Prisma__EpisodeClient<$Result.GetResult<Prisma.$EpisodePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Episode that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EpisodeFindUniqueOrThrowArgs} args - Arguments to find a Episode
+     * @example
+     * // Get one Episode
+     * const episode = await prisma.episode.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EpisodeFindUniqueOrThrowArgs>(args: SelectSubset<T, EpisodeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EpisodeClient<$Result.GetResult<Prisma.$EpisodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Episode that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EpisodeFindFirstArgs} args - Arguments to find a Episode
+     * @example
+     * // Get one Episode
+     * const episode = await prisma.episode.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EpisodeFindFirstArgs>(args?: SelectSubset<T, EpisodeFindFirstArgs<ExtArgs>>): Prisma__EpisodeClient<$Result.GetResult<Prisma.$EpisodePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Episode that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EpisodeFindFirstOrThrowArgs} args - Arguments to find a Episode
+     * @example
+     * // Get one Episode
+     * const episode = await prisma.episode.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EpisodeFindFirstOrThrowArgs>(args?: SelectSubset<T, EpisodeFindFirstOrThrowArgs<ExtArgs>>): Prisma__EpisodeClient<$Result.GetResult<Prisma.$EpisodePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Episodes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EpisodeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Episodes
+     * const episodes = await prisma.episode.findMany()
+     * 
+     * // Get first 10 Episodes
+     * const episodes = await prisma.episode.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const episodeWithIdOnly = await prisma.episode.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EpisodeFindManyArgs>(args?: SelectSubset<T, EpisodeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EpisodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Episode.
+     * @param {EpisodeCreateArgs} args - Arguments to create a Episode.
+     * @example
+     * // Create one Episode
+     * const Episode = await prisma.episode.create({
+     *   data: {
+     *     // ... data to create a Episode
+     *   }
+     * })
+     * 
+     */
+    create<T extends EpisodeCreateArgs>(args: SelectSubset<T, EpisodeCreateArgs<ExtArgs>>): Prisma__EpisodeClient<$Result.GetResult<Prisma.$EpisodePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Episodes.
+     * @param {EpisodeCreateManyArgs} args - Arguments to create many Episodes.
+     * @example
+     * // Create many Episodes
+     * const episode = await prisma.episode.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EpisodeCreateManyArgs>(args?: SelectSubset<T, EpisodeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Episodes and returns the data saved in the database.
+     * @param {EpisodeCreateManyAndReturnArgs} args - Arguments to create many Episodes.
+     * @example
+     * // Create many Episodes
+     * const episode = await prisma.episode.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Episodes and only return the `id`
+     * const episodeWithIdOnly = await prisma.episode.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EpisodeCreateManyAndReturnArgs>(args?: SelectSubset<T, EpisodeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EpisodePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Episode.
+     * @param {EpisodeDeleteArgs} args - Arguments to delete one Episode.
+     * @example
+     * // Delete one Episode
+     * const Episode = await prisma.episode.delete({
+     *   where: {
+     *     // ... filter to delete one Episode
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EpisodeDeleteArgs>(args: SelectSubset<T, EpisodeDeleteArgs<ExtArgs>>): Prisma__EpisodeClient<$Result.GetResult<Prisma.$EpisodePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Episode.
+     * @param {EpisodeUpdateArgs} args - Arguments to update one Episode.
+     * @example
+     * // Update one Episode
+     * const episode = await prisma.episode.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EpisodeUpdateArgs>(args: SelectSubset<T, EpisodeUpdateArgs<ExtArgs>>): Prisma__EpisodeClient<$Result.GetResult<Prisma.$EpisodePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Episodes.
+     * @param {EpisodeDeleteManyArgs} args - Arguments to filter Episodes to delete.
+     * @example
+     * // Delete a few Episodes
+     * const { count } = await prisma.episode.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EpisodeDeleteManyArgs>(args?: SelectSubset<T, EpisodeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Episodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EpisodeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Episodes
+     * const episode = await prisma.episode.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EpisodeUpdateManyArgs>(args: SelectSubset<T, EpisodeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Episodes and returns the data updated in the database.
+     * @param {EpisodeUpdateManyAndReturnArgs} args - Arguments to update many Episodes.
+     * @example
+     * // Update many Episodes
+     * const episode = await prisma.episode.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Episodes and only return the `id`
+     * const episodeWithIdOnly = await prisma.episode.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EpisodeUpdateManyAndReturnArgs>(args: SelectSubset<T, EpisodeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EpisodePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Episode.
+     * @param {EpisodeUpsertArgs} args - Arguments to update or create a Episode.
+     * @example
+     * // Update or create a Episode
+     * const episode = await prisma.episode.upsert({
+     *   create: {
+     *     // ... data to create a Episode
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Episode we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EpisodeUpsertArgs>(args: SelectSubset<T, EpisodeUpsertArgs<ExtArgs>>): Prisma__EpisodeClient<$Result.GetResult<Prisma.$EpisodePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Episodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EpisodeCountArgs} args - Arguments to filter Episodes to count.
+     * @example
+     * // Count the number of Episodes
+     * const count = await prisma.episode.count({
+     *   where: {
+     *     // ... the filter for the Episodes we want to count
+     *   }
+     * })
+    **/
+    count<T extends EpisodeCountArgs>(
+      args?: Subset<T, EpisodeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EpisodeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Episode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EpisodeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EpisodeAggregateArgs>(args: Subset<T, EpisodeAggregateArgs>): Prisma.PrismaPromise<GetEpisodeAggregateType<T>>
+
+    /**
+     * Group by Episode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EpisodeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EpisodeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EpisodeGroupByArgs['orderBy'] }
+        : { orderBy?: EpisodeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EpisodeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEpisodeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Episode model
+   */
+  readonly fields: EpisodeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Episode.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EpisodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    season<T extends SeasonDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SeasonDefaultArgs<ExtArgs>>): Prisma__SeasonClient<$Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Episode model
+   */
+  interface EpisodeFieldRefs {
+    readonly id: FieldRef<"Episode", 'String'>
+    readonly seasonId: FieldRef<"Episode", 'String'>
+    readonly title: FieldRef<"Episode", 'String'>
+    readonly number: FieldRef<"Episode", 'Int'>
+    readonly thoughts: FieldRef<"Episode", 'String'>
+    readonly rating: FieldRef<"Episode", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Episode findUnique
+   */
+  export type EpisodeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Episode
+     */
+    select?: EpisodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Episode
+     */
+    omit?: EpisodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EpisodeInclude<ExtArgs> | null
+    /**
+     * Filter, which Episode to fetch.
+     */
+    where: EpisodeWhereUniqueInput
+  }
+
+  /**
+   * Episode findUniqueOrThrow
+   */
+  export type EpisodeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Episode
+     */
+    select?: EpisodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Episode
+     */
+    omit?: EpisodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EpisodeInclude<ExtArgs> | null
+    /**
+     * Filter, which Episode to fetch.
+     */
+    where: EpisodeWhereUniqueInput
+  }
+
+  /**
+   * Episode findFirst
+   */
+  export type EpisodeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Episode
+     */
+    select?: EpisodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Episode
+     */
+    omit?: EpisodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EpisodeInclude<ExtArgs> | null
+    /**
+     * Filter, which Episode to fetch.
+     */
+    where?: EpisodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Episodes to fetch.
+     */
+    orderBy?: EpisodeOrderByWithRelationInput | EpisodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Episodes.
+     */
+    cursor?: EpisodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Episodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Episodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Episodes.
+     */
+    distinct?: EpisodeScalarFieldEnum | EpisodeScalarFieldEnum[]
+  }
+
+  /**
+   * Episode findFirstOrThrow
+   */
+  export type EpisodeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Episode
+     */
+    select?: EpisodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Episode
+     */
+    omit?: EpisodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EpisodeInclude<ExtArgs> | null
+    /**
+     * Filter, which Episode to fetch.
+     */
+    where?: EpisodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Episodes to fetch.
+     */
+    orderBy?: EpisodeOrderByWithRelationInput | EpisodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Episodes.
+     */
+    cursor?: EpisodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Episodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Episodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Episodes.
+     */
+    distinct?: EpisodeScalarFieldEnum | EpisodeScalarFieldEnum[]
+  }
+
+  /**
+   * Episode findMany
+   */
+  export type EpisodeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Episode
+     */
+    select?: EpisodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Episode
+     */
+    omit?: EpisodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EpisodeInclude<ExtArgs> | null
+    /**
+     * Filter, which Episodes to fetch.
+     */
+    where?: EpisodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Episodes to fetch.
+     */
+    orderBy?: EpisodeOrderByWithRelationInput | EpisodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Episodes.
+     */
+    cursor?: EpisodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Episodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Episodes.
+     */
+    skip?: number
+    distinct?: EpisodeScalarFieldEnum | EpisodeScalarFieldEnum[]
+  }
+
+  /**
+   * Episode create
+   */
+  export type EpisodeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Episode
+     */
+    select?: EpisodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Episode
+     */
+    omit?: EpisodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EpisodeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Episode.
+     */
+    data: XOR<EpisodeCreateInput, EpisodeUncheckedCreateInput>
+  }
+
+  /**
+   * Episode createMany
+   */
+  export type EpisodeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Episodes.
+     */
+    data: EpisodeCreateManyInput | EpisodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Episode createManyAndReturn
+   */
+  export type EpisodeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Episode
+     */
+    select?: EpisodeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Episode
+     */
+    omit?: EpisodeOmit<ExtArgs> | null
+    /**
+     * The data used to create many Episodes.
+     */
+    data: EpisodeCreateManyInput | EpisodeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EpisodeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Episode update
+   */
+  export type EpisodeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Episode
+     */
+    select?: EpisodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Episode
+     */
+    omit?: EpisodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EpisodeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Episode.
+     */
+    data: XOR<EpisodeUpdateInput, EpisodeUncheckedUpdateInput>
+    /**
+     * Choose, which Episode to update.
+     */
+    where: EpisodeWhereUniqueInput
+  }
+
+  /**
+   * Episode updateMany
+   */
+  export type EpisodeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Episodes.
+     */
+    data: XOR<EpisodeUpdateManyMutationInput, EpisodeUncheckedUpdateManyInput>
+    /**
+     * Filter which Episodes to update
+     */
+    where?: EpisodeWhereInput
+    /**
+     * Limit how many Episodes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Episode updateManyAndReturn
+   */
+  export type EpisodeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Episode
+     */
+    select?: EpisodeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Episode
+     */
+    omit?: EpisodeOmit<ExtArgs> | null
+    /**
+     * The data used to update Episodes.
+     */
+    data: XOR<EpisodeUpdateManyMutationInput, EpisodeUncheckedUpdateManyInput>
+    /**
+     * Filter which Episodes to update
+     */
+    where?: EpisodeWhereInput
+    /**
+     * Limit how many Episodes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EpisodeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Episode upsert
+   */
+  export type EpisodeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Episode
+     */
+    select?: EpisodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Episode
+     */
+    omit?: EpisodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EpisodeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Episode to update in case it exists.
+     */
+    where: EpisodeWhereUniqueInput
+    /**
+     * In case the Episode found by the `where` argument doesn't exist, create a new Episode with this data.
+     */
+    create: XOR<EpisodeCreateInput, EpisodeUncheckedCreateInput>
+    /**
+     * In case the Episode was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EpisodeUpdateInput, EpisodeUncheckedUpdateInput>
+  }
+
+  /**
+   * Episode delete
+   */
+  export type EpisodeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Episode
+     */
+    select?: EpisodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Episode
+     */
+    omit?: EpisodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EpisodeInclude<ExtArgs> | null
+    /**
+     * Filter which Episode to delete.
+     */
+    where: EpisodeWhereUniqueInput
+  }
+
+  /**
+   * Episode deleteMany
+   */
+  export type EpisodeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Episodes to delete
+     */
+    where?: EpisodeWhereInput
+    /**
+     * Limit how many Episodes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Episode without action
+   */
+  export type EpisodeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Episode
+     */
+    select?: EpisodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Episode
+     */
+    omit?: EpisodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EpisodeInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -7962,6 +12844,49 @@ export namespace Prisma {
   export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
 
 
+  export const TaskScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    creationDate: 'creationDate',
+    dueDate: 'dueDate',
+    priority: 'priority',
+    status: 'status',
+    title: 'title'
+  };
+
+  export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
+
+
+  export const ShowScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    name: 'name'
+  };
+
+  export type ShowScalarFieldEnum = (typeof ShowScalarFieldEnum)[keyof typeof ShowScalarFieldEnum]
+
+
+  export const SeasonScalarFieldEnum: {
+    id: 'id',
+    showId: 'showId',
+    number: 'number'
+  };
+
+  export type SeasonScalarFieldEnum = (typeof SeasonScalarFieldEnum)[keyof typeof SeasonScalarFieldEnum]
+
+
+  export const EpisodeScalarFieldEnum: {
+    id: 'id',
+    seasonId: 'seasonId',
+    title: 'title',
+    number: 'number',
+    thoughts: 'thoughts',
+    rating: 'rating'
+  };
+
+  export type EpisodeScalarFieldEnum = (typeof EpisodeScalarFieldEnum)[keyof typeof EpisodeScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -8030,6 +12955,34 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Priority'
+   */
+  export type EnumPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Priority'>
+    
+
+
+  /**
+   * Reference to a field of type 'Priority[]'
+   */
+  export type ListEnumPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Priority[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Status'
+   */
+  export type EnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status'>
+    
+
+
+  /**
+   * Reference to a field of type 'Status[]'
+   */
+  export type ListEnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status[]'>
     
 
 
@@ -8268,6 +13221,8 @@ export namespace Prisma {
     sessions?: SessionListRelationFilter
     posts?: PostListRelationFilter
     notes?: NoteListRelationFilter
+    tasks?: TaskListRelationFilter
+    shows?: ShowListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -8280,6 +13235,8 @@ export namespace Prisma {
     sessions?: SessionOrderByRelationAggregateInput
     posts?: PostOrderByRelationAggregateInput
     notes?: NoteOrderByRelationAggregateInput
+    tasks?: TaskOrderByRelationAggregateInput
+    shows?: ShowOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -8295,6 +13252,8 @@ export namespace Prisma {
     sessions?: SessionListRelationFilter
     posts?: PostListRelationFilter
     notes?: NoteListRelationFilter
+    tasks?: TaskListRelationFilter
+    shows?: ShowListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -8410,6 +13369,231 @@ export namespace Prisma {
     identifier?: StringWithAggregatesFilter<"VerificationToken"> | string
     token?: StringWithAggregatesFilter<"VerificationToken"> | string
     expires?: DateTimeWithAggregatesFilter<"VerificationToken"> | Date | string
+  }
+
+  export type TaskWhereInput = {
+    AND?: TaskWhereInput | TaskWhereInput[]
+    OR?: TaskWhereInput[]
+    NOT?: TaskWhereInput | TaskWhereInput[]
+    id?: StringFilter<"Task"> | string
+    userId?: StringFilter<"Task"> | string
+    creationDate?: DateTimeFilter<"Task"> | Date | string
+    dueDate?: DateTimeFilter<"Task"> | Date | string
+    priority?: EnumPriorityFilter<"Task"> | $Enums.Priority
+    status?: EnumStatusFilter<"Task"> | $Enums.Status
+    title?: StringFilter<"Task"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type TaskOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    creationDate?: SortOrder
+    dueDate?: SortOrder
+    priority?: SortOrder
+    status?: SortOrder
+    title?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type TaskWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TaskWhereInput | TaskWhereInput[]
+    OR?: TaskWhereInput[]
+    NOT?: TaskWhereInput | TaskWhereInput[]
+    userId?: StringFilter<"Task"> | string
+    creationDate?: DateTimeFilter<"Task"> | Date | string
+    dueDate?: DateTimeFilter<"Task"> | Date | string
+    priority?: EnumPriorityFilter<"Task"> | $Enums.Priority
+    status?: EnumStatusFilter<"Task"> | $Enums.Status
+    title?: StringFilter<"Task"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type TaskOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    creationDate?: SortOrder
+    dueDate?: SortOrder
+    priority?: SortOrder
+    status?: SortOrder
+    title?: SortOrder
+    _count?: TaskCountOrderByAggregateInput
+    _max?: TaskMaxOrderByAggregateInput
+    _min?: TaskMinOrderByAggregateInput
+  }
+
+  export type TaskScalarWhereWithAggregatesInput = {
+    AND?: TaskScalarWhereWithAggregatesInput | TaskScalarWhereWithAggregatesInput[]
+    OR?: TaskScalarWhereWithAggregatesInput[]
+    NOT?: TaskScalarWhereWithAggregatesInput | TaskScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Task"> | string
+    userId?: StringWithAggregatesFilter<"Task"> | string
+    creationDate?: DateTimeWithAggregatesFilter<"Task"> | Date | string
+    dueDate?: DateTimeWithAggregatesFilter<"Task"> | Date | string
+    priority?: EnumPriorityWithAggregatesFilter<"Task"> | $Enums.Priority
+    status?: EnumStatusWithAggregatesFilter<"Task"> | $Enums.Status
+    title?: StringWithAggregatesFilter<"Task"> | string
+  }
+
+  export type ShowWhereInput = {
+    AND?: ShowWhereInput | ShowWhereInput[]
+    OR?: ShowWhereInput[]
+    NOT?: ShowWhereInput | ShowWhereInput[]
+    id?: StringFilter<"Show"> | string
+    userId?: StringFilter<"Show"> | string
+    name?: StringFilter<"Show"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    seasons?: SeasonListRelationFilter
+  }
+
+  export type ShowOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    user?: UserOrderByWithRelationInput
+    seasons?: SeasonOrderByRelationAggregateInput
+  }
+
+  export type ShowWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ShowWhereInput | ShowWhereInput[]
+    OR?: ShowWhereInput[]
+    NOT?: ShowWhereInput | ShowWhereInput[]
+    userId?: StringFilter<"Show"> | string
+    name?: StringFilter<"Show"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    seasons?: SeasonListRelationFilter
+  }, "id">
+
+  export type ShowOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    _count?: ShowCountOrderByAggregateInput
+    _max?: ShowMaxOrderByAggregateInput
+    _min?: ShowMinOrderByAggregateInput
+  }
+
+  export type ShowScalarWhereWithAggregatesInput = {
+    AND?: ShowScalarWhereWithAggregatesInput | ShowScalarWhereWithAggregatesInput[]
+    OR?: ShowScalarWhereWithAggregatesInput[]
+    NOT?: ShowScalarWhereWithAggregatesInput | ShowScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Show"> | string
+    userId?: StringWithAggregatesFilter<"Show"> | string
+    name?: StringWithAggregatesFilter<"Show"> | string
+  }
+
+  export type SeasonWhereInput = {
+    AND?: SeasonWhereInput | SeasonWhereInput[]
+    OR?: SeasonWhereInput[]
+    NOT?: SeasonWhereInput | SeasonWhereInput[]
+    id?: StringFilter<"Season"> | string
+    showId?: StringFilter<"Season"> | string
+    number?: IntFilter<"Season"> | number
+    show?: XOR<ShowScalarRelationFilter, ShowWhereInput>
+    episodes?: EpisodeListRelationFilter
+  }
+
+  export type SeasonOrderByWithRelationInput = {
+    id?: SortOrder
+    showId?: SortOrder
+    number?: SortOrder
+    show?: ShowOrderByWithRelationInput
+    episodes?: EpisodeOrderByRelationAggregateInput
+  }
+
+  export type SeasonWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SeasonWhereInput | SeasonWhereInput[]
+    OR?: SeasonWhereInput[]
+    NOT?: SeasonWhereInput | SeasonWhereInput[]
+    showId?: StringFilter<"Season"> | string
+    number?: IntFilter<"Season"> | number
+    show?: XOR<ShowScalarRelationFilter, ShowWhereInput>
+    episodes?: EpisodeListRelationFilter
+  }, "id">
+
+  export type SeasonOrderByWithAggregationInput = {
+    id?: SortOrder
+    showId?: SortOrder
+    number?: SortOrder
+    _count?: SeasonCountOrderByAggregateInput
+    _avg?: SeasonAvgOrderByAggregateInput
+    _max?: SeasonMaxOrderByAggregateInput
+    _min?: SeasonMinOrderByAggregateInput
+    _sum?: SeasonSumOrderByAggregateInput
+  }
+
+  export type SeasonScalarWhereWithAggregatesInput = {
+    AND?: SeasonScalarWhereWithAggregatesInput | SeasonScalarWhereWithAggregatesInput[]
+    OR?: SeasonScalarWhereWithAggregatesInput[]
+    NOT?: SeasonScalarWhereWithAggregatesInput | SeasonScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Season"> | string
+    showId?: StringWithAggregatesFilter<"Season"> | string
+    number?: IntWithAggregatesFilter<"Season"> | number
+  }
+
+  export type EpisodeWhereInput = {
+    AND?: EpisodeWhereInput | EpisodeWhereInput[]
+    OR?: EpisodeWhereInput[]
+    NOT?: EpisodeWhereInput | EpisodeWhereInput[]
+    id?: StringFilter<"Episode"> | string
+    seasonId?: StringFilter<"Episode"> | string
+    title?: StringFilter<"Episode"> | string
+    number?: IntFilter<"Episode"> | number
+    thoughts?: StringFilter<"Episode"> | string
+    rating?: IntFilter<"Episode"> | number
+    season?: XOR<SeasonScalarRelationFilter, SeasonWhereInput>
+  }
+
+  export type EpisodeOrderByWithRelationInput = {
+    id?: SortOrder
+    seasonId?: SortOrder
+    title?: SortOrder
+    number?: SortOrder
+    thoughts?: SortOrder
+    rating?: SortOrder
+    season?: SeasonOrderByWithRelationInput
+  }
+
+  export type EpisodeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: EpisodeWhereInput | EpisodeWhereInput[]
+    OR?: EpisodeWhereInput[]
+    NOT?: EpisodeWhereInput | EpisodeWhereInput[]
+    seasonId?: StringFilter<"Episode"> | string
+    title?: StringFilter<"Episode"> | string
+    number?: IntFilter<"Episode"> | number
+    thoughts?: StringFilter<"Episode"> | string
+    rating?: IntFilter<"Episode"> | number
+    season?: XOR<SeasonScalarRelationFilter, SeasonWhereInput>
+  }, "id">
+
+  export type EpisodeOrderByWithAggregationInput = {
+    id?: SortOrder
+    seasonId?: SortOrder
+    title?: SortOrder
+    number?: SortOrder
+    thoughts?: SortOrder
+    rating?: SortOrder
+    _count?: EpisodeCountOrderByAggregateInput
+    _avg?: EpisodeAvgOrderByAggregateInput
+    _max?: EpisodeMaxOrderByAggregateInput
+    _min?: EpisodeMinOrderByAggregateInput
+    _sum?: EpisodeSumOrderByAggregateInput
+  }
+
+  export type EpisodeScalarWhereWithAggregatesInput = {
+    AND?: EpisodeScalarWhereWithAggregatesInput | EpisodeScalarWhereWithAggregatesInput[]
+    OR?: EpisodeScalarWhereWithAggregatesInput[]
+    NOT?: EpisodeScalarWhereWithAggregatesInput | EpisodeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Episode"> | string
+    seasonId?: StringWithAggregatesFilter<"Episode"> | string
+    title?: StringWithAggregatesFilter<"Episode"> | string
+    number?: IntWithAggregatesFilter<"Episode"> | number
+    thoughts?: StringWithAggregatesFilter<"Episode"> | string
+    rating?: IntWithAggregatesFilter<"Episode"> | number
   }
 
   export type PostCreateInput = {
@@ -8633,6 +13817,8 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
     notes?: NoteCreateNestedManyWithoutUserInput
+    tasks?: TaskCreateNestedManyWithoutUserInput
+    shows?: ShowCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -8645,6 +13831,8 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
     notes?: NoteUncheckedCreateNestedManyWithoutUserInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutUserInput
+    shows?: ShowUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -8657,6 +13845,8 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutCreatedByNestedInput
     notes?: NoteUpdateManyWithoutUserNestedInput
+    tasks?: TaskUpdateManyWithoutUserNestedInput
+    shows?: ShowUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -8669,6 +13859,8 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
     notes?: NoteUncheckedUpdateManyWithoutUserNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutUserNestedInput
+    shows?: ShowUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -8783,6 +13975,227 @@ export namespace Prisma {
     identifier?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TaskCreateInput = {
+    id?: string
+    creationDate: Date | string
+    dueDate?: Date | string
+    priority?: $Enums.Priority
+    status?: $Enums.Status
+    title?: string
+    user: UserCreateNestedOneWithoutTasksInput
+  }
+
+  export type TaskUncheckedCreateInput = {
+    id?: string
+    userId: string
+    creationDate: Date | string
+    dueDate?: Date | string
+    priority?: $Enums.Priority
+    status?: $Enums.Status
+    title?: string
+  }
+
+  export type TaskUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    creationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    title?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutTasksNestedInput
+  }
+
+  export type TaskUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    creationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    title?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TaskCreateManyInput = {
+    id?: string
+    userId: string
+    creationDate: Date | string
+    dueDate?: Date | string
+    priority?: $Enums.Priority
+    status?: $Enums.Status
+    title?: string
+  }
+
+  export type TaskUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    creationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    title?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TaskUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    creationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    title?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ShowCreateInput = {
+    id?: string
+    name: string
+    user: UserCreateNestedOneWithoutShowsInput
+    seasons?: SeasonCreateNestedManyWithoutShowInput
+  }
+
+  export type ShowUncheckedCreateInput = {
+    id?: string
+    userId: string
+    name: string
+    seasons?: SeasonUncheckedCreateNestedManyWithoutShowInput
+  }
+
+  export type ShowUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutShowsNestedInput
+    seasons?: SeasonUpdateManyWithoutShowNestedInput
+  }
+
+  export type ShowUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    seasons?: SeasonUncheckedUpdateManyWithoutShowNestedInput
+  }
+
+  export type ShowCreateManyInput = {
+    id?: string
+    userId: string
+    name: string
+  }
+
+  export type ShowUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ShowUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SeasonCreateInput = {
+    id?: string
+    number: number
+    show: ShowCreateNestedOneWithoutSeasonsInput
+    episodes?: EpisodeCreateNestedManyWithoutSeasonInput
+  }
+
+  export type SeasonUncheckedCreateInput = {
+    id?: string
+    showId: string
+    number: number
+    episodes?: EpisodeUncheckedCreateNestedManyWithoutSeasonInput
+  }
+
+  export type SeasonUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    show?: ShowUpdateOneRequiredWithoutSeasonsNestedInput
+    episodes?: EpisodeUpdateManyWithoutSeasonNestedInput
+  }
+
+  export type SeasonUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    showId?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    episodes?: EpisodeUncheckedUpdateManyWithoutSeasonNestedInput
+  }
+
+  export type SeasonCreateManyInput = {
+    id?: string
+    showId: string
+    number: number
+  }
+
+  export type SeasonUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SeasonUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    showId?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type EpisodeCreateInput = {
+    id?: string
+    title: string
+    number: number
+    thoughts: string
+    rating: number
+    season: SeasonCreateNestedOneWithoutEpisodesInput
+  }
+
+  export type EpisodeUncheckedCreateInput = {
+    id?: string
+    seasonId: string
+    title: string
+    number: number
+    thoughts: string
+    rating: number
+  }
+
+  export type EpisodeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    thoughts?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    season?: SeasonUpdateOneRequiredWithoutEpisodesNestedInput
+  }
+
+  export type EpisodeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    seasonId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    thoughts?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type EpisodeCreateManyInput = {
+    id?: string
+    seasonId: string
+    title: string
+    number: number
+    thoughts: string
+    rating: number
+  }
+
+  export type EpisodeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    thoughts?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type EpisodeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    seasonId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    thoughts?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -9091,6 +14504,18 @@ export namespace Prisma {
     none?: NoteWhereInput
   }
 
+  export type TaskListRelationFilter = {
+    every?: TaskWhereInput
+    some?: TaskWhereInput
+    none?: TaskWhereInput
+  }
+
+  export type ShowListRelationFilter = {
+    every?: ShowWhereInput
+    some?: ShowWhereInput
+    none?: ShowWhereInput
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -9104,6 +14529,14 @@ export namespace Prisma {
   }
 
   export type NoteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TaskOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ShowOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9187,6 +14620,181 @@ export namespace Prisma {
     identifier?: SortOrder
     token?: SortOrder
     expires?: SortOrder
+  }
+
+  export type EnumPriorityFilter<$PrismaModel = never> = {
+    equals?: $Enums.Priority | EnumPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumPriorityFilter<$PrismaModel> | $Enums.Priority
+  }
+
+  export type EnumStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusFilter<$PrismaModel> | $Enums.Status
+  }
+
+  export type TaskCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    creationDate?: SortOrder
+    dueDate?: SortOrder
+    priority?: SortOrder
+    status?: SortOrder
+    title?: SortOrder
+  }
+
+  export type TaskMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    creationDate?: SortOrder
+    dueDate?: SortOrder
+    priority?: SortOrder
+    status?: SortOrder
+    title?: SortOrder
+  }
+
+  export type TaskMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    creationDate?: SortOrder
+    dueDate?: SortOrder
+    priority?: SortOrder
+    status?: SortOrder
+    title?: SortOrder
+  }
+
+  export type EnumPriorityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Priority | EnumPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumPriorityWithAggregatesFilter<$PrismaModel> | $Enums.Priority
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPriorityFilter<$PrismaModel>
+    _max?: NestedEnumPriorityFilter<$PrismaModel>
+  }
+
+  export type EnumStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusWithAggregatesFilter<$PrismaModel> | $Enums.Status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusFilter<$PrismaModel>
+    _max?: NestedEnumStatusFilter<$PrismaModel>
+  }
+
+  export type SeasonListRelationFilter = {
+    every?: SeasonWhereInput
+    some?: SeasonWhereInput
+    none?: SeasonWhereInput
+  }
+
+  export type SeasonOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ShowCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+  }
+
+  export type ShowMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+  }
+
+  export type ShowMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+  }
+
+  export type ShowScalarRelationFilter = {
+    is?: ShowWhereInput
+    isNot?: ShowWhereInput
+  }
+
+  export type EpisodeListRelationFilter = {
+    every?: EpisodeWhereInput
+    some?: EpisodeWhereInput
+    none?: EpisodeWhereInput
+  }
+
+  export type EpisodeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SeasonCountOrderByAggregateInput = {
+    id?: SortOrder
+    showId?: SortOrder
+    number?: SortOrder
+  }
+
+  export type SeasonAvgOrderByAggregateInput = {
+    number?: SortOrder
+  }
+
+  export type SeasonMaxOrderByAggregateInput = {
+    id?: SortOrder
+    showId?: SortOrder
+    number?: SortOrder
+  }
+
+  export type SeasonMinOrderByAggregateInput = {
+    id?: SortOrder
+    showId?: SortOrder
+    number?: SortOrder
+  }
+
+  export type SeasonSumOrderByAggregateInput = {
+    number?: SortOrder
+  }
+
+  export type SeasonScalarRelationFilter = {
+    is?: SeasonWhereInput
+    isNot?: SeasonWhereInput
+  }
+
+  export type EpisodeCountOrderByAggregateInput = {
+    id?: SortOrder
+    seasonId?: SortOrder
+    title?: SortOrder
+    number?: SortOrder
+    thoughts?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type EpisodeAvgOrderByAggregateInput = {
+    number?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type EpisodeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    seasonId?: SortOrder
+    title?: SortOrder
+    number?: SortOrder
+    thoughts?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type EpisodeMinOrderByAggregateInput = {
+    id?: SortOrder
+    seasonId?: SortOrder
+    title?: SortOrder
+    number?: SortOrder
+    thoughts?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type EpisodeSumOrderByAggregateInput = {
+    number?: SortOrder
+    rating?: SortOrder
   }
 
   export type UserCreateNestedOneWithoutPostsInput = {
@@ -9287,6 +14895,20 @@ export namespace Prisma {
     connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
   }
 
+  export type TaskCreateNestedManyWithoutUserInput = {
+    create?: XOR<TaskCreateWithoutUserInput, TaskUncheckedCreateWithoutUserInput> | TaskCreateWithoutUserInput[] | TaskUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TaskCreateOrConnectWithoutUserInput | TaskCreateOrConnectWithoutUserInput[]
+    createMany?: TaskCreateManyUserInputEnvelope
+    connect?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+  }
+
+  export type ShowCreateNestedManyWithoutUserInput = {
+    create?: XOR<ShowCreateWithoutUserInput, ShowUncheckedCreateWithoutUserInput> | ShowCreateWithoutUserInput[] | ShowUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ShowCreateOrConnectWithoutUserInput | ShowCreateOrConnectWithoutUserInput[]
+    createMany?: ShowCreateManyUserInputEnvelope
+    connect?: ShowWhereUniqueInput | ShowWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -9313,6 +14935,20 @@ export namespace Prisma {
     connectOrCreate?: NoteCreateOrConnectWithoutUserInput | NoteCreateOrConnectWithoutUserInput[]
     createMany?: NoteCreateManyUserInputEnvelope
     connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
+  }
+
+  export type TaskUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<TaskCreateWithoutUserInput, TaskUncheckedCreateWithoutUserInput> | TaskCreateWithoutUserInput[] | TaskUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TaskCreateOrConnectWithoutUserInput | TaskCreateOrConnectWithoutUserInput[]
+    createMany?: TaskCreateManyUserInputEnvelope
+    connect?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+  }
+
+  export type ShowUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ShowCreateWithoutUserInput, ShowUncheckedCreateWithoutUserInput> | ShowCreateWithoutUserInput[] | ShowUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ShowCreateOrConnectWithoutUserInput | ShowCreateOrConnectWithoutUserInput[]
+    createMany?: ShowCreateManyUserInputEnvelope
+    connect?: ShowWhereUniqueInput | ShowWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -9375,6 +15011,34 @@ export namespace Prisma {
     deleteMany?: NoteScalarWhereInput | NoteScalarWhereInput[]
   }
 
+  export type TaskUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TaskCreateWithoutUserInput, TaskUncheckedCreateWithoutUserInput> | TaskCreateWithoutUserInput[] | TaskUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TaskCreateOrConnectWithoutUserInput | TaskCreateOrConnectWithoutUserInput[]
+    upsert?: TaskUpsertWithWhereUniqueWithoutUserInput | TaskUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TaskCreateManyUserInputEnvelope
+    set?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    disconnect?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    delete?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    connect?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    update?: TaskUpdateWithWhereUniqueWithoutUserInput | TaskUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TaskUpdateManyWithWhereWithoutUserInput | TaskUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TaskScalarWhereInput | TaskScalarWhereInput[]
+  }
+
+  export type ShowUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ShowCreateWithoutUserInput, ShowUncheckedCreateWithoutUserInput> | ShowCreateWithoutUserInput[] | ShowUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ShowCreateOrConnectWithoutUserInput | ShowCreateOrConnectWithoutUserInput[]
+    upsert?: ShowUpsertWithWhereUniqueWithoutUserInput | ShowUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ShowCreateManyUserInputEnvelope
+    set?: ShowWhereUniqueInput | ShowWhereUniqueInput[]
+    disconnect?: ShowWhereUniqueInput | ShowWhereUniqueInput[]
+    delete?: ShowWhereUniqueInput | ShowWhereUniqueInput[]
+    connect?: ShowWhereUniqueInput | ShowWhereUniqueInput[]
+    update?: ShowUpdateWithWhereUniqueWithoutUserInput | ShowUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ShowUpdateManyWithWhereWithoutUserInput | ShowUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ShowScalarWhereInput | ShowScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -9431,6 +15095,34 @@ export namespace Prisma {
     deleteMany?: NoteScalarWhereInput | NoteScalarWhereInput[]
   }
 
+  export type TaskUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TaskCreateWithoutUserInput, TaskUncheckedCreateWithoutUserInput> | TaskCreateWithoutUserInput[] | TaskUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TaskCreateOrConnectWithoutUserInput | TaskCreateOrConnectWithoutUserInput[]
+    upsert?: TaskUpsertWithWhereUniqueWithoutUserInput | TaskUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TaskCreateManyUserInputEnvelope
+    set?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    disconnect?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    delete?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    connect?: TaskWhereUniqueInput | TaskWhereUniqueInput[]
+    update?: TaskUpdateWithWhereUniqueWithoutUserInput | TaskUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TaskUpdateManyWithWhereWithoutUserInput | TaskUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TaskScalarWhereInput | TaskScalarWhereInput[]
+  }
+
+  export type ShowUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ShowCreateWithoutUserInput, ShowUncheckedCreateWithoutUserInput> | ShowCreateWithoutUserInput[] | ShowUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ShowCreateOrConnectWithoutUserInput | ShowCreateOrConnectWithoutUserInput[]
+    upsert?: ShowUpsertWithWhereUniqueWithoutUserInput | ShowUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ShowCreateManyUserInputEnvelope
+    set?: ShowWhereUniqueInput | ShowWhereUniqueInput[]
+    disconnect?: ShowWhereUniqueInput | ShowWhereUniqueInput[]
+    delete?: ShowWhereUniqueInput | ShowWhereUniqueInput[]
+    connect?: ShowWhereUniqueInput | ShowWhereUniqueInput[]
+    update?: ShowUpdateWithWhereUniqueWithoutUserInput | ShowUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ShowUpdateManyWithWhereWithoutUserInput | ShowUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ShowScalarWhereInput | ShowScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutNotesInput = {
     create?: XOR<UserCreateWithoutNotesInput, UserUncheckedCreateWithoutNotesInput>
     connectOrCreate?: UserCreateOrConnectWithoutNotesInput
@@ -9443,6 +15135,154 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutNotesInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotesInput, UserUpdateWithoutNotesInput>, UserUncheckedUpdateWithoutNotesInput>
+  }
+
+  export type UserCreateNestedOneWithoutTasksInput = {
+    create?: XOR<UserCreateWithoutTasksInput, UserUncheckedCreateWithoutTasksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTasksInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumPriorityFieldUpdateOperationsInput = {
+    set?: $Enums.Priority
+  }
+
+  export type EnumStatusFieldUpdateOperationsInput = {
+    set?: $Enums.Status
+  }
+
+  export type UserUpdateOneRequiredWithoutTasksNestedInput = {
+    create?: XOR<UserCreateWithoutTasksInput, UserUncheckedCreateWithoutTasksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTasksInput
+    upsert?: UserUpsertWithoutTasksInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTasksInput, UserUpdateWithoutTasksInput>, UserUncheckedUpdateWithoutTasksInput>
+  }
+
+  export type UserCreateNestedOneWithoutShowsInput = {
+    create?: XOR<UserCreateWithoutShowsInput, UserUncheckedCreateWithoutShowsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutShowsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type SeasonCreateNestedManyWithoutShowInput = {
+    create?: XOR<SeasonCreateWithoutShowInput, SeasonUncheckedCreateWithoutShowInput> | SeasonCreateWithoutShowInput[] | SeasonUncheckedCreateWithoutShowInput[]
+    connectOrCreate?: SeasonCreateOrConnectWithoutShowInput | SeasonCreateOrConnectWithoutShowInput[]
+    createMany?: SeasonCreateManyShowInputEnvelope
+    connect?: SeasonWhereUniqueInput | SeasonWhereUniqueInput[]
+  }
+
+  export type SeasonUncheckedCreateNestedManyWithoutShowInput = {
+    create?: XOR<SeasonCreateWithoutShowInput, SeasonUncheckedCreateWithoutShowInput> | SeasonCreateWithoutShowInput[] | SeasonUncheckedCreateWithoutShowInput[]
+    connectOrCreate?: SeasonCreateOrConnectWithoutShowInput | SeasonCreateOrConnectWithoutShowInput[]
+    createMany?: SeasonCreateManyShowInputEnvelope
+    connect?: SeasonWhereUniqueInput | SeasonWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutShowsNestedInput = {
+    create?: XOR<UserCreateWithoutShowsInput, UserUncheckedCreateWithoutShowsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutShowsInput
+    upsert?: UserUpsertWithoutShowsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutShowsInput, UserUpdateWithoutShowsInput>, UserUncheckedUpdateWithoutShowsInput>
+  }
+
+  export type SeasonUpdateManyWithoutShowNestedInput = {
+    create?: XOR<SeasonCreateWithoutShowInput, SeasonUncheckedCreateWithoutShowInput> | SeasonCreateWithoutShowInput[] | SeasonUncheckedCreateWithoutShowInput[]
+    connectOrCreate?: SeasonCreateOrConnectWithoutShowInput | SeasonCreateOrConnectWithoutShowInput[]
+    upsert?: SeasonUpsertWithWhereUniqueWithoutShowInput | SeasonUpsertWithWhereUniqueWithoutShowInput[]
+    createMany?: SeasonCreateManyShowInputEnvelope
+    set?: SeasonWhereUniqueInput | SeasonWhereUniqueInput[]
+    disconnect?: SeasonWhereUniqueInput | SeasonWhereUniqueInput[]
+    delete?: SeasonWhereUniqueInput | SeasonWhereUniqueInput[]
+    connect?: SeasonWhereUniqueInput | SeasonWhereUniqueInput[]
+    update?: SeasonUpdateWithWhereUniqueWithoutShowInput | SeasonUpdateWithWhereUniqueWithoutShowInput[]
+    updateMany?: SeasonUpdateManyWithWhereWithoutShowInput | SeasonUpdateManyWithWhereWithoutShowInput[]
+    deleteMany?: SeasonScalarWhereInput | SeasonScalarWhereInput[]
+  }
+
+  export type SeasonUncheckedUpdateManyWithoutShowNestedInput = {
+    create?: XOR<SeasonCreateWithoutShowInput, SeasonUncheckedCreateWithoutShowInput> | SeasonCreateWithoutShowInput[] | SeasonUncheckedCreateWithoutShowInput[]
+    connectOrCreate?: SeasonCreateOrConnectWithoutShowInput | SeasonCreateOrConnectWithoutShowInput[]
+    upsert?: SeasonUpsertWithWhereUniqueWithoutShowInput | SeasonUpsertWithWhereUniqueWithoutShowInput[]
+    createMany?: SeasonCreateManyShowInputEnvelope
+    set?: SeasonWhereUniqueInput | SeasonWhereUniqueInput[]
+    disconnect?: SeasonWhereUniqueInput | SeasonWhereUniqueInput[]
+    delete?: SeasonWhereUniqueInput | SeasonWhereUniqueInput[]
+    connect?: SeasonWhereUniqueInput | SeasonWhereUniqueInput[]
+    update?: SeasonUpdateWithWhereUniqueWithoutShowInput | SeasonUpdateWithWhereUniqueWithoutShowInput[]
+    updateMany?: SeasonUpdateManyWithWhereWithoutShowInput | SeasonUpdateManyWithWhereWithoutShowInput[]
+    deleteMany?: SeasonScalarWhereInput | SeasonScalarWhereInput[]
+  }
+
+  export type ShowCreateNestedOneWithoutSeasonsInput = {
+    create?: XOR<ShowCreateWithoutSeasonsInput, ShowUncheckedCreateWithoutSeasonsInput>
+    connectOrCreate?: ShowCreateOrConnectWithoutSeasonsInput
+    connect?: ShowWhereUniqueInput
+  }
+
+  export type EpisodeCreateNestedManyWithoutSeasonInput = {
+    create?: XOR<EpisodeCreateWithoutSeasonInput, EpisodeUncheckedCreateWithoutSeasonInput> | EpisodeCreateWithoutSeasonInput[] | EpisodeUncheckedCreateWithoutSeasonInput[]
+    connectOrCreate?: EpisodeCreateOrConnectWithoutSeasonInput | EpisodeCreateOrConnectWithoutSeasonInput[]
+    createMany?: EpisodeCreateManySeasonInputEnvelope
+    connect?: EpisodeWhereUniqueInput | EpisodeWhereUniqueInput[]
+  }
+
+  export type EpisodeUncheckedCreateNestedManyWithoutSeasonInput = {
+    create?: XOR<EpisodeCreateWithoutSeasonInput, EpisodeUncheckedCreateWithoutSeasonInput> | EpisodeCreateWithoutSeasonInput[] | EpisodeUncheckedCreateWithoutSeasonInput[]
+    connectOrCreate?: EpisodeCreateOrConnectWithoutSeasonInput | EpisodeCreateOrConnectWithoutSeasonInput[]
+    createMany?: EpisodeCreateManySeasonInputEnvelope
+    connect?: EpisodeWhereUniqueInput | EpisodeWhereUniqueInput[]
+  }
+
+  export type ShowUpdateOneRequiredWithoutSeasonsNestedInput = {
+    create?: XOR<ShowCreateWithoutSeasonsInput, ShowUncheckedCreateWithoutSeasonsInput>
+    connectOrCreate?: ShowCreateOrConnectWithoutSeasonsInput
+    upsert?: ShowUpsertWithoutSeasonsInput
+    connect?: ShowWhereUniqueInput
+    update?: XOR<XOR<ShowUpdateToOneWithWhereWithoutSeasonsInput, ShowUpdateWithoutSeasonsInput>, ShowUncheckedUpdateWithoutSeasonsInput>
+  }
+
+  export type EpisodeUpdateManyWithoutSeasonNestedInput = {
+    create?: XOR<EpisodeCreateWithoutSeasonInput, EpisodeUncheckedCreateWithoutSeasonInput> | EpisodeCreateWithoutSeasonInput[] | EpisodeUncheckedCreateWithoutSeasonInput[]
+    connectOrCreate?: EpisodeCreateOrConnectWithoutSeasonInput | EpisodeCreateOrConnectWithoutSeasonInput[]
+    upsert?: EpisodeUpsertWithWhereUniqueWithoutSeasonInput | EpisodeUpsertWithWhereUniqueWithoutSeasonInput[]
+    createMany?: EpisodeCreateManySeasonInputEnvelope
+    set?: EpisodeWhereUniqueInput | EpisodeWhereUniqueInput[]
+    disconnect?: EpisodeWhereUniqueInput | EpisodeWhereUniqueInput[]
+    delete?: EpisodeWhereUniqueInput | EpisodeWhereUniqueInput[]
+    connect?: EpisodeWhereUniqueInput | EpisodeWhereUniqueInput[]
+    update?: EpisodeUpdateWithWhereUniqueWithoutSeasonInput | EpisodeUpdateWithWhereUniqueWithoutSeasonInput[]
+    updateMany?: EpisodeUpdateManyWithWhereWithoutSeasonInput | EpisodeUpdateManyWithWhereWithoutSeasonInput[]
+    deleteMany?: EpisodeScalarWhereInput | EpisodeScalarWhereInput[]
+  }
+
+  export type EpisodeUncheckedUpdateManyWithoutSeasonNestedInput = {
+    create?: XOR<EpisodeCreateWithoutSeasonInput, EpisodeUncheckedCreateWithoutSeasonInput> | EpisodeCreateWithoutSeasonInput[] | EpisodeUncheckedCreateWithoutSeasonInput[]
+    connectOrCreate?: EpisodeCreateOrConnectWithoutSeasonInput | EpisodeCreateOrConnectWithoutSeasonInput[]
+    upsert?: EpisodeUpsertWithWhereUniqueWithoutSeasonInput | EpisodeUpsertWithWhereUniqueWithoutSeasonInput[]
+    createMany?: EpisodeCreateManySeasonInputEnvelope
+    set?: EpisodeWhereUniqueInput | EpisodeWhereUniqueInput[]
+    disconnect?: EpisodeWhereUniqueInput | EpisodeWhereUniqueInput[]
+    delete?: EpisodeWhereUniqueInput | EpisodeWhereUniqueInput[]
+    connect?: EpisodeWhereUniqueInput | EpisodeWhereUniqueInput[]
+    update?: EpisodeUpdateWithWhereUniqueWithoutSeasonInput | EpisodeUpdateWithWhereUniqueWithoutSeasonInput[]
+    updateMany?: EpisodeUpdateManyWithWhereWithoutSeasonInput | EpisodeUpdateManyWithWhereWithoutSeasonInput[]
+    deleteMany?: EpisodeScalarWhereInput | EpisodeScalarWhereInput[]
+  }
+
+  export type SeasonCreateNestedOneWithoutEpisodesInput = {
+    create?: XOR<SeasonCreateWithoutEpisodesInput, SeasonUncheckedCreateWithoutEpisodesInput>
+    connectOrCreate?: SeasonCreateOrConnectWithoutEpisodesInput
+    connect?: SeasonWhereUniqueInput
+  }
+
+  export type SeasonUpdateOneRequiredWithoutEpisodesNestedInput = {
+    create?: XOR<SeasonCreateWithoutEpisodesInput, SeasonUncheckedCreateWithoutEpisodesInput>
+    connectOrCreate?: SeasonCreateOrConnectWithoutEpisodesInput
+    upsert?: SeasonUpsertWithoutEpisodesInput
+    connect?: SeasonWhereUniqueInput
+    update?: XOR<XOR<SeasonUpdateToOneWithWhereWithoutEpisodesInput, SeasonUpdateWithoutEpisodesInput>, SeasonUncheckedUpdateWithoutEpisodesInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -9633,6 +15473,40 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumPriorityFilter<$PrismaModel = never> = {
+    equals?: $Enums.Priority | EnumPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumPriorityFilter<$PrismaModel> | $Enums.Priority
+  }
+
+  export type NestedEnumStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusFilter<$PrismaModel> | $Enums.Status
+  }
+
+  export type NestedEnumPriorityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Priority | EnumPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumPriorityWithAggregatesFilter<$PrismaModel> | $Enums.Priority
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPriorityFilter<$PrismaModel>
+    _max?: NestedEnumPriorityFilter<$PrismaModel>
+  }
+
+  export type NestedEnumStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusWithAggregatesFilter<$PrismaModel> | $Enums.Status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusFilter<$PrismaModel>
+    _max?: NestedEnumStatusFilter<$PrismaModel>
+  }
+
   export type UserCreateWithoutPostsInput = {
     id?: string
     name?: string | null
@@ -9642,6 +15516,8 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     notes?: NoteCreateNestedManyWithoutUserInput
+    tasks?: TaskCreateNestedManyWithoutUserInput
+    shows?: ShowCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPostsInput = {
@@ -9653,6 +15529,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     notes?: NoteUncheckedCreateNestedManyWithoutUserInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutUserInput
+    shows?: ShowUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPostsInput = {
@@ -9680,6 +15558,8 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     notes?: NoteUpdateManyWithoutUserNestedInput
+    tasks?: TaskUpdateManyWithoutUserNestedInput
+    shows?: ShowUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPostsInput = {
@@ -9691,6 +15571,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     notes?: NoteUncheckedUpdateManyWithoutUserNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutUserNestedInput
+    shows?: ShowUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -9702,6 +15584,8 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
     notes?: NoteCreateNestedManyWithoutUserInput
+    tasks?: TaskCreateNestedManyWithoutUserInput
+    shows?: ShowCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -9713,6 +15597,8 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
     notes?: NoteUncheckedCreateNestedManyWithoutUserInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutUserInput
+    shows?: ShowUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -9740,6 +15626,8 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutCreatedByNestedInput
     notes?: NoteUpdateManyWithoutUserNestedInput
+    tasks?: TaskUpdateManyWithoutUserNestedInput
+    shows?: ShowUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -9751,6 +15639,8 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
     notes?: NoteUncheckedUpdateManyWithoutUserNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutUserNestedInput
+    shows?: ShowUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -9762,6 +15652,8 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
     notes?: NoteCreateNestedManyWithoutUserInput
+    tasks?: TaskCreateNestedManyWithoutUserInput
+    shows?: ShowCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -9773,6 +15665,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
     notes?: NoteUncheckedCreateNestedManyWithoutUserInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutUserInput
+    shows?: ShowUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -9800,6 +15694,8 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutCreatedByNestedInput
     notes?: NoteUpdateManyWithoutUserNestedInput
+    tasks?: TaskUpdateManyWithoutUserNestedInput
+    shows?: ShowUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -9811,6 +15707,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
     notes?: NoteUncheckedUpdateManyWithoutUserNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutUserNestedInput
+    shows?: ShowUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -9917,6 +15815,56 @@ export namespace Prisma {
 
   export type NoteCreateManyUserInputEnvelope = {
     data: NoteCreateManyUserInput | NoteCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TaskCreateWithoutUserInput = {
+    id?: string
+    creationDate: Date | string
+    dueDate?: Date | string
+    priority?: $Enums.Priority
+    status?: $Enums.Status
+    title?: string
+  }
+
+  export type TaskUncheckedCreateWithoutUserInput = {
+    id?: string
+    creationDate: Date | string
+    dueDate?: Date | string
+    priority?: $Enums.Priority
+    status?: $Enums.Status
+    title?: string
+  }
+
+  export type TaskCreateOrConnectWithoutUserInput = {
+    where: TaskWhereUniqueInput
+    create: XOR<TaskCreateWithoutUserInput, TaskUncheckedCreateWithoutUserInput>
+  }
+
+  export type TaskCreateManyUserInputEnvelope = {
+    data: TaskCreateManyUserInput | TaskCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ShowCreateWithoutUserInput = {
+    id?: string
+    name: string
+    seasons?: SeasonCreateNestedManyWithoutShowInput
+  }
+
+  export type ShowUncheckedCreateWithoutUserInput = {
+    id?: string
+    name: string
+    seasons?: SeasonUncheckedCreateNestedManyWithoutShowInput
+  }
+
+  export type ShowCreateOrConnectWithoutUserInput = {
+    where: ShowWhereUniqueInput
+    create: XOR<ShowCreateWithoutUserInput, ShowUncheckedCreateWithoutUserInput>
+  }
+
+  export type ShowCreateManyUserInputEnvelope = {
+    data: ShowCreateManyUserInput | ShowCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -10034,6 +15982,60 @@ export namespace Prisma {
     userId?: StringFilter<"Note"> | string
   }
 
+  export type TaskUpsertWithWhereUniqueWithoutUserInput = {
+    where: TaskWhereUniqueInput
+    update: XOR<TaskUpdateWithoutUserInput, TaskUncheckedUpdateWithoutUserInput>
+    create: XOR<TaskCreateWithoutUserInput, TaskUncheckedCreateWithoutUserInput>
+  }
+
+  export type TaskUpdateWithWhereUniqueWithoutUserInput = {
+    where: TaskWhereUniqueInput
+    data: XOR<TaskUpdateWithoutUserInput, TaskUncheckedUpdateWithoutUserInput>
+  }
+
+  export type TaskUpdateManyWithWhereWithoutUserInput = {
+    where: TaskScalarWhereInput
+    data: XOR<TaskUpdateManyMutationInput, TaskUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type TaskScalarWhereInput = {
+    AND?: TaskScalarWhereInput | TaskScalarWhereInput[]
+    OR?: TaskScalarWhereInput[]
+    NOT?: TaskScalarWhereInput | TaskScalarWhereInput[]
+    id?: StringFilter<"Task"> | string
+    userId?: StringFilter<"Task"> | string
+    creationDate?: DateTimeFilter<"Task"> | Date | string
+    dueDate?: DateTimeFilter<"Task"> | Date | string
+    priority?: EnumPriorityFilter<"Task"> | $Enums.Priority
+    status?: EnumStatusFilter<"Task"> | $Enums.Status
+    title?: StringFilter<"Task"> | string
+  }
+
+  export type ShowUpsertWithWhereUniqueWithoutUserInput = {
+    where: ShowWhereUniqueInput
+    update: XOR<ShowUpdateWithoutUserInput, ShowUncheckedUpdateWithoutUserInput>
+    create: XOR<ShowCreateWithoutUserInput, ShowUncheckedCreateWithoutUserInput>
+  }
+
+  export type ShowUpdateWithWhereUniqueWithoutUserInput = {
+    where: ShowWhereUniqueInput
+    data: XOR<ShowUpdateWithoutUserInput, ShowUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ShowUpdateManyWithWhereWithoutUserInput = {
+    where: ShowScalarWhereInput
+    data: XOR<ShowUpdateManyMutationInput, ShowUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ShowScalarWhereInput = {
+    AND?: ShowScalarWhereInput | ShowScalarWhereInput[]
+    OR?: ShowScalarWhereInput[]
+    NOT?: ShowScalarWhereInput | ShowScalarWhereInput[]
+    id?: StringFilter<"Show"> | string
+    userId?: StringFilter<"Show"> | string
+    name?: StringFilter<"Show"> | string
+  }
+
   export type UserCreateWithoutNotesInput = {
     id?: string
     name?: string | null
@@ -10043,6 +16045,8 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
+    tasks?: TaskCreateNestedManyWithoutUserInput
+    shows?: ShowCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotesInput = {
@@ -10054,6 +16058,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutUserInput
+    shows?: ShowUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotesInput = {
@@ -10081,6 +16087,8 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutCreatedByNestedInput
+    tasks?: TaskUpdateManyWithoutUserNestedInput
+    shows?: ShowUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotesInput = {
@@ -10092,6 +16100,325 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutUserNestedInput
+    shows?: ShowUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutTasksInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    posts?: PostCreateNestedManyWithoutCreatedByInput
+    notes?: NoteCreateNestedManyWithoutUserInput
+    shows?: ShowCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutTasksInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    notes?: NoteUncheckedCreateNestedManyWithoutUserInput
+    shows?: ShowUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutTasksInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTasksInput, UserUncheckedCreateWithoutTasksInput>
+  }
+
+  export type UserUpsertWithoutTasksInput = {
+    update: XOR<UserUpdateWithoutTasksInput, UserUncheckedUpdateWithoutTasksInput>
+    create: XOR<UserCreateWithoutTasksInput, UserUncheckedCreateWithoutTasksInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTasksInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTasksInput, UserUncheckedUpdateWithoutTasksInput>
+  }
+
+  export type UserUpdateWithoutTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    posts?: PostUpdateManyWithoutCreatedByNestedInput
+    notes?: NoteUpdateManyWithoutUserNestedInput
+    shows?: ShowUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    notes?: NoteUncheckedUpdateManyWithoutUserNestedInput
+    shows?: ShowUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutShowsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    posts?: PostCreateNestedManyWithoutCreatedByInput
+    notes?: NoteCreateNestedManyWithoutUserInput
+    tasks?: TaskCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutShowsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    notes?: NoteUncheckedCreateNestedManyWithoutUserInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutShowsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutShowsInput, UserUncheckedCreateWithoutShowsInput>
+  }
+
+  export type SeasonCreateWithoutShowInput = {
+    id?: string
+    number: number
+    episodes?: EpisodeCreateNestedManyWithoutSeasonInput
+  }
+
+  export type SeasonUncheckedCreateWithoutShowInput = {
+    id?: string
+    number: number
+    episodes?: EpisodeUncheckedCreateNestedManyWithoutSeasonInput
+  }
+
+  export type SeasonCreateOrConnectWithoutShowInput = {
+    where: SeasonWhereUniqueInput
+    create: XOR<SeasonCreateWithoutShowInput, SeasonUncheckedCreateWithoutShowInput>
+  }
+
+  export type SeasonCreateManyShowInputEnvelope = {
+    data: SeasonCreateManyShowInput | SeasonCreateManyShowInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutShowsInput = {
+    update: XOR<UserUpdateWithoutShowsInput, UserUncheckedUpdateWithoutShowsInput>
+    create: XOR<UserCreateWithoutShowsInput, UserUncheckedCreateWithoutShowsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutShowsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutShowsInput, UserUncheckedUpdateWithoutShowsInput>
+  }
+
+  export type UserUpdateWithoutShowsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    posts?: PostUpdateManyWithoutCreatedByNestedInput
+    notes?: NoteUpdateManyWithoutUserNestedInput
+    tasks?: TaskUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutShowsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    notes?: NoteUncheckedUpdateManyWithoutUserNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type SeasonUpsertWithWhereUniqueWithoutShowInput = {
+    where: SeasonWhereUniqueInput
+    update: XOR<SeasonUpdateWithoutShowInput, SeasonUncheckedUpdateWithoutShowInput>
+    create: XOR<SeasonCreateWithoutShowInput, SeasonUncheckedCreateWithoutShowInput>
+  }
+
+  export type SeasonUpdateWithWhereUniqueWithoutShowInput = {
+    where: SeasonWhereUniqueInput
+    data: XOR<SeasonUpdateWithoutShowInput, SeasonUncheckedUpdateWithoutShowInput>
+  }
+
+  export type SeasonUpdateManyWithWhereWithoutShowInput = {
+    where: SeasonScalarWhereInput
+    data: XOR<SeasonUpdateManyMutationInput, SeasonUncheckedUpdateManyWithoutShowInput>
+  }
+
+  export type SeasonScalarWhereInput = {
+    AND?: SeasonScalarWhereInput | SeasonScalarWhereInput[]
+    OR?: SeasonScalarWhereInput[]
+    NOT?: SeasonScalarWhereInput | SeasonScalarWhereInput[]
+    id?: StringFilter<"Season"> | string
+    showId?: StringFilter<"Season"> | string
+    number?: IntFilter<"Season"> | number
+  }
+
+  export type ShowCreateWithoutSeasonsInput = {
+    id?: string
+    name: string
+    user: UserCreateNestedOneWithoutShowsInput
+  }
+
+  export type ShowUncheckedCreateWithoutSeasonsInput = {
+    id?: string
+    userId: string
+    name: string
+  }
+
+  export type ShowCreateOrConnectWithoutSeasonsInput = {
+    where: ShowWhereUniqueInput
+    create: XOR<ShowCreateWithoutSeasonsInput, ShowUncheckedCreateWithoutSeasonsInput>
+  }
+
+  export type EpisodeCreateWithoutSeasonInput = {
+    id?: string
+    title: string
+    number: number
+    thoughts: string
+    rating: number
+  }
+
+  export type EpisodeUncheckedCreateWithoutSeasonInput = {
+    id?: string
+    title: string
+    number: number
+    thoughts: string
+    rating: number
+  }
+
+  export type EpisodeCreateOrConnectWithoutSeasonInput = {
+    where: EpisodeWhereUniqueInput
+    create: XOR<EpisodeCreateWithoutSeasonInput, EpisodeUncheckedCreateWithoutSeasonInput>
+  }
+
+  export type EpisodeCreateManySeasonInputEnvelope = {
+    data: EpisodeCreateManySeasonInput | EpisodeCreateManySeasonInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ShowUpsertWithoutSeasonsInput = {
+    update: XOR<ShowUpdateWithoutSeasonsInput, ShowUncheckedUpdateWithoutSeasonsInput>
+    create: XOR<ShowCreateWithoutSeasonsInput, ShowUncheckedCreateWithoutSeasonsInput>
+    where?: ShowWhereInput
+  }
+
+  export type ShowUpdateToOneWithWhereWithoutSeasonsInput = {
+    where?: ShowWhereInput
+    data: XOR<ShowUpdateWithoutSeasonsInput, ShowUncheckedUpdateWithoutSeasonsInput>
+  }
+
+  export type ShowUpdateWithoutSeasonsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutShowsNestedInput
+  }
+
+  export type ShowUncheckedUpdateWithoutSeasonsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EpisodeUpsertWithWhereUniqueWithoutSeasonInput = {
+    where: EpisodeWhereUniqueInput
+    update: XOR<EpisodeUpdateWithoutSeasonInput, EpisodeUncheckedUpdateWithoutSeasonInput>
+    create: XOR<EpisodeCreateWithoutSeasonInput, EpisodeUncheckedCreateWithoutSeasonInput>
+  }
+
+  export type EpisodeUpdateWithWhereUniqueWithoutSeasonInput = {
+    where: EpisodeWhereUniqueInput
+    data: XOR<EpisodeUpdateWithoutSeasonInput, EpisodeUncheckedUpdateWithoutSeasonInput>
+  }
+
+  export type EpisodeUpdateManyWithWhereWithoutSeasonInput = {
+    where: EpisodeScalarWhereInput
+    data: XOR<EpisodeUpdateManyMutationInput, EpisodeUncheckedUpdateManyWithoutSeasonInput>
+  }
+
+  export type EpisodeScalarWhereInput = {
+    AND?: EpisodeScalarWhereInput | EpisodeScalarWhereInput[]
+    OR?: EpisodeScalarWhereInput[]
+    NOT?: EpisodeScalarWhereInput | EpisodeScalarWhereInput[]
+    id?: StringFilter<"Episode"> | string
+    seasonId?: StringFilter<"Episode"> | string
+    title?: StringFilter<"Episode"> | string
+    number?: IntFilter<"Episode"> | number
+    thoughts?: StringFilter<"Episode"> | string
+    rating?: IntFilter<"Episode"> | number
+  }
+
+  export type SeasonCreateWithoutEpisodesInput = {
+    id?: string
+    number: number
+    show: ShowCreateNestedOneWithoutSeasonsInput
+  }
+
+  export type SeasonUncheckedCreateWithoutEpisodesInput = {
+    id?: string
+    showId: string
+    number: number
+  }
+
+  export type SeasonCreateOrConnectWithoutEpisodesInput = {
+    where: SeasonWhereUniqueInput
+    create: XOR<SeasonCreateWithoutEpisodesInput, SeasonUncheckedCreateWithoutEpisodesInput>
+  }
+
+  export type SeasonUpsertWithoutEpisodesInput = {
+    update: XOR<SeasonUpdateWithoutEpisodesInput, SeasonUncheckedUpdateWithoutEpisodesInput>
+    create: XOR<SeasonCreateWithoutEpisodesInput, SeasonUncheckedCreateWithoutEpisodesInput>
+    where?: SeasonWhereInput
+  }
+
+  export type SeasonUpdateToOneWithWhereWithoutEpisodesInput = {
+    where?: SeasonWhereInput
+    data: XOR<SeasonUpdateWithoutEpisodesInput, SeasonUncheckedUpdateWithoutEpisodesInput>
+  }
+
+  export type SeasonUpdateWithoutEpisodesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    show?: ShowUpdateOneRequiredWithoutSeasonsNestedInput
+  }
+
+  export type SeasonUncheckedUpdateWithoutEpisodesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    showId?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
   }
 
   export type AccountCreateManyUserInput = {
@@ -10126,6 +16453,20 @@ export namespace Prisma {
     id?: string
     contents?: string | null
     date?: Date | string | null
+  }
+
+  export type TaskCreateManyUserInput = {
+    id?: string
+    creationDate: Date | string
+    dueDate?: Date | string
+    priority?: $Enums.Priority
+    status?: $Enums.Status
+    title?: string
+  }
+
+  export type ShowCreateManyUserInput = {
+    id?: string
+    name: string
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -10227,6 +16568,104 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     contents?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type TaskUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    creationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    title?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TaskUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    creationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    title?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TaskUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    creationDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    title?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ShowUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    seasons?: SeasonUpdateManyWithoutShowNestedInput
+  }
+
+  export type ShowUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    seasons?: SeasonUncheckedUpdateManyWithoutShowNestedInput
+  }
+
+  export type ShowUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SeasonCreateManyShowInput = {
+    id?: string
+    number: number
+  }
+
+  export type SeasonUpdateWithoutShowInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    episodes?: EpisodeUpdateManyWithoutSeasonNestedInput
+  }
+
+  export type SeasonUncheckedUpdateWithoutShowInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    episodes?: EpisodeUncheckedUpdateManyWithoutSeasonNestedInput
+  }
+
+  export type SeasonUncheckedUpdateManyWithoutShowInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type EpisodeCreateManySeasonInput = {
+    id?: string
+    title: string
+    number: number
+    thoughts: string
+    rating: number
+  }
+
+  export type EpisodeUpdateWithoutSeasonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    thoughts?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type EpisodeUncheckedUpdateWithoutSeasonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    thoughts?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type EpisodeUncheckedUpdateManyWithoutSeasonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    thoughts?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
   }
 
 

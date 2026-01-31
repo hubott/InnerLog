@@ -173,6 +173,37 @@ exports.Prisma.VerificationTokenScalarFieldEnum = {
   expires: 'expires'
 };
 
+exports.Prisma.TaskScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  creationDate: 'creationDate',
+  dueDate: 'dueDate',
+  priority: 'priority',
+  status: 'status',
+  title: 'title'
+};
+
+exports.Prisma.ShowScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name'
+};
+
+exports.Prisma.SeasonScalarFieldEnum = {
+  id: 'id',
+  showId: 'showId',
+  number: 'number'
+};
+
+exports.Prisma.EpisodeScalarFieldEnum = {
+  id: 'id',
+  seasonId: 'seasonId',
+  title: 'title',
+  number: 'number',
+  thoughts: 'thoughts',
+  rating: 'rating'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -187,7 +218,17 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.Priority = exports.$Enums.Priority = {
+  HIGH: 'HIGH',
+  MEDIUM: 'MEDIUM',
+  LOW: 'LOW'
+};
 
+exports.Status = exports.$Enums.Status = {
+  NOTCOMPLETED: 'NOTCOMPLETED',
+  INPROGRESS: 'INPROGRESS',
+  COMPLETED: 'COMPLETED'
+};
 
 exports.Prisma.ModelName = {
   Post: 'Post',
@@ -195,7 +236,11 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   User: 'User',
   Note: 'Note',
-  VerificationToken: 'VerificationToken'
+  VerificationToken: 'VerificationToken',
+  Task: 'Task',
+  Show: 'Show',
+  Season: 'Season',
+  Episode: 'Episode'
 };
 
 /**
