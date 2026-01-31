@@ -1,5 +1,4 @@
-import { get } from "http";
-import { number, z } from "zod";
+import {  z } from "zod";
 
 import {
   createTRPCRouter,
@@ -17,8 +16,8 @@ export const EpisodeRouter = createTRPCRouter({
             title: input.title,
             season: { connect: { id: input.season } },
             number: input.number,
-            thoughts: input.thoughts || "",
-            rating: input.rating || 5,
+            thoughts: input.thoughts ?? "",
+            rating: input.rating ?? 5,
         },
       });
     }

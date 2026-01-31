@@ -7,8 +7,9 @@ import Link from "next/link";
 export default async function ShowPage({
     params,
 }: {
-    params: { showId: string }; 
+    params: Promise<{ showId: string }>; 
 }) {
+    const { showId } = await params;
   const session = await auth();
 
   if (!session?.user) {
@@ -28,7 +29,7 @@ export default async function ShowPage({
       </div>
       <div className="w-80% flex flex-col gap-6">
       <h1 className="text-5xl">Daily Notes</h1>
-      <Seasons showId={params.showId} />
+      <Seasons showId={showId} />
       </div>
     </div>
 

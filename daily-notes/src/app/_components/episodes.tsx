@@ -1,7 +1,7 @@
 "use client";
 
 import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { api } from "~/trpc/react";
 
@@ -64,7 +64,7 @@ export function Seasons({ showId }: { showId: string }) {
   const [show] = api.show.getShowById.useSuspenseQuery({ showId });
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Seasons for {show?.name ? show.name : "Unknown Show"}</h2>
+      <h2 className="text-2xl font-bold mb-4">Seasons for {show?.name ?? "Unknown Show"}</h2>
       <div>
       <ul className="space-y-2">
         {seasons.map((season) => {
@@ -124,11 +124,6 @@ export function Episodes({ seasonId }: { seasonId: string }) {
   const [episodes] = api.episode.getEpisodesBySeason.useSuspenseQuery({ seasonId });
   const [openEpisodeId, setOpenEpisodeId] = useState<string | null>(null);
   const utils = api.useUtils();
-  const createEpisode = api.episode.create.useMutation({
-    onSuccess: async () => {
-      await utils.episode.invalidate();
-    },
-  });
 
   return (
     <div>
