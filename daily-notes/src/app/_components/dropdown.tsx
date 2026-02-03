@@ -30,20 +30,20 @@ export function Dropdown() {
   return (
     <DropdownMenu >
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="rounded-full text-black px-4 py-6 font-semibold transition hover:bg-white/20 text-2xl">☰</Button>
+        <Button variant="ghost" className="rounded-full text-black px-4 py-6 font-semibold transition hover:bg-white/20 text-2xl cursor-pointer">☰</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel className="text-black font-bold">Navigate to:</DropdownMenuLabel>
-        <DropdownMenuItem onSelect={redirectToHome}>
+        <DropdownMenuItem onSelect={redirectToHome} className="cursor-pointer">
           Home
         </DropdownMenuItem>
-        <DropdownMenuItem onSelect={redirectToNotes}>
+        <DropdownMenuItem onSelect={redirectToNotes} className="cursor-pointer">
           Your Notes
         </DropdownMenuItem>
-        <DropdownMenuItem onSelect={redirectToTasks}>
+        <DropdownMenuItem onSelect={redirectToTasks} className="cursor-pointer">
           Your Tasks
         </DropdownMenuItem>
-        <DropdownMenuItem onSelect={redirectToEpisodes}>
+        <DropdownMenuItem onSelect={redirectToEpisodes} className="cursor-pointer">
           Your Shows
         </DropdownMenuItem>
       </DropdownMenuContent>

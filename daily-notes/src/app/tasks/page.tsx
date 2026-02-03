@@ -14,7 +14,7 @@ export default async function TasksPage() {
 
 
   return (
-    <div className="flex min-h-screen flex-col gap-6 p-2 bg-linear-to-br from-purple-400 via-pink-500 to-blue-500">
+    <div className="flex min-h-screen flex-col gap-6 p-2 bg-orange-200">
       <title>Daily Notes </title>
       <div className="flex justify-between items-center w-full">
         <Dropdown />
@@ -23,7 +23,7 @@ export default async function TasksPage() {
         </button>
       </div>
       <div className="items-center flex flex-col gap-6">
-      <h1 className="text-5xl">Daily Notes</h1>
+      <h1 className="text-5xl text-orange-700">Daily Notes</h1>
       <h1 className="text-xl font-bold text-center">Today&apos;s date is: {new Date().toLocaleDateString("en-GB")}</h1>
       <TaskCreator />
       </div>

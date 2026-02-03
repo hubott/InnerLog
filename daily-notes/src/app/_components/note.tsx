@@ -35,7 +35,7 @@ export function Note() {
           value={noteContent}
 
           onChange={(e) => { handleChange(e); }}
-          className="w-full rounded-lg bg-white/10 px-4 py-2 text-white"
+          className="w-full rounded-lg bg-white/10 px-4 py-2 text-black"
           rows={5}
         />
         <div className="pointer-events-none text-sm text-gray-400 text-right">
@@ -43,7 +43,7 @@ export function Note() {
             </div>
         <button
           type="submit"
-          className="rounded-full bg-white/10 px-10 py-3 font-semibold transition hover:bg-white/20"
+          className="rounded-full bg-amber-500 px-10 py-3 font-semibold transition hover:bg-amber-700 text-white cursor-pointer"
           disabled={createNote.isPending}
         >
           {createNote.isPending ? "Saving..." : "Save Note"}
@@ -75,9 +75,9 @@ export function GetNotes() {
       {notes.length === 0 ? (
         <p>No notes yet.</p>
       ) : (
-        <ul className="space-y-4">
+        <ul className="space-y-2">
           {notes.map((note) => (
-            <li key={note.id} className="bg-white/10 p-4 rounded-lg">
+            <li key={note.id} className="bg-amber-50 border border-amber-200 p-4 rounded-lg">
                 <div className="flex justify-between items-center w-full">
               <p>{note.contents}</p>
               <ConfirmDeleteButton key={note.id} onDelete={() => deleteNote.mutate({ id: note.id})} isDeleting={deleteNote.isPending}/>
@@ -117,7 +117,7 @@ function ConfirmDeleteButton({ onDelete, isDeleting }: { onDelete: () => void; i
     return (
       <div className="flex gap-2">
         <button
-          className="rounded-full bg-white/10 text-red-700 px-6 py-2 font-semibold transition hover:bg-white/20 mt-2 cursor-pointer"
+          className="rounded-full bg-white/10 text-orange-700 px-6 py-2 font-semibold transition hover:bg-white/20 mt-2 cursor-pointer"
           onClick={() => {
             onDelete();
             setConfirming(false);
@@ -134,7 +134,7 @@ function ConfirmDeleteButton({ onDelete, isDeleting }: { onDelete: () => void; i
   }
 
   return (
-    <button className="rounded-full bg-white/10 text-red-700 px-6 py-2 font-semibold transition hover:bg-white/20 mt-2 cursor-pointer" onClick={() => setConfirming(true)}>
+    <button className="rounded-full bg-amber-500 text-white px-6 py-2 font-semibold transition hover:bg-amber-700 mt-2 cursor-pointer" onClick={() => setConfirming(true)}>
       Delete
     </button>
   );
@@ -167,21 +167,21 @@ function EditableNote({
             value={editedContent}
             onChange={(e) => handleChange(e)}
             maxLength={MAX_NOTE_LENGTH}
-            className="w-full rounded-lg bg-white/10 px-4 py-2 text-white"
+            className="w-full rounded-lg bg-white/10 px-4 py-2 text-black border border-amber-400"
             rows={5}
         />
         <div className="pointer-events-none text-sm text-gray-400 text-right">
         {editedContent.length}/{MAX_NOTE_LENGTH}
         </div>
         <button
-            className="rounded-full bg-white/10 px-6 py-2 font-semibold transition hover:bg-white/20 mt-2 cursor-pointer" 
+            className="rounded-full bg-amber-500 px-6 py-2 font-semibold transition hover:bg-amber-700 mt-2 cursor-pointer text-white" 
             onClick={() => {onSave(editedContent); 
                 setIsEditing(false)}}
         >
             Save
         </button>
         <button
-            className="rounded-full bg-white/10 px-6 py-2 font-semibold transition hover:bg-white/20 mt-2 cursor-pointer"
+            className="rounded-full bg-amber-500  px-6 py-2 font-semibold transition hover:bg-amber-700 mt-2 cursor-pointer text-white"
             onClick={() => {setIsEditing(false); setEditedContent(note.contents ?? "")}}
         >
             Cancel
@@ -190,7 +190,7 @@ function EditableNote({
     ): (
         <div>
             <button
-                className="rounded-full bg-white/10 px-6 py-2 font-semibold transition hover:bg-white/20 mt-2 cursor-pointer"
+                className="rounded-full bg-amber-500 px-8.5 py-2 font-semibold transition hover:bg-amber-700 mt-2 cursor-pointer text-white"
                 onClick={() => setIsEditing(true)}
             >
                 Edit

@@ -33,10 +33,10 @@ export function TaskCreator() {
           placeholder="What's the Task?"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full rounded-full bg-white/10 px-4 py-2 text-white"
+          className="w-full rounded-full bg-white/10 px-4 py-2 text-black"
         />
 
-        <label className="text-sm text-white/70">
+        <label className="text-sm text-black/70">
         Due date
         </label>
         <input
@@ -44,7 +44,7 @@ export function TaskCreator() {
           placeholder="Due Date"
           value={dueDate ?? ""}
           onChange={(e) => setDueDate(e.target.value || null)}
-          className="w-full rounded-full bg-white/10 px-4 py-2 text-white"
+          className="w-full rounded-full bg-white/10 px-4 py-2 text-black"
         />
 
 
@@ -53,7 +53,7 @@ export function TaskCreator() {
         <select
           value={priority ?? ""}
           onChange={(e) => setPriority(e.target.value as Priority)}
-          className="w-full rounded-full bg-white/10 px-4 py-2 text-white"
+          className="w-full rounded-full bg-white/10 px-4 py-2 text-black"
         >
           <option value="" disabled>Select Priority</option>
 
@@ -68,7 +68,7 @@ export function TaskCreator() {
         <select
           value={status ?? ""}
           onChange={(e) => setStatus(e.target.value as Status)}
-          className="w-full rounded-full bg-white/10 px-4 py-2 text-white"
+          className="w-full rounded-full bg-white/10 px-4 py-2 text-black"
         >
             <option value="" disabled>Select Status</option>
             {Object.values(Status).map((stat) => (

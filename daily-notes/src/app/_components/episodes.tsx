@@ -20,7 +20,7 @@ export function Shows() {
       <ul>
         {shows.map((show) => (
           <li key={show.id} className="mb-2">
-            <button onClick={() => redirect("/shows/" + show.id)} className="text-blue-500 hover:underline cursor-pointer">
+            <button onClick={() => redirect("/shows/" + show.id)} className="text-red-500 hover:underline cursor-pointer">
             {show.name}
             </button>
           </li>
@@ -43,7 +43,7 @@ export function Shows() {
       />
       <button
         type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-800"
       >
         Add Show
       </button>
