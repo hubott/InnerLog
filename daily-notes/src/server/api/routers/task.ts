@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { set, z } from "zod";
 import { Priority, Status } from "~/../generated/prisma";
 
 import {
@@ -29,4 +29,30 @@ export const TaskRouter = createTRPCRouter({
         });
     }
   ),
+    setStatus: protectedProcedure
+    .input(z.object({ taskId: z.string().min(1), status: z.nativeEnum(Status) }))
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.task.update({
+        where: { id: input.taskId },
+        data: { status: input.status },
+      });
+    }
+    ),
+    setPriority: protectedProcedure
+    .input(z.object({ taskId: z.string().min(1), priority: z.nativeEnum(Priority) }))
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.task.update({
+        where: { id: input.taskId },
+        data: { priority: input.priority },
+      });
+    }
+     ),
+     deleteTask: protectedProcedure
+     .input(z.object({ taskId: z.string().min(1) }))
+     .mutation(async ({ ctx, input }) => {
+       return ctx.db.task.delete({
+         where: { id: input.taskId },
+       });
+     }
+      ),
 });

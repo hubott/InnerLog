@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { api } from "~/trpc/react";
 import { Priority, Status } from "~/../generated/prisma";
+import "~/styles/globals.css";
+import { Span } from "next/dist/trace";
 
 
 export function TaskCreator() {
@@ -34,7 +36,7 @@ export function TaskCreator() {
           placeholder="What's the Task?"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full rounded-full bg-white/10 px-4 py-2 text-black"
+          className="w-full rounded-full bg-white/20 px-4 py-2 text-black transition hover:bg-white/30"
         />
 
         <label className="text-sm text-black/70">
@@ -45,7 +47,7 @@ export function TaskCreator() {
           placeholder="Due Date"
           value={dueDate ?? ""}
           onChange={(e) => setDueDate(e.target.value || null)}
-          className="w-full rounded-full bg-white/10 px-4 py-2 text-black"
+          className="w-full rounded-full bg-white/20 px-4 py-2 text-black cursor-pointer hover:bg-white/30 transition"
         />
 
 
@@ -54,7 +56,7 @@ export function TaskCreator() {
         <select
           value={priority ?? ""}
           onChange={(e) => setPriority(e.target.value as Priority)}
-          className="w-full rounded-full bg-white/10 px-4 py-2 text-black"
+          className="w-full rounded-full bg-white/20 px-4 py-2 text-black cursor-pointer transition hover:bg-white/30"
         >
           <option value="" disabled>Select Priority</option>
 
@@ -69,7 +71,7 @@ export function TaskCreator() {
         <select
           value={status ?? ""}
           onChange={(e) => setStatus(e.target.value as Status)}
-          className="w-full rounded-full bg-white/10 px-4 py-2 text-black"
+          className="w-full rounded-full bg-white/20 px-4 py-2 text-black cursor-pointer transition hover:bg-white/30"
         >
             <option value="" disabled>Select Status</option>
             {Object.values(Status).map((stat) => (
@@ -80,7 +82,7 @@ export function TaskCreator() {
         </select>
         <button
           type="submit"
-          className="rounded-full bg-white/10 px-10 py-3 font-semibold transition hover:bg-white/20"
+          className="rounded-full bg-white/20 px-10 py-3 font-semibold transition hover:bg-white/30 text-black cursor-pointer"
           disabled={createTask.isPending}
         >
           {createTask.isPending ? "Creating..." : "Create Task"}
@@ -91,6 +93,22 @@ export function TaskCreator() {
 }
 
 export function TaskList() {
+  const utils = api.useUtils();
+  const deleteTask = api.task.deleteTask.useMutation({
+    onSuccess: async () => {
+      await utils.task.getTasks.invalidate();
+    },
+  });
+  const setStatus = api.task.setStatus.useMutation({
+    onSuccess: async () => {
+      await utils.task.getTasks.invalidate();
+    },
+  });
+  const setPriority = api.task.setPriority.useMutation({
+    onSuccess: async () => {
+      await utils.task.getTasks.invalidate();
+    },
+  });
   const [tasks] = api.task.getTasks.useSuspenseQuery();
   const [activeTab, setActiveTab] = useState<"overdue" | "today" | "upcoming">("today");
   type Status = "NOTCOMPLETED" | "INPROGRESS" | "COMPLETED";
@@ -114,6 +132,24 @@ const statusColours = {
   COMPLETED: "bg-green-200 text-green-800",
 };
 
+const newStatusColours = {
+  NOTCOMPLETED: "bg-yellow-200 text-yellow-700 hover:bg-yellow-300",
+  INPROGRESS: "bg-green-400 text-green-800 hover:bg-green-500",
+  COMPLETED: "bg-blue-300 text-blue-800 hover:bg-blue-400",
+};
+
+const statusMessages = {
+  NOTCOMPLETED: "Start Task",
+  INPROGRESS: "Complete Task",
+  COMPLETED: "Reopen Task",
+}
+
+function getNextStatus(status: Status): Status {
+  if (status === "NOTCOMPLETED") return "INPROGRESS";
+  if (status === "INPROGRESS") return "COMPLETED";
+  return "NOTCOMPLETED"; // if completed → back to not completed
+}
+
 
   
 
@@ -133,6 +169,8 @@ const statusColours = {
   const filteredTasks = tasks.filter(task => getCategory(task) === activeTab);
 
   const sortedTasks = filteredTasks.sort((a, b) => {
+    if (a.status === "COMPLETED" && b.status !== "COMPLETED") return 1;
+    if (a.status !== "COMPLETED" && b.status === "COMPLETED") return -1;
     return priorityOrder[b.priority] - priorityOrder[a.priority];
   });
   return (
@@ -156,16 +194,69 @@ const statusColours = {
         </p>
         ) : (
           sortedTasks.map((task) => (
-            <li key={task.id} className="bg-amber-50 border border-amber-200 p-4 rounded-lg">
-          <div className="flex justify-between items-center w-full">
-            <h3 className="text-lg font-semibold">{task.title}</h3>
-            </div>
-          <div className="mt-2">
-            <p>Due: {new Date(task.dueDate).toLocaleDateString()}</p>
-            <p>Priority: {task.priority}</p>
-            <span className={statusColours[task.status]}>{statusLabels[task.status]}</span>
-          </div>
-        </li>
+
+            <li
+  key={task.id}
+  className="bg-amber-50 border border-amber-200 p-4 rounded-lg flex flex-col gap-3"
+>
+  {/* Title and delete button */}
+  <div className="flex justify-between items-center">
+    <h3 className="text-lg font-semibold">{task.title}</h3>
+    <ConfirmDeleteButton
+      key={task.id}
+      onDelete={() => deleteTask.mutate({ taskId: task.id })}
+      isDeleting={deleteTask.isPending}
+    />
+  </div>
+
+  {/* Date */}
+  <div className="text-sm text-black/70">
+    <label className="block mb-1">Due:</label>
+    <p>{new Date(task.dueDate).toLocaleDateString()}</p>
+  </div>
+
+  {/* Priority and Status */}
+
+    {/* Priority */}
+    <div className="flex items-center gap-2">
+      <span className="text-sm font-medium">Priority:</span>
+      <select
+  value={task.priority}
+  onChange={(e) =>
+          setPriority.mutate({ taskId: task.id, priority: e.target.value as Priority })
+        }
+  className={`rounded-full px-3 py-1 border ${
+    task.priority === "HIGH"
+      ? "bg-red-200"
+      : task.priority === "MEDIUM"
+      ? "bg-yellow-200"
+      : "bg-green-200"
+  }`}
+>
+
+        <option value="LOW">Low</option>
+        <option value="MEDIUM">Medium</option>
+        <option value="HIGH">High</option>
+      </select>
+    </div>
+
+    {/* Status */}
+    <div className="flex items-center gap-2">
+      <span className={`px-2 py-1 rounded text-sm ${statusColours[task.status]}`}>
+        {statusLabels[task.status]}
+      </span>
+      <button
+        onClick={() =>
+          setStatus.mutate({ taskId: task.id, status: getNextStatus(task.status) })
+        }
+        className={`text-white px-3 py-1 rounded ${newStatusColours[task.status]} cursor-pointer`}
+      >
+        {statusMessages[task.status]}
+      </button>
+    </div>
+
+</li>
+
         ))
       )}
       </ul>
@@ -175,5 +266,48 @@ const statusColours = {
         </div>
       )}
     </div>
+  );
+}
+
+
+
+
+function ConfirmDeleteButton({ onDelete, isDeleting }: { onDelete: () => void; isDeleting: boolean }) {
+  const [confirming, setConfirming] = useState(false);
+
+  useEffect(() => {
+    if (!confirming) return;
+
+    const timeout = setTimeout(() => {
+      setConfirming(false);
+    }, 5000);
+
+    return () => clearTimeout(timeout);
+  }, [confirming]);
+
+  if (confirming) {
+    return (
+      <div className="flex gap-2">
+        <button
+          className="rounded-full bg-red-700 text-white px-6 py-2 font-semibold transition hover:bg-red-800 mt-2 cursor-pointer"
+          onClick={() => {
+            onDelete();
+            setConfirming(false);
+          }}
+          disabled={isDeleting}
+        >
+          {isDeleting ? "Deleting..." : "Confirm"}
+        </button>
+        <button className="text-gray-40 bg-green-700 hover:text-white px-6 py-2 mt-2 cursor-pointer rounded-full" onClick={() => setConfirming(false)}>
+          Cancel
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <button className="rounded-full bg-red-700 text-white px-6 py-2 font-semibold transition hover:bg-red-800 mt-2 cursor-pointer" onClick={() => setConfirming(true)}>
+      Delete
+    </button>
   );
 }
