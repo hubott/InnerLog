@@ -30,4 +30,11 @@ export const ShowRouter = createTRPCRouter({
             where: { id: input.showId },
         });
     }),
+    deleteShow: protectedProcedure
+    .input(z.object({ showId: z.string().min(1) }))
+    .mutation(async ({ ctx, input }) => {
+        return ctx.db.show.delete({
+            where: { id: input.showId },
+        });
+    }),
 });

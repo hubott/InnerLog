@@ -35,7 +35,7 @@ export function Note() {
           value={noteContent}
 
           onChange={(e) => { handleChange(e); }}
-          className="w-full rounded-lg bg-white/10 px-4 py-2 text-black"
+          className="w-full rounded-lg bg-white/40 px-4 py-2 text-black"
           rows={5}
         />
         <div className="pointer-events-none text-sm text-gray-400 text-right">

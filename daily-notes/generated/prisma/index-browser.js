@@ -121,14 +121,6 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.PostScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  createdById: 'createdById'
-};
-
 exports.Prisma.AccountScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -225,13 +217,12 @@ exports.Priority = exports.$Enums.Priority = {
 };
 
 exports.Status = exports.$Enums.Status = {
-  NOTCOMPLETED: 'NOTCOMPLETED',
+  NOTSTARTED: 'NOTSTARTED',
   INPROGRESS: 'INPROGRESS',
   COMPLETED: 'COMPLETED'
 };
 
 exports.Prisma.ModelName = {
-  Post: 'Post',
   Account: 'Account',
   Session: 'Session',
   User: 'User',

@@ -1,6 +1,6 @@
 import { auth } from "~/server/auth";
 import { redirect } from "next/navigation";
-import { TaskCreator } from "../_components/tasks";
+import { TaskList } from "../_components/tasks";
 import { Dropdown } from "../_components/dropdown";
 import Link from "next/link";
 
@@ -25,7 +25,7 @@ export default async function TasksPage() {
       <div className="items-center flex flex-col gap-6">
       <h1 className="text-5xl text-orange-700">Daily Notes</h1>
       <h1 className="text-xl font-bold text-center">Today&apos;s date is: {new Date().toLocaleDateString("en-GB")}</h1>
-      <TaskCreator />
+      <TaskList />
       </div>
     </div>
 

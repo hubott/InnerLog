@@ -21,13 +21,13 @@ export function Dropdown() {
         redirect("/notes");
     }
     const redirectToTasks = () => {
-        redirect("/getTasks");
+        redirect("/tasks");
     }
     const redirectToEpisodes = () => {
         redirect("/shows");
     }
     const redirectToCreateTasks = () => {
-        redirect("/tasks");
+        redirect("/createTask");
     }
 
   return (

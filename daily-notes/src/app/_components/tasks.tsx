@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { api } from "~/trpc/react";
 import { Priority, Status } from "~/../generated/prisma";
 import "~/styles/globals.css";
-import { Span } from "next/dist/trace";
 
 
 export function TaskCreator() {
@@ -27,7 +26,7 @@ export function TaskCreator() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          createTask.mutate({ title, dueDate: dueDate ? new Date(dueDate) : new Date(), priority: priority ?? Priority.MEDIUM, status: status ?? Status.NOTCOMPLETED });
+          createTask.mutate({ title, dueDate: dueDate ? new Date(dueDate) : new Date(), priority: priority ?? Priority.MEDIUM, status: status ?? Status.NOTSTARTED });
         }}
         className="flex flex-col gap-2"
       >
@@ -111,7 +110,7 @@ export function TaskList() {
   });
   const [tasks] = api.task.getTasks.useSuspenseQuery();
   const [activeTab, setActiveTab] = useState<"overdue" | "today" | "upcoming">("today");
-  type Status = "NOTCOMPLETED" | "INPROGRESS" | "COMPLETED";
+  type Status = "NOTSTARTED" | "INPROGRESS" | "COMPLETED";
 
 
   const priorityOrder: Record<Priority, number> = {
@@ -121,33 +120,33 @@ export function TaskList() {
   };
 
   const statusLabels: Record<Status, string> = {
-  NOTCOMPLETED: "Not Started",
+  NOTSTARTED: "Not Started",
   INPROGRESS: "In Progress",
   COMPLETED: "Completed",
 };
 
 const statusColours = {
-  NOTCOMPLETED: "bg-gray-200 text-gray-700",
+  NOTSTARTED: "bg-gray-200 text-gray-700",
   INPROGRESS: "bg-yellow-200 text-yellow-800",
   COMPLETED: "bg-green-200 text-green-800",
 };
 
 const newStatusColours = {
-  NOTCOMPLETED: "bg-yellow-200 text-yellow-700 hover:bg-yellow-300",
+  NOTSTARTED: "bg-yellow-200 text-yellow-700 hover:bg-yellow-300",
   INPROGRESS: "bg-green-400 text-green-800 hover:bg-green-500",
   COMPLETED: "bg-blue-300 text-blue-800 hover:bg-blue-400",
 };
 
 const statusMessages = {
-  NOTCOMPLETED: "Start Task",
+  NOTSTARTED: "Start Task",
   INPROGRESS: "Complete Task",
   COMPLETED: "Reopen Task",
 }
 
 function getNextStatus(status: Status): Status {
-  if (status === "NOTCOMPLETED") return "INPROGRESS";
+  if (status === "NOTSTARTED") return "INPROGRESS";
   if (status === "INPROGRESS") return "COMPLETED";
-  return "NOTCOMPLETED"; // if completed → back to not completed
+  return "NOTSTARTED"; // if completed → back to not completed
 }
 
 
@@ -233,10 +232,10 @@ function getNextStatus(status: Status): Status {
       : "bg-green-200"
   }`}
 >
-
-        <option value="LOW">Low</option>
-        <option value="MEDIUM">Medium</option>
         <option value="HIGH">High</option>
+        <option value="MEDIUM">Medium</option>
+        <option value="LOW">Low</option>    
+        
       </select>
     </div>
 
@@ -298,7 +297,7 @@ function ConfirmDeleteButton({ onDelete, isDeleting }: { onDelete: () => void; i
         >
           {isDeleting ? "Deleting..." : "Confirm"}
         </button>
-        <button className="text-gray-40 bg-green-700 hover:text-white px-6 py-2 mt-2 cursor-pointer rounded-full" onClick={() => setConfirming(false)}>
+        <button className="text-white bg-green-700 hover:text-white hover:bg-green-800 px-6 py-2 mt-2 cursor-pointer rounded-full" onClick={() => setConfirming(false)}>
           Cancel
         </button>
       </div>
