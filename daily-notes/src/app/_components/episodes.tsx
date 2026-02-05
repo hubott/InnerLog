@@ -123,7 +123,6 @@ export function Seasons({ showId }: { showId: string }) {
 export function Episodes({ seasonId }: { seasonId: string }) {
   const [episodes] = api.episode.getEpisodesBySeason.useSuspenseQuery({ seasonId });
   const [openEpisodeId, setOpenEpisodeId] = useState<string | null>(null);
-  const utils = api.useUtils();
 
   return (
     <div>

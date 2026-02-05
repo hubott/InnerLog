@@ -22,4 +22,11 @@ export const TaskRouter = createTRPCRouter({
       });
     }
     ),
+    getTasks: protectedProcedure.query(async ({ ctx }) => {
+        return ctx.db.task.findMany({
+            where: { userId: ctx.session.user.id },
+            orderBy: { creationDate: "desc" },
+        });
+    }
+  ),
 });

@@ -21,10 +21,13 @@ export function Dropdown() {
         redirect("/notes");
     }
     const redirectToTasks = () => {
-        redirect("/tasks");
+        redirect("/getTasks");
     }
     const redirectToEpisodes = () => {
         redirect("/shows");
+    }
+    const redirectToCreateTasks = () => {
+        redirect("/tasks");
     }
 
   return (
@@ -39,6 +42,9 @@ export function Dropdown() {
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={redirectToNotes} className="cursor-pointer">
           Your Notes
+        </DropdownMenuItem>
+        <DropdownMenuItem onSelect={redirectToCreateTasks} className="cursor-pointer">
+          Create Tasks
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={redirectToTasks} className="cursor-pointer">
           Your Tasks
