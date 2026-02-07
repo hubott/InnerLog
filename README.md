@@ -6,11 +6,13 @@
 ## Screenshots
 
 **Home Page**
-![Home Page](./Screenshots/Screenshot 2026-02-07 at 2.47.21 PM)
+![Home Page](./Screenshots/HomePage.png)
 
-![Tasks Page](./Screenshots/Screenshot 2026-02-07 at 2.52.14 PM)
+**Tasks Page**
+![Tasks Page](./Screenshots/Tasks.png)
 
-![Example Show Page](./Screenshots/Screenshot 2026-02-07 at 2.53.20 PM)
+**Example Show Page**
+![Example Show Page](./Screenshots/Show.png)
 
 ## Features
 
@@ -41,7 +43,7 @@
 1. Clone the repo
 ```bash
 git clone https://github.com/yourusername/innerlog.git
-cd innerlog
+cd InnerLog
 ```
 2. Install dependencies
    npm install
