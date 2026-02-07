@@ -19,7 +19,7 @@ export function TaskCreator() {
       setDueDate("");
       setPriority(null);
       setStatus(null);
-      utils.task.getTasks.invalidate();
+      await utils.task.getTasks.invalidate();
     },
     
   });

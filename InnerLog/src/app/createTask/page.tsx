@@ -4,7 +4,6 @@ import { TaskCreator } from "../_components/tasks";
 import { Dropdown } from "../_components/dropdown";
 import { HomeButton } from "../_components/home";
 import Link from "next/link";
-import Home from "../page";
 
 export default async function TasksPage() {
   const session = await auth();
