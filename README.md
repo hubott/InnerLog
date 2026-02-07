@@ -43,7 +43,7 @@
 1. Clone the repo
 ```bash
 git clone https://github.com/yourusername/innerlog.git
-cd innerlog
+cd InnerLog
 ```
 2. Install dependencies
    npm install
