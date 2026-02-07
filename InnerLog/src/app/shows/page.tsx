@@ -1,6 +1,6 @@
 import { auth } from "~/server/auth";
 import { redirect } from "next/navigation";
-import { Shows } from "../_components/episodes";
+import { Shows } from "../_components/show";
 import { Dropdown } from "../_components/dropdown";
 import { HomeButton } from "../_components/home";
 import Link from "next/link";
