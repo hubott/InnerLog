@@ -8,6 +8,7 @@ import "~/styles/globals.css";
 
 
 export function TaskCreator() {
+  const utils = api.useUtils();
   const [title, setTitle] = useState("");
   const [dueDate, setDueDate] = useState<string | null>(null);
   const [priority, setPriority] = useState<Priority | null>(null);
@@ -18,7 +19,9 @@ export function TaskCreator() {
       setDueDate("");
       setPriority(null);
       setStatus(null);
+      utils.task.getTasks.invalidate();
     },
+    
   });
 
   return (
@@ -81,7 +84,7 @@ export function TaskCreator() {
         </select>
         <button
           type="submit"
-          className="rounded-full bg-white/20 px-10 py-3 font-semibold transition hover:bg-white/30 text-black cursor-pointer"
+          className={`rounded-full bg-white/20 px-10 py-3 font-semibold transition text-black disabled:opacity-50 hover:bg-white/30 disabled:cursor-not-allowed cursor-pointer`}
           disabled={createTask.isPending}
         >
           {createTask.isPending ? "Creating..." : "Create Task"}
@@ -93,17 +96,24 @@ export function TaskCreator() {
 
 export function TaskList() {
   const utils = api.useUtils();
+  const [isProcessing, setIsProcessing] = useState(false);
   const deleteTask = api.task.deleteTask.useMutation({
+    onMutate: () => setIsProcessing(true),
+    onSettled: () => setIsProcessing(false),
     onSuccess: async () => {
       await utils.task.getTasks.invalidate();
     },
   });
   const setStatus = api.task.setStatus.useMutation({
+    onMutate: () => setIsProcessing(true),
+    onSettled: () => setIsProcessing(false),
     onSuccess: async () => {
       await utils.task.getTasks.invalidate();
     },
   });
   const setPriority = api.task.setPriority.useMutation({
+    onMutate: () => setIsProcessing(true),
+    onSettled: () => setIsProcessing(false),
     onSuccess: async () => {
       await utils.task.getTasks.invalidate();
     },
@@ -174,15 +184,20 @@ function getNextStatus(status: Status): Status {
   });
   return (
     <div className="w-full max-w-md">
+      {isProcessing && (
+        <div className="absolute inset-0 bg-black/30 flex items-center justify-center z-10">
+          <p className="text-white text-lg">Saving...</p>
+        </div>
+      )}
       <h2 className="text-2xl font-bold mb-4">Your Tasks</h2>
       {tasks.length === 0 ? (
         <p>No tasks yet. Add one above!</p>
       ) : (
         <div>
         <div className="flex gap-2 mb-4">
-        <button className="px-4 py-2 bg-orange-500 text-white rounded-md cursor-pointer hover:bg-orange-600 transition-colors" onClick={() => setActiveTab("today")}>Due Today</button>
-        <button className="px-4 py-2 bg-orange-500 text-white rounded-md cursor-pointer hover:bg-orange-600 transition-colors" onClick={() => setActiveTab("overdue")}>Overdue</button>
-        <button className="px-4 py-2 bg-orange-500 text-white rounded-md cursor-pointer hover:bg-orange-600 transition-colors" onClick={() => setActiveTab("upcoming")}>Not Due</button>
+        <button className={`px-4 py-2 bg-orange-500 text-white rounded-md cursor-pointer hover:bg-orange-600 transition-colors ${activeTab === 'today' ? 'bg-orange-700' : ''}`} onClick={() => setActiveTab("today")}>Due Today</button>
+        <button className={`px-4 py-2 bg-orange-500 text-white rounded-md cursor-pointer hover:bg-orange-600 transition-colors ${activeTab === 'overdue' ? 'bg-orange-700' : ''}`} onClick={() => setActiveTab("overdue")}>Overdue</button>
+        <button className={`px-4 py-2 bg-orange-500 text-white rounded-md cursor-pointer hover:bg-orange-600 transition-colors ${activeTab === 'upcoming' ? 'bg-orange-700' : ''}`} onClick={() => setActiveTab("upcoming")}>Not Due</button>
       </div>
 
       <div className="flex-1 overflow-y-auto max-h-[60vh] pr-2">

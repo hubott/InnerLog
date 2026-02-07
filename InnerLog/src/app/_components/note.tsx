@@ -6,13 +6,19 @@ import { api } from "~/trpc/react";
 import { MAX_NOTE_LENGTH } from "~/lib/utils";
 
 export function Note() {
+
+  const utils = api.useUtils();
   const [noteContent, setNoteContent] = useState("");
+  // Create a note, clearing the stored note content then invalidate the getNotes query to refetch 
+  // the list of notes with the new note included
   const createNote = api.note.create.useMutation({
     onSuccess: async () => {
       setNoteContent("");
+      await utils.note.getNotes.invalidate();
     },
   });
 
+  // Handle change for the textarea, ensuring that the content does not exceed the maximum length
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
 
@@ -43,7 +49,7 @@ export function Note() {
             </div>
         <button
           type="submit"
-          className="rounded-full bg-amber-500 px-10 py-3 font-semibold transition hover:bg-amber-700 text-white cursor-pointer"
+          className="rounded-full bg-amber-500 px-10 py-3 font-semibold transition hover:bg-amber-700 text-white cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
           disabled={createNote.isPending}
         >
           {createNote.isPending ? "Saving..." : "Save Note"}
@@ -58,18 +64,28 @@ export function GetNotes() {
   const utils = api.useUtils();
 
    const deleteNote = api.note.deleteNote.useMutation({
+    onMutate: () => setIsProcessing(true),
+    onSettled: () => setIsProcessing(false),
     onSuccess: async () => {
       await utils.note.getNotes.invalidate();
     },
   });
   const editNote = api.note.editNote.useMutation({
+    onMutate: () => setIsProcessing(true),
+    onSettled: () => setIsProcessing(false),
     onSuccess: async () => {
       await utils.note.getNotes.invalidate();
     },
   });
+  const [isProcessing, setIsProcessing] = useState(false);
 
   return (
     <div className="w-full max-w-md mt-6">
+      {isProcessing && (
+        <div className="absolute inset-0 bg-black/30 flex items-center justify-center z-10">
+          <p className="text-white text-lg">Saving...</p>
+        </div>
+      )}
       <h2 className="text-2xl mb-4 text-center">Your Notes</h2>
       <div className="flex-1 overflow-y-auto max-h-[60vh] pr-2">
       {notes.length === 0 ? (

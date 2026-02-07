@@ -7,15 +7,20 @@ import { useRef } from "react";
 import { api } from "~/trpc/react";
 
 export function Shows() {
+  const [isProcessing, setIsProcessing] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [shows] = api.show.getShows.useSuspenseQuery();
   const utils = api.useUtils();
   const createShow = api.show.create.useMutation({
+    onMutate: () => setIsProcessing(true),
+    onSettled: () => setIsProcessing(false),
     onSuccess: async () => {
       await utils.show.invalidate();
     },
   });
   const deleteShow = api.show.deleteShow.useMutation({
+    onMutate: () => setIsProcessing(true),
+    onSettled: () => setIsProcessing(false),
     onSuccess: async () => {
       await utils.show.invalidate();
     },
@@ -23,6 +28,11 @@ export function Shows() {
 
   return (
     <div>
+      {isProcessing && (
+        <div className="absolute inset-0 bg-black/30 flex items-center justify-center z-10">
+          <p className="text-white text-lg">Saving...</p>
+        </div>
+      )}
       <h2 className="text-2xl font-bold mb-4">My Shows</h2>
       <ul>
         {shows.map((show) => (
@@ -66,16 +76,21 @@ export function Shows() {
 }
 
 export function Seasons({ showId }: { showId: string }) {
+  const [isProcessing, setIsProcessing] = useState(false);
   const [seasons] = api.season.getSeasonsByShow.useSuspenseQuery({ showId });
   const [openSeasonId, setOpenSeasonId] = useState<string | null>(null);
   const utils = api.useUtils();
   const createSeason = api.season.create.useMutation({
+    onMutate: () => setIsProcessing(true),
+    onSettled: () => setIsProcessing(false),
     onSuccess: async () => {
       await utils.season.invalidate();
     },
   });
 
   const deleteSeason = api.season.deleteSeason.useMutation({
+    onMutate: () => setIsProcessing(true),
+    onSettled: () => setIsProcessing(false),
     onSuccess: async () => {
       await utils.season.invalidate();
     },
@@ -84,6 +99,11 @@ export function Seasons({ showId }: { showId: string }) {
   const [show] = api.show.getShowById.useSuspenseQuery({ showId });
   return (
     <div>
+      {isProcessing && (
+        <div className="absolute inset-0 bg-black/30 flex items-center justify-center z-10">
+          <p className="text-white text-lg">Saving...</p>
+        </div>
+      )}
       <h2 className="text-2xl font-bold mb-4">Seasons for {show?.name ?? "Unknown Show"}</h2>
       <div>
       <ul className="space-y-2">
@@ -144,10 +164,13 @@ export function Seasons({ showId }: { showId: string }) {
 }
 
 export function Episodes({ seasonId }: { seasonId: string }) {
+  const [isProcessing, setIsProcessing] = useState(false);
   const [episodes] = api.episode.getEpisodesBySeason.useSuspenseQuery({ seasonId });
   const [openEpisodeId, setOpenEpisodeId] = useState<string | null>(null);
   const utils = api.useUtils();
   const deleteEpisode = api.episode.deleteEpisode.useMutation({
+    onMutate: () => setIsProcessing(true),
+    onSettled: () => setIsProcessing(false),
     onSuccess: async () => {
       await utils.episode.invalidate();
     },
@@ -155,6 +178,11 @@ export function Episodes({ seasonId }: { seasonId: string }) {
 
   return (
     <div>
+      {isProcessing && (
+        <div className="absolute inset-0 bg-black/30 flex items-center justify-center z-10">
+          <p className="text-white text-lg">Saving...</p>
+        </div>
+      )}
       <h2 className="text-2xl font-bold mb-4">Episodes</h2>
       <ul>
         {episodes.map((episode) => {
@@ -182,14 +210,16 @@ export function Episodes({ seasonId }: { seasonId: string }) {
         })}
 
       </ul>
-      <AddEpisode seasonId={seasonId} />
+      <AddEpisode seasonId={seasonId} setIsProcessing={setIsProcessing} />
     </div>
   );
 }
 
-export function AddEpisode({ seasonId }: { seasonId: string }) {
+export function AddEpisode({ seasonId, setIsProcessing }: { seasonId: string; setIsProcessing: (value: boolean) => void }) {
   const utils = api.useUtils();
   const createEpisode = api.episode.create.useMutation({
+    onMutate: () => setIsProcessing(true),
+    onSettled: () => setIsProcessing(false),
     onSuccess: async () => {
       // Invalidate episode queries after successful creation
       await utils.episode.invalidate();
