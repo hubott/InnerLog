@@ -126,7 +126,7 @@ function ConfirmDeleteButton({ onDelete, isDeleting }: { onDelete: () => void; i
         >
           {isDeleting ? "Deleting..." : "Confirm"}
         </button>
-        <button className="text-gray-400 hover:text-white cursor-pointer" onClick={() => setConfirming(false)}>
+        <button className="text-gray-400 mt-2 hover:text-black cursor-pointer" onClick={() => setConfirming(false)}>
           Cancel
         </button>
       </div>

@@ -56,7 +56,7 @@ export function Shows() {
       />
       <button
         type="submit"
-        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-800"
+        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-800 cursor-pointer"
       >
         Add Show
       </button>
@@ -124,7 +124,7 @@ export function Seasons({ showId }: { showId: string }) {
         />
         <button
           type="submit"
-          className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-700 cursor-pointer"
         >
           Add Season
         </button>

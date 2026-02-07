@@ -214,8 +214,6 @@ function getNextStatus(status: Status): Status {
     <p>{new Date(task.dueDate).toLocaleDateString()}</p>
   </div>
 
-  {/* Priority and Status */}
-
     {/* Priority */}
     <div className="flex items-center gap-2">
       <span className="text-sm font-medium">Priority:</span>
@@ -224,7 +222,7 @@ function getNextStatus(status: Status): Status {
   onChange={(e) =>
           setPriority.mutate({ taskId: task.id, priority: e.target.value as Priority })
         }
-  className={`rounded-full px-3 py-1 border ${
+  className={`rounded-full px-3 py-1 border cursor-pointer ${
     task.priority === "HIGH"
       ? "bg-red-200"
       : task.priority === "MEDIUM"

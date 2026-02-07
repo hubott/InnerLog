@@ -1,10 +1,16 @@
 import { auth } from "~/server/auth";
 import { redirect } from "next/navigation";
-import { GetNotes } from "../_components/note";
-import { Dropdown } from "../_components/dropdown";
+import { Seasons } from "../../_components/episodes";
+import { Dropdown } from "../../_components/dropdown";
+import { HomeButton } from "../../_components/home";
 import Link from "next/link";
 
-export default async function NotePage() {
+export default async function ShowPage({
+    params,
+}: {
+    params: Promise<{ showId: string }>; 
+}) {
+    const { showId } = await params;
   const session = await auth();
 
   if (!session?.user) {
@@ -22,10 +28,9 @@ export default async function NotePage() {
         <Link href="/api/auth/signout">Sign out</Link>
         </button>
       </div>
-      <div className="items-center flex flex-col gap-6">
-      <h1 className="text-5xl text-orange-700">Daily Notes</h1>
-      <h1 className="text-xl font-bold text-center">Today&apos;s date is: {new Date().toLocaleDateString("en-GB")}</h1>
-      <GetNotes />
+      <div className="w-80% flex flex-col gap-6">
+      <HomeButton />
+      <Seasons showId={showId} />
       </div>
     </div>
 
