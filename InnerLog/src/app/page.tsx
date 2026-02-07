@@ -18,8 +18,9 @@ export default async function Home() {
       <main className="relative flex min-h-screen flex-col items-center justify-center bg-linear-to-b from-[#2e026d] to-[#15162c] text-white">
         <StarField />
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
+          <title>Inner Log</title>
           
-          <h1>Welcome to DailyNotes</h1>
+          <h1 className="text-5xl text-orange-700">Welcome to Inner Log</h1>
           <div className="flex flex-col items-center gap-2">
 
 

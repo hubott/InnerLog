@@ -27,4 +27,12 @@ export const SeasonRouter = createTRPCRouter({
         });
     }
     ),
+    deleteSeason: protectedProcedure
+    .input(z.object({ seasonId: z.string().min(1) }))
+    .mutation(async ({ ctx, input }) => {
+        return ctx.db.season.delete({
+            where: { id: input.seasonId },
+        });
+    }
+  ),
 });

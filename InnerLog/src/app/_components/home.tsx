@@ -8,8 +8,19 @@ export function HomeButton() {
     }
 
     return (
-        <button onClick={redirectToHome} className="text-5xl text-orange-700 cursor-pointer hover:text-orange-900 transition hover:bg-orange-250">
-            Daily Notes
-        </button>
+        <div className="w-full flex justify-center">
+        <button
+  onClick={redirectToHome}
+  className="group text-5xl text-white cursor-pointer transition hover:bg-orange-200 px-2 py-1 rounded"
+>
+  <span className="transition group-hover:text-slate-100">
+    Inner
+  </span>{" "}
+  <span className="text-amber-500 transition group-hover:text-amber-600">
+    Log
+  </span>
+</button>
+</div>
+
     )
 }

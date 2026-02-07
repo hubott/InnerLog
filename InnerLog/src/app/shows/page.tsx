@@ -17,7 +17,7 @@ export default async function ShowsPage() {
 
   return (
     <div className="flex min-h-screen flex-col gap-6 p-2 bg-orange-200">
-      <title>Daily Notes </title>
+      <title>Inner Log</title>
       <div className="flex justify-between items-center w-full">
         <Dropdown />
         <button className="rounded-full bg-white/40 px-4 py-2 font-semibold transition hover:bg-white/20">

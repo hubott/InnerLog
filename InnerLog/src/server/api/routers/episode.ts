@@ -32,5 +32,13 @@ export const EpisodeRouter = createTRPCRouter({
         });
     }
     ),
+    deleteEpisode: protectedProcedure
+    .input(z.object({ episodeId: z.string().min(1) }))
+    .mutation(async ({ ctx, input }) => {
+        return ctx.db.episode.delete({
+            where: { id: input.episodeId },
+        });
+    }
+   ),
     
 });

@@ -74,6 +74,13 @@ export function Seasons({ showId }: { showId: string }) {
       await utils.season.invalidate();
     },
   });
+
+  const deleteSeason = api.season.deleteSeason.useMutation({
+    onSuccess: async () => {
+      await utils.season.invalidate();
+    },
+  });
+
   const [show] = api.show.getShowById.useSuspenseQuery({ showId });
   return (
     <div>
@@ -84,8 +91,9 @@ export function Seasons({ showId }: { showId: string }) {
           const isOpen = openSeasonId === season.id;
           return (
             <li key={season.id} className="border rounded-mg bg-white">
+              <div className="flex items-center justify-between w-full bg-rose-200">
             <button
-              className="w-full text-left px-4 py-2 bg-rose-200 hover:bg-rose-300 font-semibold hover:underline flex justify-between items-center cursor-pointer"
+              className="flex-1 text-left px-4 py-2 bg-rose-200 hover:bg-rose-300 font-semibold hover:underline flex justify-between items-center cursor-pointer rounded"
               onClick={() =>
                 setOpenSeasonId(isOpen ? null : season.id)
               }
@@ -93,6 +101,8 @@ export function Seasons({ showId }: { showId: string }) {
               <span> Season {season.number} </span>
               <span>{isOpen ? "▲" : "▼"}</span>
             </button>
+            <ConfirmDeleteSeason itemName={`Season ${season.number}`} onDelete={() => deleteSeason.mutate({ seasonId: season.id })} isDeleting={deleteSeason.isPending} />
+              </div>
             {isOpen && (
               <div className="px-4 py-3 border-t bg-stone-100">
                 <Episodes seasonId={season.id} />
@@ -136,6 +146,12 @@ export function Seasons({ showId }: { showId: string }) {
 export function Episodes({ seasonId }: { seasonId: string }) {
   const [episodes] = api.episode.getEpisodesBySeason.useSuspenseQuery({ seasonId });
   const [openEpisodeId, setOpenEpisodeId] = useState<string | null>(null);
+  const utils = api.useUtils();
+  const deleteEpisode = api.episode.deleteEpisode.useMutation({
+    onSuccess: async () => {
+      await utils.episode.invalidate();
+    },
+  });
 
   return (
     <div>
@@ -145,6 +161,7 @@ export function Episodes({ seasonId }: { seasonId: string }) {
           const isOpen = openEpisodeId === episode.id;
           return (
             <li key={episode.id} className="border rounded-md">
+              <div className="flex items-center justify-between w-full bg-rose-200">
               <button 
                 className="text-amber-500 hover:underline cursor-pointer" 
                 onClick={() => setOpenEpisodeId(isOpen ? null : episode.id)}
@@ -152,6 +169,8 @@ export function Episodes({ seasonId }: { seasonId: string }) {
                 <span> Episode {episode.number}: {episode.title} </span>
                 <span>{isOpen ? "▲" : "▼"}</span>
               </button>
+              <ConfirmDeleteEpisode itemName={`Episode ${episode.number}: ${episode.title}`} onDelete={() => deleteEpisode.mutate({ episodeId: episode.id })} isDeleting={deleteEpisode.isPending} />
+              </div>
               {isOpen && (
                 <div className="border-t px-3 py-2 bg-rose-400 text-sm space-y-1">
                   <p><strong>Thoughts:</strong> {episode.thoughts}</p>
@@ -216,7 +235,7 @@ export function AddEpisode({ seasonId }: { seasonId: string }) {
       />
       <button
         type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
       >
         Add Episode
       </button>
@@ -258,14 +277,116 @@ export default function ConfirmDeleteModal({ itemName, isDeleting, onDelete }: C
 
             <div className="flex justify-end gap-3 mt-2">
               <button
-                className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300"
+                className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 cursor-pointer"
                 onClick={() => setOpen(false)}
                 disabled={isDeleting}
               >
                 Cancel
               </button>
               <button
-                className={`px-4 py-2 rounded bg-red-700 text-white hover:bg-red-800 ${
+                className={`px-4 py-2 rounded bg-red-700 text-white hover:bg-red-800 cursor-pointer ${
+                  isDeleting ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                onClick={() => {
+                  onDelete();
+                  setOpen(false);
+                }}
+                disabled={isDeleting}
+              >
+                {isDeleting ? "Deleting..." : "Delete"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+export function ConfirmDeleteSeason({ itemName, isDeleting, onDelete }: ConfirmDeleteModalProps) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      {/* Delete button triggers modal */}
+      <button
+        className="rounded-full bg-red-700 text-white px-6 py-2 font-semibold hover:bg-red-800 transition cursor-pointer"
+        onClick={() => setOpen(true)}
+      >
+        Delete
+      </button>
+
+      {/* Modal overlay */}
+      {open && (
+        <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
+          <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6 flex flex-col gap-4 animate-fadeIn">
+            <h2 className="text-xl font-semibold text-red-700">Confirm Deletion</h2>
+            <p className="text-gray-700">
+              Are you sure you want to delete <span className="font-semibold">{itemName}</span>?<br />
+              This will permanently delete <strong>all episodes</strong> associated with this season.
+            </p>
+
+            <div className="flex justify-end gap-3 mt-2">
+              <button
+                className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 cursor-pointer"
+                onClick={() => setOpen(false)}
+                disabled={isDeleting}
+              >
+                Cancel
+              </button>
+              <button
+                className={`px-4 py-2 rounded bg-red-700 text-white hover:bg-red-800 cursor-pointer ${
+                  isDeleting ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                onClick={() => {
+                  onDelete();
+                  setOpen(false);
+                }}
+                disabled={isDeleting}
+              >
+                {isDeleting ? "Deleting..." : "Delete"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+export function ConfirmDeleteEpisode({ itemName, isDeleting, onDelete }: ConfirmDeleteModalProps) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      {/* Delete button triggers modal */}
+      <button
+        className="rounded-full bg-red-700 text-white px-6 py-2 font-semibold hover:bg-red-800 transition cursor-pointer"
+        onClick={() => setOpen(true)}
+      >
+        Delete
+      </button>
+
+      {/* Modal overlay */}
+      {open && (
+        <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
+          <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6 flex flex-col gap-4 animate-fadeIn">
+            <h2 className="text-xl font-semibold text-red-700">Confirm Deletion</h2>
+            <p className="text-gray-700">
+              Are you sure you want to delete <span className="font-semibold">{itemName}</span>?<br />
+              This will permanently delete <strong>all data</strong> associated with this episode.
+            </p>
+
+            <div className="flex justify-end gap-3 mt-2">
+              <button
+                className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 cursor-pointer"
+                onClick={() => setOpen(false)}
+                disabled={isDeleting}
+              >
+                Cancel
+              </button>
+              <button
+                className={`px-4 py-2 rounded bg-red-700 text-white hover:bg-red-800 cursor-pointer ${
                   isDeleting ? "opacity-50 cursor-not-allowed" : ""
                 }`}
                 onClick={() => {
