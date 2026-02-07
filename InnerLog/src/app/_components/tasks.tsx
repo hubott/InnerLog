@@ -35,7 +35,9 @@ export function TaskCreator() {
             loading: "Creating task...",
             success: "Task created!",
             error: "Failed to create task. Please make sure all fields are filled correctly."
-          });
+          }).catch(() => {
+            toast.error("An unexpected error occurred. Please try again.");
+          }); // catch to prevent unhandled promise rejection
         }}
         className="flex flex-col gap-2"
       >
@@ -188,7 +190,7 @@ function getNextStatus(status: Status): Status {
     if (a.status !== "COMPLETED" && b.status === "COMPLETED") return -1;
     return priorityOrder[b.priority] - priorityOrder[a.priority];
   });
-  
+
   return (
     <div className="w-full max-w-md">
       <h2 className="text-2xl font-bold mb-4">Your Tasks</h2>
@@ -243,7 +245,9 @@ function getNextStatus(status: Status): Status {
             loading: "Updating priority...",
             success: "Task priority updated!",
             error: "Failed to update task priority. Please try again."
-          });
+          }).catch(() => {  
+            toast.error("An unexpected error occurred. Please try again.");
+          }); // catch to prevent unhandled promise rejection
         }}
   className={`rounded-full px-3 py-1 border cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-400 disabled:hover:bg-gray-400 ${
     task.priority === "HIGH"
@@ -272,7 +276,9 @@ function getNextStatus(status: Status): Status {
             loading: "Updating status...",
             success: "Task status updated!",
             error: "Failed to update task status. Please try again."
-          });
+          }).catch(() => {  
+            toast.error("An unexpected error occurred. Please try again.");
+          }); // catch to prevent unhandled promise rejection
         }}
         disabled={loadingId === task.id}
         className={`text-white px-3 py-1 rounded ${newStatusColours[task.status]} cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-400 disabled:hover:bg-gray-400 transition`}
@@ -283,23 +289,20 @@ function getNextStatus(status: Status): Status {
     </div>
 
 </li>
-
         ))
       )}
-      </ul>
-      </div>
-
-      
-        </div>
-      )}
-    </div>
-  );
+    </ul>
+  </div>      
+</div>
+)}
+</div>
+);
 }
 
 
 
 
-function ConfirmDeleteButton({ onDelete, isDeleting }: { onDelete: () => Promise<any>; isDeleting: boolean }) {
+function ConfirmDeleteButton({ onDelete, isDeleting }: { onDelete: () => Promise<unknown>; isDeleting: boolean }) {
   const [confirming, setConfirming] = useState(false);
 
   useEffect(() => {
@@ -327,7 +330,9 @@ function ConfirmDeleteButton({ onDelete, isDeleting }: { onDelete: () => Promise
               error: "Failed to delete note. Please try again."
             },
             
-            );
+            ).catch(() => {
+              toast.error("An unexpected error occurred. Please try again.");
+            }); // catch to prevent unhandled promise rejection
             setConfirming(false);
           }}
         >

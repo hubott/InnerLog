@@ -51,7 +51,9 @@ export function Shows() {
              loading: "Creating show...",
              success: "Show created!",
              error: "Failed to create show. Please try again."
-           });
+           }).catch(() => {             
+            toast.error("An unexpected error occurred. Please try again.");
+           }); // catch to prevent unhandled promise rejection
         if (inputRef.current) {
           inputRef.current.value = "";
         }
@@ -82,7 +84,7 @@ export function Shows() {
 interface ConfirmDeleteModalProps {
   itemName: string; // name of the show
   isDeleting: boolean;
-  onDelete: () => Promise<any>;
+  onDelete: () => Promise<unknown>;
 }
 
 export default function ConfirmDeleteModal({ itemName, isDeleting, onDelete }: ConfirmDeleteModalProps) {
@@ -127,7 +129,9 @@ export default function ConfirmDeleteModal({ itemName, isDeleting, onDelete }: C
                       loading: "Deleting show...",
                       success: "Show deleted!",
                       error: "Failed to delete show. Please try again."
-                    });
+                    }).catch(() => {
+                      toast.error("An unexpected error occurred. Please try again.");
+                    }); // catch to prevent unhandled promise rejection
                   setOpen(false);
                 }}
                 disabled={isDeleting}

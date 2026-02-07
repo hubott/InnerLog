@@ -5,8 +5,6 @@ import { useState } from "react";
 import { api } from "~/trpc/react";
 import { Episodes } from "./episodes";
 import { toast, Toaster } from "react-hot-toast";
-import { set } from "zod";
-import { create } from "domain";
 
 export function Seasons({ showId }: { showId: string }) {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -80,6 +78,8 @@ export function Seasons({ showId }: { showId: string }) {
              loading: "Creating season...",
              success: "Season created!",
              error: "Failed to create season. Please try again."
+           }).catch(() => {
+             toast.error("An unexpected error occurred. Please try again.");
            });
            (e.currentTarget as HTMLFormElement).reset();
         }}
@@ -108,7 +108,7 @@ export function Seasons({ showId }: { showId: string }) {
 interface ConfirmDeleteModalProps {
   itemName: string; // name of the show
   isDeleting: boolean;
-  onDelete: () => Promise<any>;
+  onDelete: () => Promise<unknown>;
 }
 
 export default function ConfirmDeleteModal({ itemName, isDeleting, onDelete }: ConfirmDeleteModalProps) {
@@ -153,7 +153,9 @@ export default function ConfirmDeleteModal({ itemName, isDeleting, onDelete }: C
                       loading: "Deleting show...",
                       success: "Show deleted!",
                       error: "Failed to delete show. Please try again."
-                    });
+                    }).catch(() => {
+                      toast.error("An unexpected error occurred. Please try again.");
+                    }); // catch to prevent unhandled promise rejection
                   setOpen(false);
                 }}
                 disabled={isDeleting}

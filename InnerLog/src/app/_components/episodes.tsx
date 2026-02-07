@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { api } from "~/trpc/react";
 import { toast, Toaster } from "react-hot-toast";
-import { promise } from "zod";
 
 
 export function Episodes({ seasonId }: { seasonId: string }) {
@@ -50,6 +49,7 @@ export function Episodes({ seasonId }: { seasonId: string }) {
 
       </ul>
       <AddEpisode seasonId={seasonId} setIsProcessing={setIsProcessing} isProcessing={isProcessing} />
+      <Toaster position="bottom-right" />
     </div>
   );
 }
@@ -67,7 +67,7 @@ export function AddEpisode({ seasonId, setIsProcessing, isProcessing }: { season
 
   return (
     <form
-      onSubmit={(e) => {
+      onSubmit={ async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const title = formData.get("title") as string;
@@ -76,8 +76,12 @@ export function AddEpisode({ seasonId, setIsProcessing, isProcessing }: { season
           loading: "Adding episode...",
           success: "Episode added!",
           error: "Failed to add episode. Please try again."
-        });
+        }).catch(() => {
+          toast.error("An unexpected error occurred. Please try again.");
+        }); // catch to prevent unhandled promise rejection
         (e.currentTarget as HTMLFormElement).reset();
+          
+
       }}
       className="mt-4 flex flex-wrap gap-2"
     >
@@ -124,7 +128,7 @@ export function AddEpisode({ seasonId, setIsProcessing, isProcessing }: { season
 interface ConfirmDeleteModalProps {
   itemName: string; // name of the show
   isDeleting: boolean;
-  onDelete: () => Promise<any>;
+  onDelete: () => Promise<unknown>;
 }
 
 export default function ConfirmDeleteModal({ itemName, isDeleting, onDelete }: ConfirmDeleteModalProps) {
@@ -169,7 +173,9 @@ export default function ConfirmDeleteModal({ itemName, isDeleting, onDelete }: C
                       loading: "Deleting show...",
                       success: "Show deleted!",
                       error: "Failed to delete show. Please try again."
-                    });
+                    }).catch(() => {
+                      toast.error("An unexpected error occurred. Please try again.");
+                    }); // catch to prevent unhandled promise rejection
                   setOpen(false);
                 }}
                 disabled={isDeleting}

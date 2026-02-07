@@ -38,7 +38,9 @@ export function Note() {
                loading: "Saving note...",
                success: "Note saved!",
                error: "Failed to save note. Please try again."
-             });
+             }).catch(() => {
+               toast.error("An unexpected error occurred. Please try again.");
+             }); // catch to prevent unhandled promise rejection
         }}
         className="flex flex-col gap-2"
       >
@@ -117,7 +119,7 @@ export function GetNotes() {
   );
 }
 
-function ConfirmDeleteButton({ onDelete, isDeleting }: { onDelete: () => Promise<any>; isDeleting: boolean }) {
+function ConfirmDeleteButton({ onDelete, isDeleting }: { onDelete: () => Promise<unknown>; isDeleting: boolean }) {
   const [confirming, setConfirming] = useState(false);
 
   useEffect(() => {
@@ -145,7 +147,9 @@ function ConfirmDeleteButton({ onDelete, isDeleting }: { onDelete: () => Promise
               error: "Failed to delete note. Please try again."
             },
             
-            );
+            ).catch(() => {
+              toast.error("An unexpected error occurred. Please try again.");
+            }); // catch to prevent unhandled promise rejection
             setConfirming(false);
           }}
         >
@@ -174,7 +178,7 @@ function EditableNote({
     isSaving,
     }: {
     note: { id: string; contents: string | null; date: Date | null };
-    onSave: (newContent: string) => Promise<any>;
+    onSave: (newContent: string) => Promise<unknown>;
     isSaving: boolean;
     }) {
     const [isEditing, setIsEditing] = useState(false);
@@ -211,7 +215,9 @@ function EditableNote({
                 loading: "Saving note...",
                 success: "Note updated!",
                 error: "Failed to update note. Please try again."
-              });
+              }).catch(() => {
+                toast.error("An unexpected error occurred. Please try again.");
+              }); // catch to prevent unhandled promise rejection
               setIsEditing(false)}}
         >
             Save
