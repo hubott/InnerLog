@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { api } from "~/trpc/react";
 import { Priority, Status } from "~/../generated/prisma";
+import { toast, Toaster} from "react-hot-toast";
 import "~/styles/globals.css";
 
 
@@ -21,15 +22,20 @@ export function TaskCreator() {
       setStatus(null);
       await utils.task.getTasks.invalidate();
     },
-    
   });
 
   return (
     <div className="w-full max-w-md">
+      
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          createTask.mutate({ title, dueDate: dueDate ? new Date(dueDate) : new Date(), priority: priority ?? Priority.MEDIUM, status: status ?? Status.NOTSTARTED });
+          const promise = createTask.mutateAsync({ title, dueDate: dueDate ? new Date(dueDate) : new Date(), priority: priority ?? Priority.MEDIUM, status: status ?? Status.NOTSTARTED });
+          toast.promise(promise, {
+            loading: "Creating task...",
+            success: "Task created!",
+            error: "Failed to create task. Please make sure all fields are filled correctly."
+          });
         }}
         className="flex flex-col gap-2"
       >
@@ -90,38 +96,42 @@ export function TaskCreator() {
           {createTask.isPending ? "Creating..." : "Create Task"}
         </button>
       </form>
+      <Toaster position="bottom-right" />
     </div>
   );
 }
 
 export function TaskList() {
   const utils = api.useUtils();
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [loadingId, setLoadingId] = useState<string | null>(null);
+
   const deleteTask = api.task.deleteTask.useMutation({
-    onMutate: () => setIsProcessing(true),
-    onSettled: () => setIsProcessing(false),
+    onMutate: (vars) => setLoadingId(vars.taskId),
+    onSettled: () => setLoadingId(null),
     onSuccess: async () => {
       await utils.task.getTasks.invalidate();
     },
   });
+
   const setStatus = api.task.setStatus.useMutation({
-    onMutate: () => setIsProcessing(true),
-    onSettled: () => setIsProcessing(false),
+    onMutate: (vars) => setLoadingId(vars.taskId),
+    onSettled: () => setLoadingId(null),
     onSuccess: async () => {
       await utils.task.getTasks.invalidate();
     },
   });
+
   const setPriority = api.task.setPriority.useMutation({
-    onMutate: () => setIsProcessing(true),
-    onSettled: () => setIsProcessing(false),
+    onMutate: (vars) => setLoadingId(vars.taskId),
+    onSettled: () => setLoadingId(null),
     onSuccess: async () => {
       await utils.task.getTasks.invalidate();
     },
   });
+
   const [tasks] = api.task.getTasks.useSuspenseQuery();
   const [activeTab, setActiveTab] = useState<"overdue" | "today" | "upcoming">("today");
   type Status = "NOTSTARTED" | "INPROGRESS" | "COMPLETED";
-
 
   const priorityOrder: Record<Priority, number> = {
     [Priority.HIGH]: 3,
@@ -159,12 +169,8 @@ function getNextStatus(status: Status): Status {
   return "NOTSTARTED"; // if completed → back to not completed
 }
 
-
-  
-
   const today = new Date();
   today.setHours(0,0,0,0);
-
 
   function getCategory(task: { dueDate: Date }) {
     const due = new Date(task.dueDate);
@@ -182,13 +188,9 @@ function getNextStatus(status: Status): Status {
     if (a.status !== "COMPLETED" && b.status === "COMPLETED") return -1;
     return priorityOrder[b.priority] - priorityOrder[a.priority];
   });
+  
   return (
     <div className="w-full max-w-md">
-      {isProcessing && (
-        <div className="absolute inset-0 bg-black/30 flex items-center justify-center z-10">
-          <p className="text-white text-lg">Saving...</p>
-        </div>
-      )}
       <h2 className="text-2xl font-bold mb-4">Your Tasks</h2>
       {tasks.length === 0 ? (
         <p>No tasks yet. Add one above!</p>
@@ -218,8 +220,8 @@ function getNextStatus(status: Status): Status {
     <h3 className="text-lg font-semibold">{task.title}</h3>
     <ConfirmDeleteButton
       key={task.id}
-      onDelete={() => deleteTask.mutate({ taskId: task.id })}
-      isDeleting={deleteTask.isPending}
+      onDelete={() => deleteTask.mutateAsync({ taskId: task.id })}
+      isDeleting={loadingId === task.id}
     />
   </div>
 
@@ -234,10 +236,16 @@ function getNextStatus(status: Status): Status {
       <span className="text-sm font-medium">Priority:</span>
       <select
   value={task.priority}
-  onChange={(e) =>
-          setPriority.mutate({ taskId: task.id, priority: e.target.value as Priority })
-        }
-  className={`rounded-full px-3 py-1 border cursor-pointer ${
+  disabled={loadingId === task.id}
+  onChange={(e) => {
+          const promise = setPriority.mutateAsync({ taskId: task.id, priority: e.target.value as Priority });
+          toast.promise(promise, {
+            loading: "Updating priority...",
+            success: "Task priority updated!",
+            error: "Failed to update task priority. Please try again."
+          });
+        }}
+  className={`rounded-full px-3 py-1 border cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-400 disabled:hover:bg-gray-400 ${
     task.priority === "HIGH"
       ? "bg-red-200"
       : task.priority === "MEDIUM"
@@ -258,13 +266,20 @@ function getNextStatus(status: Status): Status {
         {statusLabels[task.status]}
       </span>
       <button
-        onClick={() =>
-          setStatus.mutate({ taskId: task.id, status: getNextStatus(task.status) })
-        }
-        className={`text-white px-3 py-1 rounded ${newStatusColours[task.status]} cursor-pointer`}
+        onClick={() => {
+          const promise = setStatus.mutateAsync({ taskId: task.id, status: getNextStatus(task.status) });
+          toast.promise(promise, {
+            loading: "Updating status...",
+            success: "Task status updated!",
+            error: "Failed to update task status. Please try again."
+          });
+        }}
+        disabled={loadingId === task.id}
+        className={`text-white px-3 py-1 rounded ${newStatusColours[task.status]} cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-400 disabled:hover:bg-gray-400 transition`}
       >
         {statusMessages[task.status]}
       </button>
+      <Toaster position="bottom-right" />
     </div>
 
 </li>
@@ -284,7 +299,7 @@ function getNextStatus(status: Status): Status {
 
 
 
-function ConfirmDeleteButton({ onDelete, isDeleting }: { onDelete: () => void; isDeleting: boolean }) {
+function ConfirmDeleteButton({ onDelete, isDeleting }: { onDelete: () => Promise<any>; isDeleting: boolean }) {
   const [confirming, setConfirming] = useState(false);
 
   useEffect(() => {
@@ -302,11 +317,19 @@ function ConfirmDeleteButton({ onDelete, isDeleting }: { onDelete: () => void; i
       <div className="flex gap-2">
         <button
           className="rounded-full bg-red-700 text-white px-6 py-2 font-semibold transition hover:bg-red-800 mt-2 cursor-pointer"
+          
+          disabled={isDeleting}
           onClick={() => {
-            onDelete();
+            const promise = onDelete();
+            toast.promise(promise, {
+              loading: "Deleting note...",
+              success: "Note deleted!",
+              error: "Failed to delete note. Please try again."
+            },
+            
+            );
             setConfirming(false);
           }}
-          disabled={isDeleting}
         >
           {isDeleting ? "Deleting..." : "Confirm"}
         </button>
@@ -318,8 +341,11 @@ function ConfirmDeleteButton({ onDelete, isDeleting }: { onDelete: () => void; i
   }
 
   return (
-    <button className="rounded-full bg-red-700 text-white px-6 py-2 font-semibold transition hover:bg-red-800 mt-2 cursor-pointer" onClick={() => setConfirming(true)}>
-      Delete
+    <button className="rounded-full bg-red-700 text-white px-6 py-2 font-semibold transition hover:bg-red-800 mt-2 cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400" 
+    onClick={() => setConfirming(true)}
+    disabled={isDeleting}
+    >
+       Delete
     </button>
   );
 }

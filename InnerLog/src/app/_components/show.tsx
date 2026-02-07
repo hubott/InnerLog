@@ -2,11 +2,12 @@
 
 import { useRef, useState } from "react";
 import { redirect } from "next/navigation";
-
 import { api } from "~/trpc/react";
+import { toast, Toaster } from "react-hot-toast";
 
 export function Shows() {
   const [isProcessing, setIsProcessing] = useState(false);
+  const [loadingId, setLoadingId] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [shows] = api.show.getShows.useSuspenseQuery();
   const utils = api.useUtils();
@@ -18,8 +19,8 @@ export function Shows() {
     },
   });
   const deleteShow = api.show.deleteShow.useMutation({
-    onMutate: () => setIsProcessing(true),
-    onSettled: () => setIsProcessing(false),
+    onMutate: (vars) => setLoadingId(vars.showId),
+    onSettled: () => setLoadingId(null),
     onSuccess: async () => {
       await utils.show.invalidate();
     },
@@ -27,11 +28,6 @@ export function Shows() {
 
   return (
     <div>
-      {isProcessing && (
-        <div className="absolute inset-0 bg-black/30 flex items-center justify-center z-10">
-          <p className="text-white text-lg">Saving...</p>
-        </div>
-      )}
       <h2 className="text-2xl font-bold mb-4">My Shows</h2>
       <ul>
         {shows.map((show) => (
@@ -39,7 +35,7 @@ export function Shows() {
             <button onClick={() => redirect("/shows/" + show.id)} className="text-red-500 hover:underline cursor-pointer mr-2">
             {show.name}
             </button>
-            <ConfirmDeleteModal itemName={show.name} onDelete={() => deleteShow.mutate({ showId: show.id })} isDeleting={deleteShow.isPending} />
+            <ConfirmDeleteModal itemName={show.name} onDelete={() => deleteShow.mutateAsync({ showId: show.id })} isDeleting={loadingId === show.id} />
           </li>
         ))}
       </ul>
@@ -49,7 +45,13 @@ export function Shows() {
         const formData = new FormData(e.currentTarget);
         const name = formData.get("name") as string;
         formData.delete("name");
-        createShow.mutate({ title: name });
+
+        const promise = createShow.mutateAsync({ title: name });
+        toast.promise(promise, {
+             loading: "Creating show...",
+             success: "Show created!",
+             error: "Failed to create show. Please try again."
+           });
         if (inputRef.current) {
           inputRef.current.value = "";
         }
@@ -65,11 +67,13 @@ export function Shows() {
       />
       <button
         type="submit"
-        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-800 cursor-pointer"
+        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-800 cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
+        disabled={isProcessing}
       >
         Add Show
       </button>
     </form>
+    <Toaster position="bottom-right" />
     </div>
   );
 }
@@ -78,7 +82,7 @@ export function Shows() {
 interface ConfirmDeleteModalProps {
   itemName: string; // name of the show
   isDeleting: boolean;
-  onDelete: () => void;
+  onDelete: () => Promise<any>;
 }
 
 export default function ConfirmDeleteModal({ itemName, isDeleting, onDelete }: ConfirmDeleteModalProps) {
@@ -88,8 +92,9 @@ export default function ConfirmDeleteModal({ itemName, isDeleting, onDelete }: C
     <>
       {/* Delete button triggers modal */}
       <button
-        className="rounded-full bg-red-700 text-white px-6 py-2 font-semibold hover:bg-red-800 transition cursor-pointer"
+        className="rounded-full bg-red-700 text-white px-6 py-2 font-semibold hover:bg-red-800 transition cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
         onClick={() => setOpen(true)}
+        disabled={isDeleting}
       >
         Delete
       </button>
@@ -117,7 +122,12 @@ export default function ConfirmDeleteModal({ itemName, isDeleting, onDelete }: C
                   isDeleting ? "opacity-50 cursor-not-allowed" : ""
                 }`}
                 onClick={() => {
-                  onDelete();
+                    const promise = onDelete();
+                    toast.promise(promise, {
+                      loading: "Deleting show...",
+                      success: "Show deleted!",
+                      error: "Failed to delete show. Please try again."
+                    });
                   setOpen(false);
                 }}
                 disabled={isDeleting}

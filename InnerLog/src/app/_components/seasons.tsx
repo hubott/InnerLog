@@ -4,9 +4,13 @@ import { useState } from "react";
 
 import { api } from "~/trpc/react";
 import { Episodes } from "./episodes";
+import { toast, Toaster } from "react-hot-toast";
+import { set } from "zod";
+import { create } from "domain";
 
 export function Seasons({ showId }: { showId: string }) {
   const [isProcessing, setIsProcessing] = useState(false);
+  const [loadingId, setLoadingId] = useState<string | null>(null);
   const [seasons] = api.season.getSeasonsByShow.useSuspenseQuery({ showId });
   const [openSeasonId, setOpenSeasonId] = useState<string | null>(null);
   const utils = api.useUtils();
@@ -15,12 +19,16 @@ export function Seasons({ showId }: { showId: string }) {
     onSettled: () => setIsProcessing(false),
     onSuccess: async () => {
       await utils.season.invalidate();
+      toast.success("Season created!");
     },
+    onError: () => {
+      toast.error("Failed to create season. Please try again.");
+    }
   });
 
   const deleteSeason = api.season.deleteSeason.useMutation({
-    onMutate: () => setIsProcessing(true),
-    onSettled: () => setIsProcessing(false),
+    onMutate: (vars) => setLoadingId(vars.seasonId),
+    onSettled: () => setLoadingId(null),
     onSuccess: async () => {
       await utils.season.invalidate();
     },
@@ -29,11 +37,6 @@ export function Seasons({ showId }: { showId: string }) {
   const [show] = api.show.getShowById.useSuspenseQuery({ showId });
   return (
     <div>
-      {isProcessing && (
-        <div className="absolute inset-0 bg-black/30 flex items-center justify-center z-10">
-          <p className="text-white text-lg">Saving...</p>
-        </div>
-      )}
       <h2 className="text-2xl font-bold mb-4">Seasons for {show?.name ?? "Unknown Show"}</h2>
       <div>
       <ul className="space-y-2">
@@ -51,7 +54,7 @@ export function Seasons({ showId }: { showId: string }) {
               <span> Season {season.number} </span>
               <span>{isOpen ? "▲" : "▼"}</span>
             </button>
-            <ConfirmDeleteSeason itemName={`Season ${season.number}`} onDelete={() => deleteSeason.mutate({ seasonId: season.id })} isDeleting={deleteSeason.isPending} />
+            <ConfirmDeleteModal itemName={`Season ${season.number}`} onDelete={() => deleteSeason.mutateAsync({ seasonId: season.id })} isDeleting={loadingId === season.id} />
               </div>
             {isOpen && (
               <div className="px-4 py-3 border-t bg-stone-100">
@@ -72,7 +75,13 @@ export function Seasons({ showId }: { showId: string }) {
           const value = formData.get("number");
           if(value === null) return;
           const number = Number(value);
-          createSeason.mutate({ number, show: showId });
+          const promise = createSeason.mutateAsync({ number, show: showId });
+          toast.promise(promise, {
+             loading: "Creating season...",
+             success: "Season created!",
+             error: "Failed to create season. Please try again."
+           });
+           (e.currentTarget as HTMLFormElement).reset();
         }}
         className="mt-4 flex gap-2"
       >
@@ -84,11 +93,13 @@ export function Seasons({ showId }: { showId: string }) {
         />
         <button
           type="submit"
-          className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-700 cursor-pointer"
+          className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-700 cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
+          disabled={isProcessing}
         >
           Add Season
         </button>
       </form>
+    <Toaster position="bottom-right" />
     </div>
   );
 }
@@ -97,19 +108,19 @@ export function Seasons({ showId }: { showId: string }) {
 interface ConfirmDeleteModalProps {
   itemName: string; // name of the show
   isDeleting: boolean;
-  onDelete: () => void;
+  onDelete: () => Promise<any>;
 }
 
-
-export function ConfirmDeleteSeason({ itemName, isDeleting, onDelete }: ConfirmDeleteModalProps) {
+export default function ConfirmDeleteModal({ itemName, isDeleting, onDelete }: ConfirmDeleteModalProps) {
   const [open, setOpen] = useState(false);
 
   return (
     <>
       {/* Delete button triggers modal */}
       <button
-        className="rounded-full bg-red-700 text-white px-6 py-2 font-semibold hover:bg-red-800 transition cursor-pointer"
+        className="rounded-full bg-red-700 text-white px-6 py-2 font-semibold hover:bg-red-800 transition cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
         onClick={() => setOpen(true)}
+        disabled={isDeleting}
       >
         Delete
       </button>
@@ -137,7 +148,12 @@ export function ConfirmDeleteSeason({ itemName, isDeleting, onDelete }: ConfirmD
                   isDeleting ? "opacity-50 cursor-not-allowed" : ""
                 }`}
                 onClick={() => {
-                  onDelete();
+                    const promise = onDelete();
+                    toast.promise(promise, {
+                      loading: "Deleting show...",
+                      success: "Show deleted!",
+                      error: "Failed to delete show. Please try again."
+                    });
                   setOpen(false);
                 }}
                 disabled={isDeleting}
