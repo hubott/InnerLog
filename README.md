@@ -42,7 +42,7 @@
 
 1. Clone the repo
 ```bash
-git clone https://github.com/yourusername/innerlog.git
+git clone https://github.com/hubott/innerlog.git
 cd InnerLog
 ```
 2. Install dependencies
