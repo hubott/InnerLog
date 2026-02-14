@@ -44,3 +44,7 @@ yarn-error.log*
 
 # idea files
 .idea
+
+# IOS build files
+ios/
+capacitor.config.ts
