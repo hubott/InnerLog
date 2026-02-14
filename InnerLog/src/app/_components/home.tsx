@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { Browser } from "@capacitor/browser";
+import { Capacitor } from "@capacitor/core";
 
 export function HomeButton() {
     const redirectToHome = () => {
@@ -29,6 +30,10 @@ export function HomeButton() {
 export function BrowserSignIn() {
     const logIn = async () => {
         await Browser.open({ url: "https://inner-log-nine.vercel.app/api/auth/signin" });
+        // Reload the WebView if running on a real device
+  if (Capacitor.getPlatform() === "ios" || Capacitor.getPlatform() === "android") {
+    window.location.reload();
+  }
     }
 
     return (
