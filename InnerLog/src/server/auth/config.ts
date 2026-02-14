@@ -1,7 +1,8 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { type DefaultSession, type NextAuthConfig } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import EmailProvider from "next-auth/providers/email";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { verifyPassword } from "./auth-utils"; // utility to check password
 
 import { db } from "~/server/db";
 
@@ -34,17 +35,35 @@ declare module "next-auth" {
 export const authConfig = {
   providers: [
     GoogleProvider,
-    EmailProvider({
-      server: {
-        host: "smtp.gmail.com",
-        port: 587,
-        auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_PASSWORD,
-        },
-      },
-      from: process.env.EMAIL_USER,
-    }),
+    CredentialsProvider({
+  name: "Username & Password",
+  credentials: {
+    username: { label: "Username", type: "text" },
+    password: { label: "Password", type: "password" },
+  },
+  async authorize(credentials) {
+    if (!credentials) return null;
+
+    // Cast to string
+    const username = String(credentials.username);
+    const password = String(credentials.password);
+
+    const user = await db.user.findUnique({
+      where: { username }, // now TypeScript knows it's a string
+    });
+
+    if (!user) return null;
+
+    const isValid = await verifyPassword(password, user.passwordHash!); 
+    // use `!` if passwordHash is guaranteed to exist
+
+    if (!isValid) return null;
+
+    return { id: user.id, username: user.username, email: user.email };
+  },
+})
+
+
     /**
      * ...add more providers here.
      *
@@ -55,15 +74,27 @@ export const authConfig = {
      * @see https://next-auth.js.org/providers/github
      */
   ],
+  session: {
+    strategy: "jwt",
+  },
   adapter: PrismaAdapter(db),
   callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
+  async jwt({ token, user }) {
+    // Runs on login
+    if (user) {
+      token.id = user.id;
+    }
+    return token;
   },
+
+  session: ({ session, token }) => ({
+    ...session,
+    user: {
+      ...session.user,
+      id: token.id as string,
+    },
+  }),
+}
+  
   
 } satisfies NextAuthConfig;

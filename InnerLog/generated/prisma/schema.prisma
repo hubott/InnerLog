@@ -54,6 +54,8 @@ model User {
   notes         Note[]
   tasks         Task[]
   shows         Show[]
+  username      String?   @unique
+  passwordHash  String?
 }
 
 model Note {

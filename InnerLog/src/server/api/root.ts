@@ -4,6 +4,7 @@ import { TaskRouter } from "./routers/task";
 import { ShowRouter } from "./routers/show";
 import { SeasonRouter } from "./routers/season";
 import { EpisodeRouter } from "./routers/episode";
+import { authRouter } from "./routers/auth";
 
 /**
  * This is the primary router for your server.
@@ -16,6 +17,7 @@ export const appRouter = createTRPCRouter({
   show: ShowRouter,
   season: SeasonRouter,
   episode: EpisodeRouter,
+  auth: authRouter,
 });
 
 // export type definition of API
