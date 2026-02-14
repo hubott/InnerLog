@@ -30,6 +30,12 @@ export default async function Home() {
               >
                 {session ? "Sign out" : "Sign in"}
               </Link>
+              <Link
+                href="/signup"
+                className="rounded-full bg-white/40 px-10 py-3 font-semibold no-underline transition hover:bg-white/50"
+              >
+                Sign up
+              </Link>
             </div>
           </div>
 
