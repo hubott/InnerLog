@@ -20,7 +20,7 @@ export default function SignUpPage() {
       await signupMutation.mutateAsync({ username, password, name, email });
 
       // 2️⃣ Immediately log them in
-      const res = await signIn("credentials", {
+      await signIn("credentials", {
         redirect: true,
         username,
         password,
@@ -30,9 +30,14 @@ export default function SignUpPage() {
       // Optional: if you want to handle errors manually
       // if (!res?.ok) setMessage("Login failed after signup");
 
-    } catch (err: any) {
-      setMessage(`Error: ${err.message}`);
-    }
+    } catch (err: unknown) {
+  if (err instanceof Error) {
+    setMessage(`Error: ${err.message}`);
+  } else {
+    setMessage("An unknown error occurred");
+  }
+}
+
   };
 
   return (

@@ -1,10 +1,6 @@
 "use client";
 
 import { redirect } from "next/navigation";
-import { Browser } from "@capacitor/browser";
-import { Capacitor } from "@capacitor/core";
-import { useState } from "react";
-import { signIn } from "next-auth/react";
 
 export function HomeButton() {
     const redirectToHome = () => {
