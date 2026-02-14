@@ -3,15 +3,11 @@ import Link from "next/link";
 import { auth } from "~/server/auth";
 import { HydrateClient } from "~/trpc/server";
 import { redirect } from "next/navigation";
-import { Browser } from "@capacitor/browser";
-import { Button } from "~/components/ui/button";
+import { BrowserSignIn } from "./_components/home";
 
 export default async function Home() {
   const session = await auth();
 
-  const logIn = async () => {
-    await Browser.open({ url: "https://inner-log-nine.vercel.app/api/auth/signin" });
-  }
 
   if (session?.user) {
     redirect("/home");
@@ -35,9 +31,7 @@ export default async function Home() {
               >
                 {session ? "Sign out" : "Sign in"}
               </Link>
-              <Button onClick={logIn} variant="outline">
-                Sign in with Browser API
-              </Button>
+              <BrowserSignIn />
             </div>
           </div>
 

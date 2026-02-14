@@ -1,6 +1,7 @@
 "use client";
 
 import { redirect } from "next/navigation";
+import { Browser } from "@capacitor/browser";
 
 export function HomeButton() {
     const redirectToHome = () => {
@@ -23,4 +24,17 @@ export function HomeButton() {
 </div>
 
     )
+}
+
+export function BrowserSignIn() {
+    const logIn = async () => {
+        await Browser.open({ url: "https://inner-log-nine.vercel.app/api/auth/signin" });
+    }
+
+    return (
+        <button onClick={logIn} className="rounded-full bg-white/40 px-10 py-3 font-semibold no-underline transition hover:bg-white/50">
+            Sign in with Browser API
+        </button>
+    )
+
 }
