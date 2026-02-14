@@ -1,6 +1,7 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { type DefaultSession, type NextAuthConfig } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import EmailProvider from "next-auth/providers/email";
 
 import { db } from "~/server/db";
 
@@ -33,6 +34,17 @@ declare module "next-auth" {
 export const authConfig = {
   providers: [
     GoogleProvider,
+    EmailProvider({
+      server: {
+        host: "smtp.gmail.com",
+        port: 587,
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASSWORD,
+        },
+      },
+      from: process.env.EMAIL_USER,
+    }),
     /**
      * ...add more providers here.
      *

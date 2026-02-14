@@ -4,6 +4,7 @@ import { auth } from "~/server/auth";
 import { HydrateClient } from "~/trpc/server";
 import { redirect } from "next/navigation";
 import { BrowserSignIn } from "./_components/home";
+import { EmailSignIn } from "./_components/home";
 
 export default async function Home() {
   const session = await auth();
@@ -32,6 +33,7 @@ export default async function Home() {
                 {session ? "Sign out" : "Sign in"}
               </Link>
               <BrowserSignIn />
+              <EmailSignIn />
             </div>
           </div>
 

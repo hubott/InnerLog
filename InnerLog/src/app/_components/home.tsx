@@ -3,6 +3,8 @@
 import { redirect } from "next/navigation";
 import { Browser } from "@capacitor/browser";
 import { Capacitor } from "@capacitor/core";
+import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 export function HomeButton() {
     const redirectToHome = () => {
@@ -42,4 +44,41 @@ export function BrowserSignIn() {
         </button>
     )
 
+}
+
+export function EmailSignIn() {
+    const [email, setEmail] = useState("");
+    
+    const [message, setMessage] = useState("");
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const result = await signIn("email", {
+      email,
+      redirect: false, // we handle redirect ourselves
+      callbackUrl: "/", // where to go after login
+    });
+
+    if (result?.error) {
+      setMessage("Error sending email. Try again.");
+    } else {
+      setMessage("Magic link sent! Check your inbox.");
+    }
+  };
+
+  return (
+    <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "0.5rem", width: "300px" }}>
+      <input
+        type="email"
+        placeholder="you@example.com"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        style={{ padding: "0.5rem", fontSize: "1rem" }}
+      />
+      <button type="submit" style={{ padding: "0.5rem", fontSize: "1rem" }}>Send Magic Link</button>
+      {message && <p>{message}</p>}
+    </form>
+  );
 }
