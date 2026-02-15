@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "../../components/ui/dropdown-menu"
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export function Dropdown() {
 
@@ -54,5 +55,18 @@ export function Dropdown() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  )
+}
+
+export function Navbar() {
+  const dev = process.env.NODE_ENV === "development";
+
+  return (
+    <div className={`flex justify-between items-center w-full`}>
+      <Dropdown />
+              <button className="rounded-full bg-white/40 px-4 py-2 font-semibold transition hover:bg-white/20">
+        <Link href="/api/auth/signout">Sign out</Link>
+        </button>
+    </div>
   )
 }

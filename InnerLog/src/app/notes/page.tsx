@@ -1,9 +1,8 @@
 import { auth } from "~/server/auth";
 import { redirect } from "next/navigation";
 import { GetNotes } from "../_components/note";
-import { Dropdown } from "../_components/dropdown";
+import { Navbar } from "../_components/dropdown";
 import { HomeButton } from "../_components/home";
-import Link from "next/link";
 
 export default async function NotePage() {
   const session = await auth();
@@ -15,13 +14,10 @@ export default async function NotePage() {
 
 
   return (
-    <div className="flex min-h-screen flex-col gap-6 p-2 bg-orange-200">
+    <div className="flex flex-col gap-6 p-2 bg-orange-200">
       <title>Inner Log</title>
-      <div className="flex justify-between items-center w-full">
-        <Dropdown />
-        <button className="rounded-full bg-white/40 px-4 py-2 font-semibold transition hover:bg-white/20">
-        <Link href="/api/auth/signout">Sign out</Link>
-        </button>
+      <div className={`flex justify-between items-center w-full`}>
+        <Navbar />
       </div>
       <div className="items-center flex flex-col gap-6">
       <HomeButton />
