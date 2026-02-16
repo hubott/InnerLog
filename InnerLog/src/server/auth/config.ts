@@ -5,6 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { verifyPassword } from "./auth-utils"; // utility to check password
 
 import { db } from "~/server/db";
+import { env } from "~/env";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -100,9 +101,9 @@ export const authConfig = {
     name: `next-auth.session-token`,
     options: {
       httpOnly: true,
-      sameSite: "lax",
+      sameSite: env.NODE_ENV === "production" ? "none" : "lax",
       path: "/",
-      secure: false,
+      secure: env.NODE_ENV === "production",
     },
   },
 },
