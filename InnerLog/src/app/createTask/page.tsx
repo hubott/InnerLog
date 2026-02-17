@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { TaskCreator } from "../_components/tasks";
 import { Navbar } from "../_components/dropdown";
 import { HomeButton } from "../_components/home";
+import TodayDate from "../_components/date";
 
 export default async function TasksPage() {
   const session = await auth();
@@ -22,7 +23,7 @@ export default async function TasksPage() {
 
       <div className="items-center flex flex-col gap-6">
       <HomeButton />
-      <h1 className="text-xl font-bold text-center">Today&apos;s date is: {new Date().toLocaleDateString()}</h1>
+      <TodayDate />
       <TaskCreator />
       </div>
     </div>
