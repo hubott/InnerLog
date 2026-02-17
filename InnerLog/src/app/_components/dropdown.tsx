@@ -59,7 +59,6 @@ export function Dropdown() {
 }
 
 export function Navbar() {
-  const dev = process.env.NODE_ENV === "development";
 
   return (
     <div className={`flex justify-between items-center w-full`}>
