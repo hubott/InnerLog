@@ -132,7 +132,7 @@ export function TaskList() {
   });
 
   const [tasks] = api.task.getTasks.useSuspenseQuery();
-  const [activeTab, setActiveTab] = useState<"overdue" | "today" | "upcoming">("today");
+  const [activeTab, setActiveTab] = useState<"overdue" | "today" | "upcoming" | "completed">("today");
   type Status = "NOTSTARTED" | "INPROGRESS" | "COMPLETED";
 
   const priorityOrder: Record<Priority, number> = {
@@ -174,9 +174,11 @@ function getNextStatus(status: Status): Status {
   const today = new Date();
   today.setHours(0,0,0,0);
 
-  function getCategory(task: { dueDate: Date }) {
+  function getCategory(task: { status: Status, dueDate: Date }) {
+    const status = task.status;
     const due = new Date(task.dueDate);
     due.setHours(0,0,0,0);
+    if (status === "COMPLETED") return "completed";
 
     if (due < today) return "overdue";
     if (due.getTime() === today.getTime()) return "today";
@@ -202,6 +204,7 @@ function getNextStatus(status: Status): Status {
         <button className={`px-4 py-2 bg-orange-500 text-white rounded-md cursor-pointer hover:bg-orange-600 transition-colors ${activeTab === 'today' ? 'bg-orange-700' : ''}`} onClick={() => setActiveTab("today")}>Due Today</button>
         <button className={`px-4 py-2 bg-orange-500 text-white rounded-md cursor-pointer hover:bg-orange-600 transition-colors ${activeTab === 'overdue' ? 'bg-orange-700' : ''}`} onClick={() => setActiveTab("overdue")}>Overdue</button>
         <button className={`px-4 py-2 bg-orange-500 text-white rounded-md cursor-pointer hover:bg-orange-600 transition-colors ${activeTab === 'upcoming' ? 'bg-orange-700' : ''}`} onClick={() => setActiveTab("upcoming")}>Not Due</button>
+        <button className={`px-4 py-2 bg-orange-500 text-white rounded-md cursor-pointer hover:bg-orange-600 transition-colors ${activeTab === 'completed' ? 'bg-orange-700' : ''}`} onClick={() => setActiveTab("completed")}>Completed</button>
       </div>
 
       <div className="flex-1 overflow-y-auto max-h-[60vh] pr-2">

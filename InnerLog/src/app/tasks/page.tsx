@@ -21,7 +21,7 @@ export default async function TasksPage() {
       </div>
       <div className="items-center flex flex-col gap-6">
       <HomeButton />
-      <h1 className="text-xl font-bold text-center">Today&apos;s date is: {new Date().toLocaleDateString("en-GB")}</h1>
+      <h1 className="text-xl font-bold text-center">Today&apos;s date is: {new Date().toLocaleDateString()}</h1>
       <TaskList />
       </div>
     </div>
