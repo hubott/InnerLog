@@ -3,7 +3,12 @@
 export default function TodayDate() {
   return (
     <h1 className="text-xl font-bold text-center">
-      Today&apos;s date is: {new Date().toLocaleDateString()}
+      Today is {new Date().toLocaleDateString("En-GB", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })}
     </h1>
   );
 }
