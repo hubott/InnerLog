@@ -35,7 +35,9 @@ declare module "next-auth" {
  */
 export const authConfig = {
   providers: [
-    GoogleProvider,
+    GoogleProvider({
+      allowDangerousEmailAccountLinking: true,
+    }),
     CredentialsProvider({
   name: "Username & Password",
   credentials: {
