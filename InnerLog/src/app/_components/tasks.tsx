@@ -195,6 +195,7 @@ function getNextStatus(status: Status): Status {
 
   return (
     <div className="w-full max-w-md">
+      <Toaster position="bottom-right" />
       <h2 className="text-2xl font-bold mb-4">Your Tasks</h2>
       {tasks.length === 0 ? (
         <p>No tasks yet. Add one above!</p>
@@ -288,7 +289,7 @@ function getNextStatus(status: Status): Status {
       >
         {statusMessages[task.status]}
       </button>
-      <Toaster position="bottom-right" />
+      
     </div>
 
 </li>

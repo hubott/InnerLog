@@ -107,6 +107,11 @@ export const authConfig = {
     },
   },
 },
+pages: {
+  signIn: "/login",
+  // signOut: "/auth/signout", // Optional custom sign-out page
+  // error: "/auth/error", // Optional custom error page
+},
 
   
   
