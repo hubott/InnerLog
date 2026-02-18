@@ -112,6 +112,7 @@ pages: {
   // signOut: "/auth/signout", // Optional custom sign-out page
   // error: "/auth/error", // Optional custom error page
 },
+trustHost: true, // Trust the host header (useful if behind a proxy)
 
   
   

@@ -1,7 +1,6 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { redirect } from "next/dist/server/api-utils";
 import Link from "next/link";
 
 export default function LoginPage() {
@@ -12,7 +11,7 @@ export default function LoginPage() {
 
         {/* Google */}
         <button
-          onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+          onClick={() => signIn("google", { callbackUrl: "/home" })}
           className="w-full rounded bg-amber-500 p-3 text-white cursor-pointer hover:bg-amber-700"
         >
           Continue with Google
@@ -25,18 +24,21 @@ export default function LoginPage() {
           onSubmit={(e) => {
             e.preventDefault();
             const form = e.currentTarget;
-            const email = (form.email as HTMLInputElement).value;
+            const username = (form.username as HTMLInputElement).value;
             const password = (form.password as HTMLInputElement).value;
 
             signIn("credentials", {
-              email,
+              username,
               password,
-              callbackUrl: "/dashboard",
+              callbackUrl: "/home",
+            }).catch((err) => {
+                console.error("Login error:", err);
+                alert("Login failed. Please check your credentials and try again.");
             });
           }}
           className="space-y-3"
         >
-          <input name="email" placeholder="Email" className="w-full border p-2 bg-orange-100" />
+          <input name="username" placeholder="Username" className="w-full border p-2 bg-orange-100" />
           <input
             name="password"
             type="password"
